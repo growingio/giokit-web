@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GioKit Demo</title>
+    <link
+      rel="shortcut icon"
+      href="./demo/assets/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./demo/assets/global.css" />
+    <script src="./demo/utils/init.js"></script>
+    <script src="./demo/utils/handlers.js"></script>
+    <script src="./demo/utils/vconsole.min.js"></script>
+    <script type="text/javascript">
+      var vConsole = new window.VConsole();
+    </script>
+  </head>
+  <body class="gk-px-8 gk-py-4">
+    <!-- User相关 -->
+    <div class="lending">User相关</div>
+    <div class="flex">
+      <button class="btn" onclick="gioSetUserId()">设置UserId</button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioChangeUserId()">更换UserId</button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioSetUserIdAndUserKey()">
+        设置UserId和UserKey
+      </button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioChangeUserIdAndUserKey()">
+        更换UserId和UserKey
+      </button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioClearUserIdAndUserKey()">
+        清除UserId和UserKey
+      </button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioSetUserAttributes()">设置用户属性</button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioGetDeviceId()">获取访问用户Id</button>
+    </div>
+    <div class="lending">Page相关</div>
+    <div class="flex">
+      <button class="btn" onclick="gioChangeQuery()">修改页面参数</button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioChangeHash()">修改页面hash</button>
+    </div>
+    <div class="flex">
+      <button class="btn" onclick="gioMinipInfo()">
+        添加小程序打通参数并重新加载页面
+      </button>
+    </div>
+    <!-- 无埋点相关 -->
+    <div class="lending">无埋点相关</div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioToggleAutoTrack()">
+        开启/关闭无埋点
+      </button>
+    </div>
+    <form>
+      <div class="flex mb-4">
+        <label>文本框：</label>
+        <input
+          id="name"
+          name="name"
+          placeholder="输入内容，切换光标发送change事件"
+          type="text"
+        />
+      </div>
+      <div class="flex mb-4">
+        <label>文本框：</label>
+        <input
+          id="name"
+          name="name"
+          placeholder="输入内容，发送带文本内容的change事件"
+          type="text"
+          data-growing-track
+        />
+      </div>
+      <div class="flex mb-4">
+        <label>下拉框：</label>
+        <select name="selection" title="a">
+          <option value="Job Inquiry">选择下拉框发送 change事件 1</option>
+          <option value="General Question">选择下拉框发送 change事件 2</option>
+        </select>
+      </div>
+      <div class="flex mb-4">
+        <label>单选框：</label>
+        <input
+          type="radio"
+          name="userrole"
+          value="BOSS"
+          checked="checked"
+        />BOSS <input type="radio" name="userrole" value="HR" class="ml-4" />HR
+        <input type="radio" name="userrole" value="PM" class="ml-4" />PM
+        <input type="radio" name="userrole" value="SRE" class="ml-4" />SRE
+      </div>
+      <div class="flex mb-4">
+        <button class="btn">表单提交</button>
+      </div>
+    </form>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioNormalBtn()" data-growing-index="1">
+        普通按钮，无额外信息
+      </button>
+    </div>
+    <div class="flex mb-4">
+      <button
+        class="btn"
+        onclick="gioExtraBtn()"
+        data-growing-index="2"
+        data-growing-title="我有额外的内容"
+        data-growing-ignore
+      >
+        带额外信息的按钮
+      </button>
+    </div>
+    <div class="flex mb-4">
+      <a class="btn" data-index="3" href="#name"> 带额外信息的按钮 </a>
+    </div>
+    <!-- 埋点相关 -->
+    <div class="lending">埋点相关</div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioSetGeneralProps()">设置通用属性</button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioClearGeneralProps()">移除通用属性</button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioToggleDataCollect()">
+        开启/关闭数据采集
+      </button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioIllegalTrack()">
+        点击触发5个不合法埋点
+      </button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioLegalTrack()">点击触发6个合法埋点</button>
+    </div>
+    <!-- 性能相关 -->
+    <div class="lending">性能相关</div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioHandleError1()">普通异常错误1</button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioHandleError2()">普通异常错误2</button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioHandleError3()">普通异常错误3</button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioHandleError4()">异步异常错误4</button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioHandleXHR()">xhr接口调用</button>
+    </div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioHandleFetch()">fetch接口调用</button>
+    </div>
+    <div class="flex mb-24">↑↑↑上划页面至底部触发 imp ↑↑↑</div>
+    <!-- 半自动曝光相关 -->
+    <div class="lending">半自动曝光相关</div>
+    <div class="flex mb-4">
+      <button class="btn" onclick="gioAddImpAttr()">点击添加曝光属性</button>
+    </div>
+    <div class="imp-container">
+      <div class="head-text">imp动态设置测试：</div>
+      <div id="imp_0">这是一个动态设置的IMP</div>
+      <div class="head-text">imp测试一：</div>
+      <div
+        data-gio-imp-track="imp_cat_var"
+        data-gio-track-name="cat_picture"
+        data-gio-track-time="20210601"
+        id="imp_1"
+      >
+        <img
+          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201803%2F27%2F20180327101613_oikse.png&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1624620225&t=9cea35aaab0db2372a632fc1bef190c9"
+        />
+      </div>
+      <div class="head-text">imp测试二：</div>
+      <div
+        data-gio-imp-track="imp_huawei_var"
+        data-gio-imp-attrs='{ "name": "华为P50Pro", "price": "6488" }'
+        id="imp_2"
+      >
+        <div>
+          【12期免息】华为P50 Pro 4G全网通搭载HarmonyOS
+          2麒麟9000华为手机华为官方旗舰店正品p50pro
+        </div>
+        <div>价格¥ 6488.00-7488.00</div>
+        <div>月销量3000+ 累计评价6428 送天猫积分648起</div>
+      </div>
+      <div class="head-text">imp测试三：</div>
+      <div
+        data-gio-imp-track="imp_text_var"
+        data-gio-imp-attrs="invalid_attrs"
+        id="imp_3"
+      >
+        <div>
+          测试文字展示：GrowingIO
+          是国内领先的一站式数据增长引擎整体方案服务商,以数据智能分析为核心,通过构建客户数据平台,打造增长营销闭环,帮助企业提升数据驱动能力,赋能商业决策、实现业务增长。
+        </div>
+      </div>
+    </div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
