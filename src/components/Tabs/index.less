@@ -1,13 +1,18 @@
 ._gk-tabs {
+  border-bottom: 1px solid #dfe4ee;
   ._gk-tabs-nav {
     display: flex;
     align-items: center;
     height: 3em;
+
     ._gk-tabs-tab {
       position: relative;
       padding: 0 1.2em;
       line-height: 3em;
       cursor: pointer;
+      flex: 1;
+      text-align: center;
+
       &:hover {
         color: #1248e9;
       }
@@ -15,13 +20,16 @@
       ._gk-tabs-tab-content {
         display: inline-flex;
         align-items: center;
+
         ._gk-icon {
           margin-right: 0.5em;
         }
       }
     }
+
     ._gk-tabs-tab._gk-tabs-tab-active {
       color: #1248e9;
+
       &::after {
         content: '';
         display: block;

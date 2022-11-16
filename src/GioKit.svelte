@@ -9,6 +9,8 @@
   import MainBottomBar from './main/MainBottomBar/index.svelte';
   import { _activeTool } from './main/store';
 
+  import LogModel from './log/model';
+
   /**
    * Inner properties
    */
@@ -66,6 +68,8 @@
         fontSize = Math.floor((1 / scale) * 13) + 'px';
       }
     }
+
+    let logModel = new LogModel();
   });
   onDestroy(() => {});
 

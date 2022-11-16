@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import Icon from '@/components/Icon/index.svelte';
 
   import { _activeTool } from '../store';
   import { commonTools, platformTools } from '../constants';
+  import Log from '../../log/index.svelte';
 
   import './index.less';
 
@@ -27,9 +27,5 @@
 </script>
 
 <div class="_gk-content">
-  <div class="_gk-content-head">
-    <Icon name={toolInfo.icon} />
-    {toolInfo.label}
-  </div>
-  <div class="_gk-content-body" />
+  <Log />
 </div>

@@ -19,6 +19,14 @@ export const isArray = (o: any): boolean =>
 
 export const isDate = (o: any): boolean => typeOf(o) === 'date';
 
+export function isSymbol(value) {
+  return typeof value === 'symbol';
+}
+
+export function isBigInt(value) {
+  return typeof value === 'bigint';
+}
+
 // Number
 /**
  * 格式化数字，四舍五入取指定小数点后位数
