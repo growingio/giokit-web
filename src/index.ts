@@ -1,7 +1,7 @@
-import App from './App.svelte';
+import Giokit from './GioKit.svelte';
 import './index.css';
 
-const app = new App({
+const app = new Giokit({
   target: document.documentElement
 });
 

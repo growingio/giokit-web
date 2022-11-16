@@ -1,0 +1,87 @@
+// 面板关闭时
+#__giokit {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+
+  ._gk-mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    z-index: 10001;
+    transition: background 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ._gk-panel {
+    display: none;
+    position: fixed;
+    min-height: 85%;
+    left: 0;
+    right: 0;
+    bottom: -100%;
+    z-index: 10002;
+    background-color: #f7f8fc;
+    transition: bottom 0.3s;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+  }
+
+  ._gk-panel-head {
+    position: relative;
+    text-align: center;
+    border-bottom: 1px solid #dfe4ee;
+    font-weight: 400;
+
+    ._gk-panel-title {
+      line-height: 2.5em;
+      font-size: 1.5em;
+
+      span {
+        color: #fc5f3a;
+      }
+    }
+
+    ._gk-panel-back {
+      position: absolute;
+      left: 0.6em;
+      top: calc(50% - 0.75em);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      svg {
+        width: 1.5em;
+        height: 1.5em;
+      }
+      &:hover {
+        color: #1248e9;
+      }
+    }
+  }
+
+  ._gk-header {
+    border-bottom: 1px solid #dfe4ee;
+  }
+
+  ._gk-panel-content {
+    flex: 1;
+    padding: 1em;
+    position: relative;
+  }
+}
+
+// 打开面板时
+#__giokit.gk-open {
+  ._gk-mask {
+    display: block;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  ._gk-panel {
+    bottom: 0;
+  }
+}
