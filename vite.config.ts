@@ -8,7 +8,8 @@ export default defineConfig({
   plugins: [svelte()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
+      glodash: path.resolve(__dirname, 'src/utils/glodash.ts')
     }
   },
   build: {
