@@ -17,7 +17,7 @@
   let active: string = '';
 
   $: {
-    if (defaultActive) {
+    if (defaultActive && !active) {
       active = defaultActive;
     }
     if (!isEmpty(items) && !active) {
@@ -34,6 +34,7 @@
 
   const handleChange = (key: string) => {
     active = key;
+    onChange(key);
   };
 </script>
 
