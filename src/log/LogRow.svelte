@@ -59,7 +59,7 @@
   {/if}
   <div class="_gk-log-row-content">
     {#each logItem.data as logData, i (i)}
-      <i>{`${logData.oData} `}</i>
+      <i style={logData.style}>{`${logData.oData} `}</i>
     {/each}
   </div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
