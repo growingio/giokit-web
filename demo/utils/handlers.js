@@ -1,8 +1,10 @@
 function gioSetUserId() {
   gdp('setUserId', 'ZhangSan');
+  console.warn('asefdwefedrsfsdf');
 }
 function gioChangeUserId() {
   gdp('setUserId', 'myUserId-' + Date.now());
+  console.error('asefdwefedrsfsdf');
 }
 function gioSetUserIdAndUserKey() {
   gdp('setUserId', 'ZhangSan', 'Gio_Name!@#$%^&*()_+-=[]{}|;:",.<>/?`~AaZa');

@@ -10,12 +10,18 @@
       href="./demo/assets/favicon.ico"
       type="image/x-icon"
     />
+    <script type="module" src="/src/index.ts"></script>
+
     <link rel="stylesheet" href="./demo/assets/global.css" />
     <script src="./demo/utils/init.js"></script>
     <script src="./demo/utils/handlers.js"></script>
     <script src="./demo/utils/vconsole.min.js"></script>
     <script type="text/javascript">
       var vConsole = new window.VConsole();
+      console.log('Hello World');
+      console.info('Hello World');
+      console.warn('Hello World');
+      console.error('Hello World');
     </script>
     <script src="https://unpkg.com/vue@next"></script>
     <script
@@ -221,6 +227,5 @@
       </div>
     </div>
     <div id="app"></div>
-    <script type="module" src="/src/index.ts"></script>
   </body>
 </html>
