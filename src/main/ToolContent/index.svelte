@@ -4,6 +4,7 @@
   import { _activeTool } from '../store';
   import { commonTools, platformTools } from '../constants';
   import Log from '../../log/index.svelte';
+  import System from '../../system/index.svelte';
 
   import './index.less';
 
@@ -27,5 +28,10 @@
 </script>
 
 <div class="_gk-content">
-  <Log />
+  {#if $_activeTool === 'log'}
+    <Log />
+  {/if}
+  {#if $_activeTool === 'system'}
+    <System />
+  {/if}
 </div>

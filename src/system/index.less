@@ -1,0 +1,54 @@
+._gk-system {
+  height: 100%;
+  overflow: auto;
+
+  ._gk-system-block {
+    position: relative;
+  }
+
+  ._gk-system-leading {
+    font-size: 1.1em;
+    font-weight: 400;
+    padding-left: 1em;
+    margin-bottom: 1em;
+
+    &::before {
+      content: '';
+      display: block;
+      height: 1.2em;
+      width: 0.2em;
+      background: #fc5f3a;
+      position: absolute;
+      left: 0;
+      top: 0.1em;
+    }
+  }
+
+  ._gk-system-page-list {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    margin-bottom: -0.5em;
+  }
+
+  ._gk-system-list-line {
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  ._gk-system-list-key {
+    font-weight: bold;
+    color: #242e59;
+  }
+
+  ._gk-system-list-value {
+    padding-right: 1em;
+    white-space: normal;
+    word-break: break-all;
+  }
+}
+
+@media (min-width: 640px) {
+  ._gk-system ._gk-system-page-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
