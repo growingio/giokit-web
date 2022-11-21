@@ -3,36 +3,49 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+
   ._gk-storage-list {
     margin-top: 0.5em;
     overflow: auto;
+    position: relative;
+    height: 100%;
+
     ._gk-storage-list-header {
       background-color: #f7f8fc;
       border-top: 1px solid #dfe4ee;
     }
+
     ._gk-storage-list-header,
     ._gk-storage-list-item {
       display: flex;
       border-bottom: 1px solid #dfe4ee;
     }
+
     ._gk-storage-list-header ._gk-storage-list-header-content,
     ._gk-storage-list-item ._gk-storage-list-item-content {
       flex: 1;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+
       > div {
         word-wrap: break-word;
         border-right: 1px solid #dfe4ee;
         padding: 0.5em;
       }
     }
+
     ._gk-storage-list-item-options {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 4em;
       padding: 0.5em;
       text-align: center;
+
       span {
         cursor: pointer;
       }
+
       svg {
         width: 1em;
         height: 1em;
@@ -42,22 +55,51 @@
 }
 
 ._gk-storage-list-item-options-tippy {
-  padding: 0.5em;
+  padding: 1em 0.6em;
+
   span {
-    padding: 0.5em;
+    padding: 0.6em;
+
     svg {
-      width: 1em;
-      height: 1em;
+      width: 1.2em;
+      height: 1.2em;
     }
+
     &:hover {
       cursor: pointer;
+
       svg {
         color: #1248e9;
       }
     }
   }
 }
+._gk-storage-list-item-copyed {
+  svg {
+    color: #16cb79 !important;
+  }
+}
 
 #_gk-storage-list-item-options-tippy {
-  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 30%) 0px 0px 4px,
+    rgb(255 255 255 / 5%) 0px 1px 0px inset;
+  border-radius: 4px;
+
+  ._gk-storage-tippy-arrow::before {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px #0000000f;
+    transform: rotate(-45deg);
+    position: absolute;
+    right: -0.25rem;
+    top: calc(50% - 0.25rem);
+    content: '';
+  }
+
+  ._gk-storage-tippy-arrow.right-top::before {
+    top: calc(65% - 0.25rem);
+  }
 }

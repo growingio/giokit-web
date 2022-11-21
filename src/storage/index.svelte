@@ -1,28 +1,12 @@
 <script lang="ts">
-  import Tabs from '@/components/Tabs/index.svelte';
-  import Icon from '@/components/Icon/index.svelte';
   import { keys } from '@/utils/glodash';
+  import { onMount } from 'svelte';
   import Cookies from 'js-cookie';
-  import { onMount, onDestroy } from 'svelte';
-  import tippy from 'tippy.js';
-  import 'tippy.js/dist/tippy.css';
-  import 'tippy.js/themes/light.css';
+  import copy from 'copy-text-to-clipboard';
+  import Icon from '@/components/Icon/index.svelte';
+  import Tabs from '@/components/Tabs/index.svelte';
 
   import './index.less';
-
-  tippy.setDefaultProps({
-    trigger: 'click focus',
-    placement: 'left',
-    allowHTML: true,
-    interactive: true,
-    zIndex: 10010,
-    theme: 'light',
-    appendTo: () => document.getElementById('__giokit'),
-    onHidden: (inst) => {
-      inst.destroy();
-      handledIdx = -1;
-    }
-  });
 
   const storageTabs = [
     { key: 'cookie', label: 'Cookie' },
@@ -37,7 +21,10 @@
     session: []
   };
   let handledIdx: number = -1;
-  let tippies: any[] = [];
+  let tippyTop: number = -100;
+  let tippyRight: number = -100;
+  let tippyPlacement: string = 'right';
+  let copyIcon: 'copy' | 'check' | 'close' = 'copy';
 
   onMount(() => {
     const cookieStore = Cookies.get();
@@ -55,34 +42,70 @@
     }));
   });
 
-  onDestroy(() => {
-    tippies.forEach((o) => o?.destroy());
-  });
-
   const onTabsChange = (active: string) => {
+    handleCloseTippy();
     activeTab = active;
   };
 
-  const handleMore = (idx: number) => {
-    console.log(idx);
-    handledIdx = idx;
-    const targetId = `#_gk-storage-list-item-options-${idx}`;
-    const template = document.getElementById(
-      '_gk-storage-list-item-options-tippy'
-    );
-    tippies = tippy(targetId, {
-      content: template.innerHTML
-    });
+  const handleMore = (e: any, idx: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (handledIdx === idx) {
+      handleCloseTippy();
+    } else {
+      handledIdx = idx;
+      const container = document.getElementById('_gk-storage-list');
+      const target = document.getElementById(
+        `_gk-storage-list-item-options-${idx}`
+      );
+      const isScrolled = container.scrollHeight > container.offsetHeight;
+      // 最后一项且是有滚动条时使得tippy是righttop，防止被遮盖
+      if (idx === storeList[activeTab].length - 1 && isScrolled) {
+        tippyTop = target.offsetTop - 22;
+        tippyPlacement = 'right-top';
+      } else {
+        tippyTop = target.offsetTop - 14;
+        tippyPlacement = 'right';
+      }
+      tippyRight = container.clientWidth - target.offsetLeft + 20;
+    }
   };
 
-  const handleCopy = () => {};
-  const handleEdit = () => {};
-  const handleDelete = () => {};
+  const handleCloseTippy = () => {
+    handledIdx = -1;
+    tippyTop = -100;
+    tippyRight = -100;
+  };
+
+  const handleCopy = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      const item = storeList[activeTab][handledIdx];
+      copy(`${item.key}=${item.value}`, { target: document.documentElement });
+      copyIcon = 'check';
+    } catch (error) {
+      copyIcon = 'close';
+    }
+    window.setTimeout(() => {
+      copyIcon = 'copy';
+      handledIdx = -1;
+      tippyTop = -100;
+      tippyRight = -100;
+    }, 800);
+  };
+  const handleEdit = (e: any) => {};
+  const handleDelete = (e: any) => {};
 </script>
 
 <div class="_gk-storage">
   <Tabs items={storageTabs} defaultActive="cookie" onChange={onTabsChange} />
-  <div class="_gk-storage-list">
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div
+    class="_gk-storage-list"
+    id="_gk-storage-list"
+    on:click={handleCloseTippy}
+  >
     <div class="_gk-storage-list-header">
       <div class="_gk-storage-list-header-content">
         <div>Key</div>
@@ -100,28 +123,41 @@
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <span
             id={`_gk-storage-list-item-options-${i}`}
-            on:click={() => handleMore(i)}
+            on:click={(e) => handleMore(e, i)}
           >
             <Icon name="more" />
           </span>
         </div>
       </div>
     {/each}
-  </div>
-  <div id="_gk-storage-list-item-options-tippy">
-    <div class="_gk-storage-list-item-options-tippy">
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <span title="复制" on:click={handleCopy}>
-        <Icon name="copy" />
-      </span>
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <span title="编辑" on:click={handleEdit}>
-        <Icon name="edit" />
-      </span>
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <span title="删除" on:click={handleDelete}>
-        <Icon name="delete" />
-      </span>
+    <div
+      id="_gk-storage-list-item-options-tippy"
+      style={`display:${
+        handledIdx > -1 ? 'block' : 'none'
+      };top:${tippyTop}px;right:${tippyRight}px`}
+    >
+      <div class={`_gk-storage-tippy-arrow ${tippyPlacement}`} />
+      <div class="_gk-storage-tippy-inner">
+        <div class="_gk-storage-list-item-options-tippy">
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <span title="复制" on:click={handleCopy}>
+            <Icon
+              name={copyIcon}
+              className={copyIcon === 'check'
+                ? '_gk-storage-list-item-copyed'
+                : ''}
+            />
+          </span>
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <span title="编辑" on:click={handleEdit}>
+            <Icon name="edit" />
+          </span>
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <span title="删除" on:click={handleDelete}>
+            <Icon name="delete" />
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
