@@ -38,6 +38,5 @@
   } ${className}`}
   on:click
 >
-  <slot name="icon" />
-  <slot name="text" />
+  <slot />
 </button>

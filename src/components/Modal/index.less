@@ -1,0 +1,66 @@
+._gk-modal-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ._gk-modal-mask {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    transition: background 0.3s;
+    z-index: 10010;
+    -webkit-tap-highlight-color: transparent;
+  }
+  ._gk-modal {
+    display: block;
+    min-width: 20em;
+    background: #fff;
+    z-index: 10011;
+    border-radius: 4px;
+    padding: 1.5em;
+    ._gk-modal-title {
+      display: flex;
+      align-items: center;
+      ._gk-icon {
+        margin-right: 1em;
+      }
+      span {
+        font-size: 1.2em;
+        line-height: 1.5;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.88);
+      }
+      svg {
+        width: 1.9em;
+        height: 1.9em;
+      }
+    }
+    ._gk-modal-footer {
+      margin-top: 1em;
+      text-align: right;
+    }
+  }
+  ._gk-modal._gk-modal-info {
+    ._gk-modal-title svg {
+      color: #1248e9;
+    }
+  }
+  ._gk-modal._gk-modal-warning {
+    ._gk-modal-title svg {
+      color: #faa937;
+    }
+  }
+  ._gk-modal._gk-modal-error {
+    ._gk-modal-title svg {
+      color: #ec134b;
+    }
+  }
+}
