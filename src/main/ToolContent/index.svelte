@@ -5,6 +5,7 @@
   import { commonTools, platformTools } from '../constants';
   import Log from '../../log/index.svelte';
   import System from '../../system/index.svelte';
+  import Storage from '../../storage/index.svelte';
 
   import './index.less';
 
@@ -33,5 +34,8 @@
   {/if}
   {#if $_activeTool === 'system'}
     <System />
+  {/if}
+  {#if $_activeTool === 'storage'}
+    <Storage />
   {/if}
 </div>

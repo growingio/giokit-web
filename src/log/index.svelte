@@ -27,7 +27,11 @@
         case 'gio': {
           logQueue = $_logQueue.filter((o) => {
             const rowData = o.data;
-            if (head(rowData)?.oData?.indexOf('[GrowingIO') > -1) {
+            if (
+              head(rowData) &&
+              head(rowData)?.oData &&
+              head(rowData)?.oData?.indexOf('[GrowingIO') > -1
+            ) {
               return true;
             } else {
               return false;
