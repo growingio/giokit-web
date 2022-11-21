@@ -7,8 +7,8 @@
     isString,
     keys
   } from '@/utils/glodash';
-  import Divider from '@/components/Divider/index.svelte';
   import { onMount } from 'svelte';
+  import Divider from '@/components/Divider/index.svelte';
 
   import './index.less';
 

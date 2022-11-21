@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { head, isEmpty } from '@/utils/glodash';
-  import Tabs from '@/components/Tabs/index.svelte';
   import { _logQueue } from './store';
+  import { head, isEmpty } from '@/utils/glodash';
   import LogRow from './LogRow.svelte';
+  import Tabs from '@/components/Tabs/index.svelte';
 
   import './index.less';
 

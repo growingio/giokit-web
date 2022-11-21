@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Icon from '@/components/Icon/index.svelte';
+  import './index.less';
   import { _activeTool } from '../store';
   import { commonTools, platformTools } from '../constants';
-  import './index.less';
+  import Icon from '@/components/Icon/index.svelte';
 
   /**
    * Methods

@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
-
+  import './index.less';
   import { _activeTool } from '../store';
   import { commonTools, platformTools } from '../constants';
+  import { onDestroy } from 'svelte';
   import Log from '../../log/index.svelte';
-  import System from '../../system/index.svelte';
   import Storage from '../../storage/index.svelte';
-
-  import './index.less';
+  import System from '../../system/index.svelte';
 
   /**
    * Inner properties

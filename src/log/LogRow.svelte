@@ -1,12 +1,12 @@
 <script lang="ts">
-  import Icon from '@/components/Icon/index.svelte';
   import { isNumber, isString } from '@/utils/glodash';
   import { safeJSONStringify } from '@/utils/tools';
   import copy from 'copy-text-to-clipboard';
+  import Icon from '@/components/Icon/index.svelte';
 
   export let logItem: any;
 
-  let icon: 'copy' | 'check' | 'close' = 'copy';
+  let copyIcon: 'copy' | 'check' | 'close' = 'copy';
 
   const handleCopy = () => {
     const texts: string[] = [];
@@ -30,12 +30,12 @@
         }
       }
       copy(texts.join(' '), { target: document.documentElement });
-      icon = 'check';
+      copyIcon = 'check';
     } catch (e) {
-      icon = 'close';
+      copyIcon = 'close';
     }
     window.setTimeout(() => {
-      icon = 'copy';
+      copyIcon = 'copy';
     }, 1000);
   };
 </script>
@@ -64,6 +64,6 @@
   </div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="_gk-log-row-copy" on:click={handleCopy}>
-    <Icon name={icon} />
+    <Icon name={copyIcon} />
   </div>
 </div>

@@ -1,15 +1,13 @@
 <script lang="ts">
+  import './GioKit.less';
+  import { _activeTool } from './main/store';
   import { onMount, onDestroy } from 'svelte';
   import Icon from '@/components/Icon/index.svelte';
-
-  import './GioKit.less';
-  import Switcher from './main/Switcher/index.svelte';
-  import MainContent from './main/MainContent/index.svelte';
-  import ToolContent from './main/ToolContent/index.svelte';
-  import MainBottomBar from './main/MainBottomBar/index.svelte';
-  import { _activeTool } from './main/store';
-
   import LogModel from './log/model';
+  import MainBottomBar from './main/MainBottomBar/index.svelte';
+  import MainContent from './main/MainContent/index.svelte';
+  import Switcher from './main/Switcher/index.svelte';
+  import ToolContent from './main/ToolContent/index.svelte';
 
   /**
    * Inner properties
