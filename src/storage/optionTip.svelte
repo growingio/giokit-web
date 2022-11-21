@@ -1,18 +1,25 @@
 <script lang="ts">
   import './index.less';
-  import { _handledIdx } from './store';
+  import {
+    _activeStorage,
+    _handledIdx,
+    _storageValue,
+    refreshStorage
+  } from './store';
   import { onMount, onDestroy } from 'svelte';
   import copy from 'copy-text-to-clipboard';
   import Icon from '@/components/Icon/index.svelte';
+  import Modal from '@/components/Modal/index.svelte';
+  import Storages from './storages';
 
-  export let handleItem: any;
-  export let length: number;
+  const storages = new Storages();
 
   let tippyTop: number = -100;
   let tippyRight: number = -100;
   let tippyPlacement: string = 'right';
   let copyIcon: 'copy' | 'check' | 'close' = 'copy';
   let unsubscribe;
+  let visible: boolean = false;
 
   onMount(() => {
     unsubscribe = _handledIdx.subscribe((idx) => {
@@ -42,13 +49,15 @@
 
   onDestroy(() => {
     unsubscribe();
+    _handledIdx.set(-1);
   });
 
-  const handleCopy = (e: any) => {
+  const onCopy = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      copy(`${handleItem.key}=${handleItem.value}`, {
+      const targetItem = $_storageValue[$_handledIdx];
+      copy(`${targetItem.key}=${targetItem.value}`, {
         target: document.documentElement
       });
       copyIcon = 'check';
@@ -62,8 +71,19 @@
       tippyRight = -100;
     }, 800);
   };
-  const handleEdit = (e: any) => {};
-  const handleDelete = (e: any) => {};
+  const onEdit = (e: any) => {};
+  const handleDelete = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    visible = true;
+  };
+  const onDelete = () => {
+    visible = false;
+    const targetItem = $_storageValue[$_handledIdx];
+    storages.removeItem(targetItem.key);
+    // @ts-ignore
+    refreshStorage();
+  };
 </script>
 
 <div
@@ -76,14 +96,14 @@
   <div class="_gk-storage-tippy-inner">
     <div class="_gk-storage-list-item-options-tippy">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <span title="复制" on:click={handleCopy}>
+      <span title="复制" on:click={onCopy}>
         <Icon
           name={copyIcon}
           className={copyIcon === 'check' ? '_gk-storage-list-item-copyed' : ''}
         />
       </span>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <!-- <span title="编辑" on:click={handleEdit}>
+      <!-- <span title="编辑" on:click={onEdit}>
       <Icon name="edit" />
     </span> -->
       <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -93,3 +113,10 @@
     </div>
   </div>
 </div>
+<Modal
+  {visible}
+  type="warning"
+  title="确定删除吗？"
+  onCancel={() => (visible = false)}
+  onOk={onDelete}
+/>

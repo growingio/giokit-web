@@ -1,13 +1,24 @@
 <script lang="ts">
-  import { _handledIdx } from './store';
-  import { keys } from '@/utils/glodash';
-  import { onMount } from 'svelte';
-  import Cookies from 'js-cookie';
+  import './index.less';
+  import { _activeStorage, _handledIdx, _storageValue, getters } from './store';
+  import { backOut } from 'svelte/easing';
+  import { crossfade } from 'svelte/transition';
+  import { flip } from 'svelte/animate';
+  import { onMount, onDestroy } from 'svelte';
   import Icon from '@/components/Icon/index.svelte';
   import OptionTip from './optionTip.svelte';
   import Tabs from '@/components/Tabs/index.svelte';
 
-  import './index.less';
+  let [send, receive] = crossfade({
+    duration: 0,
+    fallback: () => {
+      return {
+        duration: 0,
+        easing: backOut,
+        css: () => `opacity: 0`
+      };
+    }
+  });
 
   const storageTabs = [
     { key: 'cookie', label: 'Cookie' },
@@ -15,32 +26,21 @@
     { key: 'session', label: 'SessionStorage' }
   ];
 
-  let activeTab: string = 'cookie';
-  let storeList: any = {
-    cookie: [],
-    local: [],
-    session: []
-  };
+  let unsubscribe;
 
   onMount(() => {
-    const cookieStore = Cookies.get();
-    storeList.cookie = keys(cookieStore).map((k) => ({
-      key: k,
-      value: cookieStore[k]
-    }));
-    storeList.local = keys({ ...localStorage }).map((k) => ({
-      key: k,
-      value: localStorage[k]
-    }));
-    storeList.session = keys({ ...sessionStorage }).map((k) => ({
-      key: k,
-      value: sessionStorage[k]
-    }));
+    unsubscribe = _activeStorage.subscribe((s) => {
+      _storageValue.set(getters[s]());
+    });
+  });
+
+  onDestroy(() => {
+    unsubscribe();
   });
 
   const onTabsChange = (active: string) => {
     _handledIdx.set(-1);
-    activeTab = active;
+    _activeStorage.set(active);
   };
 
   const handleMore = (e: any, idx: number) => {
@@ -69,8 +69,13 @@
       </div>
       <div class="_gk-storage-list-item-options">Options</div>
     </div>
-    {#each storeList[activeTab] as item, i}
-      <div class="_gk-storage-list-item">
+    {#each $_storageValue as item, i (item.key)}
+      <div
+        class="_gk-storage-list-item"
+        in:receive={{ key: item.key }}
+        out:send={{ key: item.key }}
+        animate:flip
+      >
         <div class="_gk-storage-list-item-content">
           <div>{item.key}</div>
           <div>{item.value}</div>
@@ -86,9 +91,6 @@
         </div>
       </div>
     {/each}
-    <OptionTip
-      handleItem={storeList[activeTab][$_handledIdx]}
-      length={storeList[activeTab].length}
-    />
+    <OptionTip />
   </div>
 </div>
