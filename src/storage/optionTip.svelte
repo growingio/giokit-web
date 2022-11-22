@@ -1,25 +1,17 @@
 <script lang="ts">
   import './index.less';
-  import {
-    _activeStorage,
-    _handledIdx,
-    _storageValue,
-    refreshStorage
-  } from './store';
+  import { _activeStorage, _handledIdx, _storageValue } from './store';
   import { onMount, onDestroy } from 'svelte';
   import copy from 'copy-text-to-clipboard';
   import Icon from '@/components/Icon/index.svelte';
-  import Modal from '@/components/Modal/index.svelte';
-  import Storages from './storages';
 
-  const storages = new Storages();
+  export let handleDelete = (e: any) => {};
 
   let tippyTop: number = -100;
   let tippyRight: number = -100;
   let tippyPlacement: string = 'right';
   let copyIcon: 'copy' | 'check' | 'close' = 'copy';
   let unsubscribe;
-  let visible: boolean = false;
 
   onMount(() => {
     unsubscribe = _handledIdx.subscribe((idx) => {
@@ -30,7 +22,7 @@
         );
         const isScrolled = container.scrollHeight > container.offsetHeight;
         // 最后一项且是有滚动条时使得tippy是righttop，防止被遮盖
-        if (idx === length - 1 && isScrolled) {
+        if (idx === $_storageValue.length - 1 && isScrolled) {
           tippyTop = target.offsetTop - 22;
           tippyPlacement = 'right-top';
         } else {
@@ -72,18 +64,6 @@
     }, 800);
   };
   const onEdit = (e: any) => {};
-  const handleDelete = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    visible = true;
-  };
-  const onDelete = () => {
-    visible = false;
-    const targetItem = $_storageValue[$_handledIdx];
-    storages.removeItem(targetItem.key);
-    // @ts-ignore
-    refreshStorage();
-  };
 </script>
 
 <div
@@ -113,10 +93,3 @@
     </div>
   </div>
 </div>
-<Modal
-  {visible}
-  type="warning"
-  title="确定删除吗？"
-  onCancel={() => (visible = false)}
-  onOk={onDelete}
-/>

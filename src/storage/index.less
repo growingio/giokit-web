@@ -4,8 +4,13 @@
   flex-direction: column;
   height: 100%;
 
+  ._gk-storage-list-wrapper {
+    padding: 0.5em 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
   ._gk-storage-list {
-    margin-top: 0.5em;
     overflow: auto;
     position: relative;
     height: 100%;
@@ -13,6 +18,8 @@
     ._gk-storage-list-header {
       background-color: #f7f8fc;
       border-top: 1px solid #dfe4ee;
+      position: sticky;
+      top: 0;
     }
 
     ._gk-storage-list-header,
@@ -51,6 +58,11 @@
         height: 1em;
       }
     }
+
+    ._gk-modal-container {
+      position: sticky;
+      height: 100%;
+    }
   }
 }
 
@@ -74,6 +86,7 @@
     }
   }
 }
+
 ._gk-storage-list-item-copyed {
   svg {
     color: #16cb79 !important;
