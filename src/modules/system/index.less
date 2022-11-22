@@ -33,22 +33,23 @@
   ._gk-system-list-line {
     line-height: 1.5em;
     margin-bottom: 0.5em;
+    padding-right: 0;
+    span {
+      word-break: break-all;
+    }
   }
 
   ._gk-system-list-key {
     font-weight: bold;
     color: #242e59;
   }
-
-  ._gk-system-list-value {
-    padding-right: 1em;
-    white-space: normal;
-    word-break: break-all;
-  }
 }
 
 @media (min-width: 640px) {
   ._gk-system ._gk-system-page-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    ._gk-system-list-line:nth-child(odd) {
+      padding-right: 1em;
+    }
   }
 }

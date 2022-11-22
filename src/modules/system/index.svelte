@@ -92,7 +92,7 @@
       {#each keys(locations) as key}
         <div class="_gk-system-list-line">
           <span class="_gk-system-list-key">{key}：</span>
-          <span>{locations[key]}</span>
+          <span class="_gk-system-list-value">{locations[key]}</span>
         </div>
       {/each}
     </div>
@@ -103,20 +103,20 @@
     <div class="_gk-system-device-list">
       <div class="_gk-system-list-line">
         <span class="_gk-system-list-key">Client：</span>
-        <span>{system}</span>
+        <span class="_gk-system-list-value">{system}</span>
       </div>
       <div class="_gk-system-list-line">
         <span class="_gk-system-list-key">Browser：</span>
-        <span>{browser}</span>
+        <span class="_gk-system-list-value">{browser}</span>
       </div>
       <div class="_gk-system-list-line">
         <span class="_gk-system-list-key">Language：</span>
-        <span>{navigator.language}</span>
+        <span class="_gk-system-list-value">{navigator.language}</span>
       </div>
     </div>
     <div class="_gk-system-list-line">
       <span class="_gk-system-list-key">UserAgent：</span>
-      <span>{navigator.userAgent}</span>
+      <span class="_gk-system-list-value">{navigator.userAgent}</span>
     </div>
   </div>
 </div>
