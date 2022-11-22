@@ -3,9 +3,9 @@
   import { _activeTool } from '../store';
   import { commonTools, platformTools } from '../constants';
   import { onDestroy } from 'svelte';
-  import Log from '../../log/index.svelte';
-  import Storage from '../../storage/index.svelte';
-  import System from '../../system/index.svelte';
+  import Log from '../../modules/log/index.svelte';
+  import Storage from '../../modules/storage/index.svelte';
+  import System from '../../modules/system/index.svelte';
 
   /**
    * Inner properties

@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store';
 
-export const _activeTool = writable('storage');
+export const _activeTool = writable('network');
