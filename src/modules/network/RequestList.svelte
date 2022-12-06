@@ -1,18 +1,27 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
+  import { get } from 'svelte/store';
 	import { fixed } from '@/utils/glodash';
   import './index.less';
   import { _requestQueue } from './store';
   import Collapse from '@/components/Collapse/index.svelte';
+  import NormalItemContent from './NormalItemContent.svelte';
   import GioItemContent from './GioItemContent.svelte';
   import { _activeReqType } from './store';
 
-  let active: string[] = ['0'];
+  let active: string[] = [];
   let unsubscribe;
+  let requestQueue = [];
 
   onMount(() => {
     unsubscribe = _activeReqType.subscribe((v) => {
       active = [];
+      if (v === 'gio') {
+        const { host, projectId } = (window as any).vds;
+        requestQueue = get(_requestQueue).filter((o) => o.url.indexOf(host) > -1 && o.url.indexOf(projectId) > -1);
+      } else {
+        requestQueue = get(_requestQueue);
+      }
     });
   });
 
@@ -48,7 +57,7 @@
 </script>
 
 <div class="_gk-network-list">
-  {#each $_requestQueue as item, i}
+  {#each requestQueue as item, i}
     <Collapse
       title={item.name}
       visible={active.includes(`${i}`)}
@@ -59,11 +68,11 @@
         <span class:_gk-network-item-red={item.status === 'ERROR'}>{item.status}</span>
         <span class={`_gk-network-item-${item.durationColor}`}>{durationFormat(item.duration)}</span>
       </div>
-      <GioItemContent slot="content" item={item} />
+      <NormalItemContent slot="content" item={item} />
       <!-- {#if $_activeReqType === 'gio'}
         <GioItemContent slot="content" item={item} />
       {:else}
-        <GioItemContent slot="content" item={item} />
+        <NormalItemContent slot="content" item={item} />
       {/if} -->
     </Collapse>
   {/each}

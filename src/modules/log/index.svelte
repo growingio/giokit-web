@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _logQueue } from './store';
-  import { head, isEmpty } from '@/utils/glodash';
+  import { head, isEmpty, isString } from '@/utils/glodash';
   import LogRow from './logRow.svelte';
   import Tabs from '@/components/Tabs/index.svelte';
 
@@ -30,6 +30,7 @@
             if (
               head(rowData) &&
               head(rowData)?.oData &&
+              isString(head(rowData)?.oData) &&
               head(rowData)?.oData?.indexOf('[GrowingIO') > -1
             ) {
               return true;
