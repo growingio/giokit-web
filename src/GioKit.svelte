@@ -4,6 +4,7 @@
   import { onMount, onDestroy } from 'svelte';
   import Icon from '@/components/Icon/index.svelte';
   import LogModel from './modules/log/model';
+  import NetworkModel from './modules/network/model';
   import MainBottomBar from './main/MainBottomBar/index.svelte';
   import MainContent from './main/MainContent/index.svelte';
   import Switcher from './main/Switcher/index.svelte';
@@ -68,6 +69,7 @@
     }
 
     let logModel = new LogModel();
+    let networkModel = new NetworkModel();
   });
   onDestroy(() => {});
 

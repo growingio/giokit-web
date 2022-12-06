@@ -374,3 +374,18 @@ export function getStringWithinLength(str: string, maxLen: number) {
   }
   return str;
 }
+
+/**
+ * Get formatted URL object by string.
+ */
+export const getURL = (urlString: string = '') => {
+  if (urlString.startsWith('//')) {
+    const baseUrl = new URL(window.location.href);
+    urlString = `${baseUrl.protocol}${urlString}`;
+  }
+  if (urlString.startsWith('http')) {
+    return new URL(urlString);
+  } else {
+    return new URL(urlString, window.location.href);
+  }
+};

@@ -19,14 +19,14 @@ export default class LogsModel {
   public origConsole: { [method: string]: Function } = {};
 
   constructor() {
-    this.mockConsole();
+    this.hookConsole();
   }
 
   /**
    * Hook `window.console` with vConsole log method.
    * Methods will be hooked only once.
    */
-  public mockConsole() {
+  public hookConsole() {
     if (typeof this.origConsole.log === 'function') {
       return;
     }
@@ -43,18 +43,18 @@ export default class LogsModel {
       this.origConsole.clear = window.console.clear;
     }
 
-    this._mockConsoleLog();
-    this._mockConsoleTime();
-    this._mockConsoleClear();
+    this._hookConsoleLog();
+    this._hookConsoleTime();
+    this._hookConsoleClear();
 
     // convenient for other uses
     (<any>window)._vcOrigConsole = this.origConsole;
   }
 
-  protected _mockConsoleLog() {
-    this.LOG_METHODS.map((method) => {
+  protected _hookConsoleLog() {
+    this.LOG_METHODS.map((method: LogMethod) => {
       window.console[method] = ((...args) => {
-        this.addLog({
+        this.addLogItem({
           type: method,
           origData: args || []
         });
@@ -62,7 +62,7 @@ export default class LogsModel {
     });
   }
 
-  protected _mockConsoleTime() {
+  protected _hookConsoleTime() {
     const timeLog: { [label: string]: number } = {};
 
     window.console.time = ((label: string = '') => {
@@ -76,14 +76,14 @@ export default class LogsModel {
         t = Date.now() - pre;
         delete timeLog[label];
       }
-      this.addLog({
+      this.addLogItem({
         type: 'log',
         origData: [`${label}: ${t}ms`]
       });
     }).bind(window.console);
   }
 
-  protected _mockConsoleClear() {
+  protected _hookConsoleClear() {
     window.console.clear = ((...args) => {
       this.clearLog();
       this.callOriginalConsole('clear', ...args);
@@ -104,7 +104,7 @@ export default class LogsModel {
   /**
    * Add a vConsole log.
    */
-  public addLog(
+  public addLogItem(
     item: {
       type: LogMethod;
       origData: any[];
