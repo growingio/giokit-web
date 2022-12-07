@@ -55,7 +55,9 @@
     </div>
   {/if}
   {#if logItem.repeated}
-    <div class="_gk-log-row-repeat"><i>{logItem.repeated}</i></div>
+    <div class="_gk-log-row-repeat">
+      <i>{logItem.repeated}</i>
+    </div>
   {/if}
   <div class="_gk-log-row-content">
     {#each logItem.data as logData, i (i)}

@@ -1,6 +1,8 @@
 import { getLogDatasWithFormatting, guid } from '@/utils/tools';
 import { _logQueue } from './store';
 
+export type LOGTYPE = 'all' | 'gio' | 'log' | 'info' | 'warn' | 'error';
+
 export type LogMethod = 'log' | 'info' | 'debug' | 'warn' | 'error';
 
 export interface LogItem {

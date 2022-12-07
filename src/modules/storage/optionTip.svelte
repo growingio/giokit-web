@@ -1,5 +1,6 @@
 <script lang="ts">
   import './index.less';
+  import { Unsubscriber } from 'svelte/store';
   import { _activeStorage, _handledIdx, _storageValue } from './store';
   import { onMount, onDestroy } from 'svelte';
   import copy from 'copy-text-to-clipboard';
@@ -11,15 +12,15 @@
   let tippyRight: number = -100;
   let tippyPlacement: string = 'right';
   let copyIcon: 'copy' | 'check' | 'close' = 'copy';
-  let unsubscribe;
+  let unsubscribe: Unsubscriber;
 
   onMount(() => {
     unsubscribe = _handledIdx.subscribe((idx) => {
       if (idx > -1) {
-        const container = document.getElementById('_gk-storage-list');
-        const target = document.getElementById(
-          `_gk-storage-list-item-options-${idx}`
-        );
+        const container: HTMLElement | any =
+          document.getElementById('_gk-storage-list') || {};
+        const target: HTMLElement | any =
+          document.getElementById(`_gk-storage-list-item-options-${idx}`) || {};
         const isScrolled = container.scrollHeight > container.offsetHeight;
         // 最后一项且是有滚动条时使得tippy是righttop，防止被遮盖
         if (idx === $_storageValue.length - 1 && isScrolled) {
@@ -48,7 +49,7 @@
     e.preventDefault();
     e.stopPropagation();
     try {
-      const targetItem = $_storageValue[$_handledIdx];
+      const targetItem: any = $_storageValue[$_handledIdx];
       copy(`${targetItem.key}=${targetItem.value}`, {
         target: document.documentElement
       });

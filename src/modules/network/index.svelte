@@ -1,9 +1,9 @@
 <script lang="ts">
   import './index.less';
-  import Divider from '@/components/Divider/index.svelte';
-  import Switch from '@/components/Switch/index.svelte';
-  import RequestList from './RequestList.svelte';
   import { _activeReqType } from './store';
+  import Divider from '@/components/Divider/index.svelte';
+  import RequestList from './RequestList.svelte';
+  import Switch from '@/components/Switch/index.svelte';
 
   const switchers = [
     { label: 'Gio', value: 'gio' },

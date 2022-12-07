@@ -1,9 +1,19 @@
-import { has, isNil, unset, head } from '@/utils/glodash';
-import { guid, getURL } from '@/utils/tools';
 import { _requestQueue } from './store';
 import { get } from 'svelte/store';
+import { guid, getURL } from '@/utils/tools';
+import { has, isNil, unset, head } from '@/utils/glodash';
 
-export type RequestMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+export type RequestMethod =
+  | ''
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'DELETE'
+  | 'HEAD'
+  | 'CONNECT'
+  | 'OPTIONS'
+  | 'TRACE'
+  | 'PATCH';
 
 export interface RequestItem {
   _id: string;
@@ -69,7 +79,7 @@ export default class NetworkModel {
   };
 
   // 获取请求时长颜色
-  getDurationColor = (d) => {
+  getDurationColor = (d: string | number) => {
     let n: number | string = Number(d);
     if (!isNaN(n)) {
       if (n < 1000) {
@@ -90,15 +100,22 @@ export default class NetworkModel {
     this.observer = new window.PerformanceObserver((list) => {
       // 通过性能监控获取请求相对准确的时长
       const requstTiming = head(list.getEntries());
-      if (['xmlhttprequest', 'fetch', 'beacon'].includes(requstTiming.initiatorType)) {
-        const targetIndex = (get(_requestQueue) as any).findLastIndex(o => o.url === requstTiming.name);
+      if (
+        ['xmlhttprequest', 'fetch', 'beacon'].includes(
+          requstTiming.initiatorType
+        )
+      ) {
+        const targetIndex = (get(_requestQueue) as any).findLastIndex(
+          (o: RequestItem) => o.url === requstTiming.name
+        );
         _requestQueue.update((o) => {
           const m = [...o];
-          if (m[targetIndex]) {
-            m[targetIndex].duration = requstTiming.duration;
-            m[targetIndex].startTime = requstTiming.fetchStart;
-            m[targetIndex].endTime = requstTiming.responseEnd;
-            m[targetIndex].durationColor = this.getDurationColor(m[targetIndex].duration);
+          const target: RequestItem = m[targetIndex];
+          if (target) {
+            target.duration = requstTiming.duration;
+            target.startTime = requstTiming.fetchStart;
+            target.endTime = requstTiming.responseEnd;
+            target.durationColor = this.getDurationColor(target.duration);
           }
           return m;
         });
@@ -116,8 +133,8 @@ export default class NetworkModel {
     const originXMLHttpRequestProto = XMLHttpRequest.prototype;
     let _gioxhr: any = {};
     rewriter(originXMLHttpRequestProto, 'open', (originOpen: () => void) => {
-      return function (this, ...args: any[]): void {
-        const parsedURL = getURL(args[1])
+      return function (this: any, ...args: any[]): void {
+        const parsedURL = getURL(args[1]);
         this._id = guid();
         _gioxhr[this._id] = <RequestItem>{
           _id: this._id,
@@ -130,14 +147,14 @@ export default class NetworkModel {
           params: parsedURL.searchParams.toString(),
           data: {},
           endTime: 0,
-          duration: 0,
+          duration: 0
         };
-        console.log(args)
-        originOpen.apply(this, args);
+        console.log(args);
+        originOpen.apply(this, args as []);
       };
     });
     rewriter(originXMLHttpRequestProto, 'send', (originSend: () => void) => {
-      return function (this, ...args: any[]): void {
+      return function (this: any, ...args: any[]): void {
         // 在请求内部也进行时长的统计
         this.addEventListener('loadend', (event: any) => {
           if (_gioxhr[this._id]) {
@@ -149,23 +166,26 @@ export default class NetworkModel {
                 _gioxhr[this._id].startTime,
               status: this.status || 'OK'
             };
-            _gioxhr[this._id].durationColor = self.getDurationColor(_gioxhr[this._id].duration);
+            _gioxhr[this._id].durationColor = self.getDurationColor(
+              _gioxhr[this._id].duration
+            );
             const requestItem: RequestItem = _gioxhr[this._id];
             self.addRequestItem(requestItem);
             unset(_gioxhr, this._id);
           }
         });
-        this.addEventListener('error', () => {
+        this.addEventListener('error', (event: any) => {
+          const t = event.timeStamp || self.getTimestamp();
           if (_gioxhr[this._id]) {
             _gioxhr[this._id] = <RequestItem>{
               ..._gioxhr[this._id],
-              endTime: event.timeStamp || self.getTimestamp(),
-              duration:
-                (event.timeStamp || self.getTimestamp()) -
-                _gioxhr[this._id].startTime,
+              endTime: t,
+              duration: t - _gioxhr[this._id].startTime,
               status: this.status || 'ERROR'
             };
-            _gioxhr[this._id].durationColor = self.getDurationColor(_gioxhr[this._id].duration);
+            _gioxhr[this._id].durationColor = self.getDurationColor(
+              _gioxhr[this._id].duration
+            );
             const requestItem: RequestItem = _gioxhr[this._id];
             self.addRequestItem(requestItem);
             unset(_gioxhr, this._id);
@@ -174,7 +194,7 @@ export default class NetworkModel {
         if (_gioxhr[this._id]) {
           _gioxhr[this._id].startTime = self.getTimestamp();
         }
-        originSend.apply(this, args);
+        originSend.apply(this, args as []);
       };
     });
   };
@@ -185,8 +205,8 @@ export default class NetworkModel {
     this.originFetch = window.fetch;
     rewriter(window, 'fetch', (originFetch: () => void) => {
       return function (url: string, config: any = {}): void {
-        console.log(config, 'config')
-        const parsedURL = getURL(url)
+        console.log(config, 'config');
+        const parsedURL = getURL(url);
         let requestItem: RequestItem = {
           _id: guid(),
           type: 'fetch',
@@ -199,29 +219,35 @@ export default class NetworkModel {
           params: parsedURL.searchParams.toString(),
           data: {},
           endTime: 0,
-          duration: 0,
+          duration: 0
         };
-        return originFetch.apply(window, [url, config]).then(
-          (response: Response) => {
+        return originFetch
+          .apply(window, [url, config])
+          .then((response: Response) => {
             requestItem = {
               ...requestItem,
               status: response?.status || 'OK',
               endTime: self.getTimestamp(),
-              duration: self.getTimestamp() - requestItem.startTime,
+              duration: self.getTimestamp() - requestItem.startTime
             };
-            console.log(requestItem, 'requestItem')
-            requestItem.durationColor = self.getDurationColor(requestItem.duration);
+            console.log(requestItem, 'requestItem');
+            requestItem.durationColor = self.getDurationColor(
+              requestItem.duration
+            );
             self.addRequestItem(requestItem);
-          }
-        ).catch((e) => {
-          requestItem.endTime = self.getTimestamp();
-          requestItem.duration = self.getTimestamp() - requestItem.startTime,
-          requestItem.error = e.message;
-          requestItem.status = 'ERROR';
-          requestItem.durationColor = self.getDurationColor(requestItem.duration);
-          self.addRequestItem(requestItem);
-          throw e;
-        });
+          })
+          .catch((e) => {
+            requestItem.endTime = self.getTimestamp();
+            (requestItem.duration =
+              self.getTimestamp() - requestItem.startTime),
+              (requestItem.error = e.message);
+            requestItem.status = 'ERROR';
+            requestItem.durationColor = self.getDurationColor(
+              requestItem.duration
+            );
+            self.addRequestItem(requestItem);
+            throw e;
+          });
       };
     });
   };
@@ -232,7 +258,7 @@ export default class NetworkModel {
     this.originSendBeacon = navigator.sendBeacon;
     rewriter(navigator, 'sendBeacon', (originSendBeacon: () => void) => {
       return function (url: string, data: any): void {
-        const parsedURL = getURL(arguments[0])
+        const parsedURL = getURL(arguments[0]);
         let requestItem: RequestItem = {
           _id: guid(),
           type: 'ping',
@@ -245,13 +271,15 @@ export default class NetworkModel {
           params: parsedURL.searchParams.toString(),
           data: {},
           endTime: 0,
-          duration: 0,
+          duration: 0
         };
-        const res = originSendBeacon.apply(navigator, [url, data]);
+        const res: any = originSendBeacon.apply(navigator, [url, data]);
         if (res) {
           requestItem.endTime = self.getTimestamp();
           requestItem.duration = requestItem.endTime - requestItem.startTime;
-          requestItem.durationColor = self.getDurationColor(requestItem.duration);
+          requestItem.durationColor = self.getDurationColor(
+            requestItem.duration
+          );
           requestItem.status = 'OK';
         }
         self.addRequestItem(requestItem);
@@ -277,5 +305,4 @@ export default class NetworkModel {
       window.navigator.sendBeacon = this.originSendBeacon;
     }
   }
-
 }

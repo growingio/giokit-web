@@ -1,16 +1,15 @@
 <script lang="ts">
-  import {keys} from '@/utils/glodash';
+  import './index.less';
+  import { keys } from '@/utils/glodash';
   import Divider from '@/components/Divider/index.svelte';
-import qs from 'querystringify';
-import './index.less';
+  import qs from 'querystringify';
 
-export let item:any;
-let parameters: any;
+  export let item: any;
+  let parameters: any;
 
-$: {
-  parameters = qs.parse(item.params);
-}
-
+  $: {
+    parameters = qs.parse(item.params);
+  }
 </script>
 
 <div class="_gk-network-list-item-content">
@@ -52,5 +51,3 @@ $: {
     {/each}
   </div>
 </div>
-
-

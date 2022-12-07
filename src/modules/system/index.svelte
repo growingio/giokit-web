@@ -27,7 +27,7 @@
       }
     });
     locations = o;
-    system = navigator.userAgent.match(/ \((.*?);/i)[1] ?? 'N/A';
+    system = (navigator?.userAgent?.match(/ \((.*?);/i) ?? [])[1] ?? 'N/A';
     if (
       // @ts-ignore
       navigator?.userAgentData?.brands &&
@@ -41,8 +41,8 @@
     if (!browser) {
       try {
         browser =
-          navigator.userAgent.match(new RegExp(/Gecko\) (.*?) Safari/i))[1] ??
-          'N/A';
+          (navigator.userAgent.match(new RegExp(/Gecko\) (.*?) Safari/i)) ??
+            [])[1] ?? 'N/A';
       } catch (error) {
         browser = getBrowser();
       }
@@ -50,7 +50,7 @@
   });
 
   const getBrowser = () => {
-    const regex = {
+    const regex: any = {
       ie: /msie (\d+\.\d+)/i,
       firefox: /firefox\/(\d+\.\d+)/i,
       opera: /OPR(\/| )(\d+(\.\d+)?)(.+?(version\/(\d+(\.\d+)?)))?/i,

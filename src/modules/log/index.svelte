@@ -1,10 +1,9 @@
 <script lang="ts">
+  import './index.less';
   import { _logQueue } from './store';
   import { head, isEmpty, isString } from '@/utils/glodash';
   import LogRow from './logRow.svelte';
   import Tabs from '@/components/Tabs/index.svelte';
-
-  import './index.less';
 
   const logsTabs = [
     { key: 'all', label: 'All' },
@@ -15,7 +14,7 @@
     { key: 'error', label: 'Error' }
   ];
 
-  let logQueue = [];
+  let logQueue: any[] = [];
   let activeTab: string = 'all';
 
   $: {
@@ -25,7 +24,7 @@
           logQueue = $_logQueue;
           break;
         case 'gio': {
-          logQueue = $_logQueue.filter((o) => {
+          logQueue = $_logQueue.filter((o: any) => {
             const rowData = o.data;
             if (
               head(rowData) &&
@@ -44,7 +43,7 @@
         case 'info':
         case 'warn':
         case 'error': {
-          logQueue = $_logQueue.filter((o) => o.type === activeTab);
+          logQueue = $_logQueue.filter((o: any) => o.type === activeTab);
           break;
         }
         default:
@@ -53,7 +52,7 @@
     }
   }
 
-  const onTabsChange = (active) => {
+  const onTabsChange = (active: string) => {
     activeTab = active;
   };
 </script>

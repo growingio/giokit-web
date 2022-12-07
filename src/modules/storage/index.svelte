@@ -7,6 +7,7 @@
     getters,
     refreshStorage
   } from './store';
+  import { Unsubscriber } from 'svelte/store';
   import { backOut } from 'svelte/easing';
   import { crossfade } from 'svelte/transition';
   import { flip } from 'svelte/animate';
@@ -38,7 +39,7 @@
 
   let visible: boolean = false;
   let handleItem: any = {};
-  let unsubscribe;
+  let unsubscribe: Unsubscriber;
 
   onMount(() => {
     unsubscribe = _activeStorage.subscribe((s) => {
