@@ -1,25 +1,21 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "resolveJsonModule": true,
-    /**
-     * Typecheck JS in `.svelte` and `.js` files by default.
-     * Disable checkJs if you'd like to use dynamic types in JS.
-     * Note that setting allowJs false does not prevent the use
-     * of JS in `.svelte` files.
-     */
     "allowJs": true,
-    "checkJs": true,
-    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "checkJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "paths": {
       "@/*": ["src/*"],
       "glodash": ["src/utils/glodash.ts"]
-    }
+    },
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true
   },
   "include": [
     "src/**/*.d.ts",
@@ -28,6 +24,5 @@
     "src/**/*.svelte",
     "global.d.ts"
   ],
-  "exclude": ["src/**/*.config.js"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["src/**/*.config.js"]
 }
