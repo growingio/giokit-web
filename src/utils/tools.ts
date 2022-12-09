@@ -1,8 +1,10 @@
 import {
+  getPrototypeName,
   has,
   isArray,
   isBigInt,
   isFunction,
+  isIterable,
   isNil,
   isObject,
   isString,
@@ -17,6 +19,15 @@ export const guid = () => {
     return v.toString(16);
   });
 };
+
+// 优化过的try...catch包裹体
+export function niceTry(fn: Function) {
+  try {
+    return fn();
+  } catch (e) {
+    return undefined;
+  }
+}
 
 /**
  * 重写对象上面的某个属性
@@ -46,7 +57,7 @@ export function rewriter(
  * Get an object's constructor name.
  */
 const _getObjNamePattern = /(function|class) ([^ \{\()}]{1,})[\(| ]/;
-export function getObjName(obj) {
+export function getObjName(obj: any) {
   // const constructorName = obj?.constructor?.name;
   // return constructorName || <string>Object.prototype.toString.call(obj).replace('[object ', '').replace(']', '');
   if (obj === null || obj === undefined) {
@@ -81,7 +92,7 @@ export const getLogDatasWithFormatting = (oDatas: any[]) => {
     let oData: any;
     let style = '';
     while (mainLogs.length > 0) {
-      const mainText = mainLogs.shift();
+      const mainText: string = mainLogs.shift() || '';
       if (/ ?\%c ?/.test(mainText)) {
         // Use subLogs[0] as CSS style.
         // If subLogs[0] is not set, use original mainText as oData.
@@ -167,7 +178,7 @@ export function getVisibleText(text: string) {
 /**
  * Get enumerable keys of an object or array.
  */
-export function getEnumerableKeys(obj) {
+export function getEnumerableKeys(obj: any) {
   if (!isObject(obj) && !isArray(obj)) {
     return [];
   }
@@ -207,7 +218,7 @@ const _safeJSONStringifyFlatValue = (value: any, maxLen = 0) => {
 };
 
 // use depth first traversal
-const _safeJSONStringify = (obj, opt: any, _curDepth = 0) => {
+const _safeJSONStringify = (obj: any, opt: any, _curDepth = 0) => {
   if (!isObject(obj) && !isArray(obj)) {
     opt.ret += _safeJSONStringifyFlatValue(obj, opt.keyMaxLen);
     return;
@@ -305,7 +316,7 @@ const _safeJSONStringify = (obj, opt: any, _curDepth = 0) => {
  * A safe `JSON.stringify` method.
  */
 export function safeJSONStringify(
-  obj,
+  obj: any,
   opt: {
     maxDepth?: number;
     keyMaxLen?: number;
@@ -389,3 +400,83 @@ export const getURL = (urlString: string = '') => {
     return new URL(urlString, window.location.href);
   }
 };
+
+/**
+ * Generate formatted response body by XMLHttpRequestBodyInit.
+ */
+export const genFormattedBody = (body?: BodyInit) => {
+  if (!body) {
+    return null;
+  }
+  let ret: string | { [key: string]: string } = '';
+
+  if (typeof body === 'string') {
+    try {
+      // '{a:1}' => try to parse as json
+      ret = JSON.parse(body);
+    } catch (e) {
+      // 'a=1&b=2' => try to parse as query
+      const arr = body.split('&');
+      if (arr.length === 1) {
+        // not a query, parse as original string
+        ret = body;
+      } else {
+        // 'a=1&b=2&c' => parse as query
+        ret = {};
+        for (let q of arr) {
+          const kv = q.split('=');
+          ret[kv[0]] = kv[1] === undefined ? 'undefined' : kv[1];
+        }
+      }
+    }
+  } else if (isIterable(body)) {
+    // FormData or URLSearchParams or Array
+    ret = {};
+    for (const [key, value] of <FormData | URLSearchParams>body) {
+      ret[key] = typeof value === 'string' ? value : '[object Object]';
+    }
+  } else if (isPlainObject(body)) {
+    ret = <any>body;
+  } else {
+    const type = getPrototypeName(body);
+    ret = `[object ${type}]`;
+  }
+  return ret;
+};
+
+/**
+ * check whether an object is plain (using {})
+ * @param object obj
+ * @return boolean
+ */
+export function isPlainObject(obj: any) {
+  let hasOwn = Object.prototype.hasOwnProperty;
+  // Must be an Object.
+  if (!obj || typeof obj !== 'object' || obj.nodeType || isWindow(obj)) {
+    return false;
+  }
+  try {
+    if (
+      obj.constructor &&
+      !hasOwn.call(obj, 'constructor') &&
+      !hasOwn.call(obj.constructor.prototype, 'isPrototypeOf')
+    ) {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+  let key;
+  for (key in obj) {
+  }
+  return key === undefined || <boolean>hasOwn.call(obj, key);
+}
+
+export function isWindow(value: any) {
+  const name = Object.prototype.toString.call(value);
+  return (
+    name === '[object Window]' ||
+    name === '[object DOMWindow]' ||
+    name === '[object global]'
+  );
+}

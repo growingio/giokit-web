@@ -19,11 +19,11 @@ export const isArray = (o: any): boolean =>
 
 export const isDate = (o: any): boolean => typeOf(o) === 'date';
 
-export function isSymbol(value) {
+export function isSymbol(value: string) {
   return typeof value === 'symbol';
 }
 
-export function isBigInt(value) {
+export function isBigInt(value: any) {
   return typeof value === 'bigint';
 }
 
@@ -144,7 +144,7 @@ export const toString = (o: any): string => (isNil(o) ? '' : `${o}`);
  * @param separator 分隔符
  * @returns array
  */
-export const split = (s: any, separator?: string): string[] | any =>
+export const split = (s: any, separator: string = ''): string[] | any =>
   typeof s === 'string' ? s.split(separator) : s;
 
 /**
@@ -311,6 +311,7 @@ export const unset = (
           }
         });
       }
+      return true;
     } catch (error) {
       return false;
     }
@@ -348,9 +349,9 @@ export const typeOf = (o: any): string => {
  * @param o any
  * @returns string
  */
-export const formatDate = (e) => {
+export const formatDate = (e: any) => {
   if (isDate(e)) {
-    const t = (e) => (e < 10 ? '0' + e : e);
+    const t = (e: string | number) => (e < 10 ? '0' + e : e);
     return (
       e.getFullYear() +
       '-' +
@@ -370,3 +371,31 @@ export const formatDate = (e) => {
     return e;
   }
 };
+
+export function isIterable(value: any) {
+  if (
+    value === null ||
+    value === undefined ||
+    typeof value === 'string' ||
+    typeof value === 'boolean' ||
+    typeof value === 'number' ||
+    typeof value === 'function' ||
+    typeof value === 'symbol' ||
+    typeof value === 'bigint'
+  ) {
+    return false;
+  }
+  return (
+    typeof Symbol !== 'undefined' &&
+    typeof value[Symbol.iterator] === 'function'
+  );
+}
+
+/**
+ * Get the prototype name of an object
+ */
+export function getPrototypeName(value: any) {
+  return <string>(
+    Object.prototype.toString.call(value).replace(/\[object (.*)\]/, '$1')
+  );
+}

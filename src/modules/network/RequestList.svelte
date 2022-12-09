@@ -1,83 +1,46 @@
 <script lang="ts">
   import './index.less';
-  import { _activeReqType } from './store';
-  import { _requestQueue } from './store';
-  import { fixed } from '@/utils/glodash';
+  import { _activeReqType, _requestQueue } from './store';
   import { get, Unsubscriber } from 'svelte/store';
   import { onMount, onDestroy } from 'svelte';
-  import Collapse from '@/components/Collapse/index.svelte';
-  import GioItemContent from './GioItemContent.svelte';
-  import NormalItemContent from './NormalItemContent.svelte';
+  import NormalRequestList from './NormalRequestList.svelte';
+  import GioRequestList from './GioRequestList.svelte';
 
   let active: string[] = [];
-  let unsubscribe: Unsubscriber;
+  let unsubscribe_activeReqType: Unsubscriber;
+  let unsubscribe_requestQueue: Unsubscriber;
   let requestQueue: any[] = [];
 
   onMount(() => {
-    unsubscribe = _activeReqType.subscribe((v) => {
+    // 筛选类型切换监听
+    unsubscribe_activeReqType = _activeReqType.subscribe((v) => {
       active = [];
       if (v === 'gio') {
-        const { host, projectId } = (window as any).vds;
-        requestQueue = get(_requestQueue).filter(
-          (o: any) => o.url.indexOf(host) > -1 && o.url.indexOf(projectId) > -1
-        );
+        requestQueue = get(_requestQueue).filter((o: any) => o.isGioData);
       } else {
         requestQueue = get(_requestQueue);
+      }
+    });
+    // 列表变动监听
+    unsubscribe_requestQueue = _requestQueue.subscribe((l) => {
+      if (get(_activeReqType) === 'gio') {
+        requestQueue = l.filter((o: any) => o.isGioData);
+      } else {
+        requestQueue = l;
       }
     });
   });
 
   onDestroy(() => {
-    unsubscribe();
+    unsubscribe_activeReqType();
+    unsubscribe_requestQueue();
   });
-
-  const onItemToggle = (visible: boolean, idx: string) => {
-    if (visible) {
-      active = [...active, idx];
-    } else {
-      active = active.filter((o) => o != idx);
-    }
-  };
-
-  const durationFormat = (d: string | number) => {
-    let n: number | string = Number(d);
-    if (!isNaN(n)) {
-      if (n < 1000) {
-        n = `${fixed(n, 0)}ms`;
-      } else if (n >= 1000 && n < 1000000) {
-        n = `${fixed(n / 1000, 2)}s`;
-      } else {
-        n = `${fixed(n / 1000 / 60, 2)}min`;
-      }
-      return n;
-    } else {
-      return '-';
-    }
-  };
 </script>
 
 <div class="_gk-network-list">
-  {#each requestQueue as item, i}
-    <Collapse
-      title={item.name}
-      visible={active.includes(`${i}`)}
-      onChange={(v) => onItemToggle(v, `${i}`)}
-    >
-      <div slot="extra" class="_gk-collapse-item-head-extra">
-        <span>{item.method}</span>
-        <span class:_gk-network-item-red={item.status === 'ERROR'}>
-          {item.status}
-        </span>
-        <span class={`_gk-network-item-${item.durationColor}`}>
-          {durationFormat(item.duration)}
-        </span>
-      </div>
-      <NormalItemContent slot="content" {item} />
-      <!-- {#if $_activeReqType === 'gio'}
-        <GioItemContent slot="content" item={item} />
-      {:else}
-        <NormalItemContent slot="content" item={item} />
-      {/if} -->
-    </Collapse>
-  {/each}
+  {#if $_activeReqType === 'gio'}
+    <GioRequestList {requestQueue} />
+  {:else}
+    <NormalRequestList {requestQueue} />
+  {/if}
 </div>

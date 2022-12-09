@@ -1,7 +1,8 @@
 import { _requestQueue } from './store';
 import { get } from 'svelte/store';
-import { guid, getURL } from '@/utils/tools';
+import { guid, getURL, genFormattedBody, niceTry } from '@/utils/tools';
 import { has, isNil, unset, head } from '@/utils/glodash';
+import { LZString } from './compress';
 
 export type RequestMethod =
   | ''
@@ -24,12 +25,13 @@ export interface RequestItem {
   status: number | string;
   error?: any;
   headers: { [key: string]: string };
-  data: any;
+  body: any;
   params: string;
   startTime: number;
   endTime: number;
   duration: number;
   durationColor?: string;
+  isGioData?: boolean;
 }
 
 /**
@@ -145,11 +147,11 @@ export default class NetworkModel {
           startTime: self.getTimestamp(),
           status: 0,
           params: parsedURL.searchParams.toString(),
-          data: {},
+          body: {},
           endTime: 0,
-          duration: 0
+          duration: 0,
+          isGioData: self.isGio(parsedURL.toString())
         };
-        console.log(args);
         originOpen.apply(this, args as []);
       };
     });
@@ -160,6 +162,7 @@ export default class NetworkModel {
           if (_gioxhr[this._id]) {
             _gioxhr[this._id] = <RequestItem>{
               ..._gioxhr[this._id],
+              body: self.getFormattedBody(args, _gioxhr[this._id].isGioData),
               endTime: event.timeStamp || self.getTimestamp(),
               duration:
                 (event.timeStamp || self.getTimestamp()) -
@@ -207,19 +210,21 @@ export default class NetworkModel {
       return function (url: string, config: any = {}): void {
         console.log(config, 'config');
         const parsedURL = getURL(url);
+        const isGioData = self.isGio(parsedURL.toString());
         let requestItem: RequestItem = {
           _id: guid(),
           type: 'fetch',
           name: (parsedURL.pathname.split('/').pop() || '') + parsedURL.search,
           method: config.method || 'GET',
-          headers: {},
+          headers: config.headers || {},
           url: parsedURL.toString(),
           startTime: self.getTimestamp(),
           status: 0,
           params: parsedURL.searchParams.toString(),
-          data: {},
+          body: self.getFormattedBody(config.body, isGioData),
           endTime: 0,
-          duration: 0
+          duration: 0,
+          isGioData
         };
         return originFetch
           .apply(window, [url, config])
@@ -236,7 +241,7 @@ export default class NetworkModel {
             );
             self.addRequestItem(requestItem);
           })
-          .catch((e) => {
+          .catch((e: any) => {
             requestItem.endTime = self.getTimestamp();
             (requestItem.duration =
               self.getTimestamp() - requestItem.startTime),
@@ -259,6 +264,7 @@ export default class NetworkModel {
     rewriter(navigator, 'sendBeacon', (originSendBeacon: () => void) => {
       return function (url: string, data: any): void {
         const parsedURL = getURL(arguments[0]);
+        const isGioData = self.isGio(parsedURL.toString());
         let requestItem: RequestItem = {
           _id: guid(),
           type: 'ping',
@@ -269,9 +275,10 @@ export default class NetworkModel {
           startTime: self.getTimestamp(),
           status: 0,
           params: parsedURL.searchParams.toString(),
-          data: {},
+          body: self.getFormattedBody(data, isGioData),
           endTime: 0,
-          duration: 0
+          duration: 0,
+          isGioData
         };
         const res: any = originSendBeacon.apply(navigator, [url, data]);
         if (res) {
@@ -286,6 +293,22 @@ export default class NetworkModel {
         return res;
       };
     });
+  };
+
+  // 判断是否为Gio的上报请求
+  isGio = (url: string) => {
+    const { host, projectId } = (window as any).vds;
+    return url.indexOf(host) > -1 && url.indexOf(`${projectId}/collect`) > -1;
+  };
+
+  // 获取格式化后的请求body
+  getFormattedBody = (body: any, isGioData: boolean = false) => {
+    if (isGioData) {
+      const ret = LZString.decompressFromUint8Array(body) || body;
+      return niceTry(() => JSON.parse(ret)) ?? ret;
+    } else {
+      return genFormattedBody(body);
+    }
   };
 
   // 简单处理后添加至队列

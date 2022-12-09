@@ -35,10 +35,12 @@
   <Divider />
   <p>Request Headers</p>
   <div class="_gk-network-content-values-wrapper">
-    <div class="_gk-network-content-values">
-      <span>Content-Type：</span>
-      <span>{item.headers['content-type'] || '-'}</span>
-    </div>
+    {#each keys(item.headers) as headerKey}
+      <div class="_gk-network-content-values">
+        <span>{headerKey}：</span>
+        <span>{item.headers[headerKey] || '-'}</span>
+      </div>
+    {/each}
   </div>
   <Divider />
   <p>Query String Parameters</p>
@@ -49,5 +51,10 @@
         <span>{parameters[pk]}</span>
       </div>
     {/each}
+  </div>
+  <Divider />
+  <p>Request Payload</p>
+  <div class="_gk-network-content-values-payload">
+    {JSON.stringify(item.body, null, 2) || ''}
   </div>
 </div>
