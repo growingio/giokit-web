@@ -33,8 +33,8 @@
 
 <button
   {...$$props}
-  class={`_gk-btn _gk-btn-${type}${disabled ? ' _gk-btn-disabled' : ''}${
-    small ? ' _gk-btn-small' : ''
+  class={`_gk-btn _gk-btn-${type}${small ? ' _gk-btn-small' : ''}${
+    disabled ? ' _gk-btn-disabled' : ''
   } ${className}`}
   on:click
 >

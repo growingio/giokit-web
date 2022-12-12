@@ -1,6 +1,7 @@
 #__giokit button {
   outline: none;
   border: none;
+
   &:hover {
     cursor: pointer;
   }
@@ -45,4 +46,23 @@
 
 ._gk-btn-default.gk-btn-small {
   padding: calc(0.4em - 1px) calc(1em - 1px);
+}
+
+._gk-btn-disabled {
+  cursor: not-allowed !important;
+  background: #F7F8FC;
+
+  svg {
+    fill: #ADB2C2;
+  }
+
+  color: #ADB2C2;
+
+  &:hover {
+    svg {
+      fill: #ADB2C2;
+    }
+
+    color: #ADB2C2;
+  }
 }

@@ -4,6 +4,8 @@
   import Divider from '@/components/Divider/index.svelte';
   import RequestList from './RequestList.svelte';
   import Switch from '@/components/Switch/index.svelte';
+  import ClearTip from './ClearTip.svelte';
+  import FilterTip from './FilterTip.svelte';
 
   const switchers = [
     { label: 'Gio', value: 'gio' },
@@ -15,10 +17,15 @@
   };
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="_gk-network">
   <div class="_gk-network-header">
     <div class="_gk-network-header-title">请求概览</div>
     <div class="_gk-network-header-tools">
+      {#if $_activeReqType === 'gio'}
+        <FilterTip />
+      {/if}
+      <ClearTip />
       <Switch options={switchers} value={$_activeReqType} onChange={onSwitch} />
     </div>
   </div>

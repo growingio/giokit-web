@@ -4,8 +4,8 @@
   import Collapse from '@/components/Collapse/index.svelte';
   import Empty from '@/components/Empty/index.svelte';
   import NormalItemContent from './NormalItemContent.svelte';
+  import { _requestQueue } from './store';
 
-  export let requestQueue: any[];
   let active: string[] = [];
 
   // 展开/关闭请求条目
@@ -35,9 +35,9 @@
   };
 </script>
 
-{#if !isEmpty(requestQueue)}
+{#if !isEmpty($_requestQueue)}
   <div>
-    {#each requestQueue as item, i}
+    {#each $_requestQueue as item, i}
       <Collapse
         title={item.name}
         visible={active.includes(`${i}`)}

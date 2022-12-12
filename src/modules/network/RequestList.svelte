@@ -1,46 +1,29 @@
 <script lang="ts">
   import './index.less';
-  import { _activeReqType, _requestQueue } from './store';
-  import { get, Unsubscriber } from 'svelte/store';
-  import { onMount, onDestroy } from 'svelte';
+  import {
+    _activeReqType,
+    _clearVisible,
+    _filterVisible,
+    _requestQueue,
+    _gioRequestQueue,
+    _filterActive
+  } from './store';
   import NormalRequestList from './NormalRequestList.svelte';
   import GioRequestList from './GioRequestList.svelte';
 
-  let active: string[] = [];
-  let unsubscribe_activeReqType: Unsubscriber;
-  let unsubscribe_requestQueue: Unsubscriber;
-  let requestQueue: any[] = [];
-
-  onMount(() => {
-    // 筛选类型切换监听
-    unsubscribe_activeReqType = _activeReqType.subscribe((v) => {
-      active = [];
-      if (v === 'gio') {
-        requestQueue = get(_requestQueue).filter((o: any) => o.isGioData);
-      } else {
-        requestQueue = get(_requestQueue);
-      }
-    });
-    // 列表变动监听
-    unsubscribe_requestQueue = _requestQueue.subscribe((l) => {
-      if (get(_activeReqType) === 'gio') {
-        requestQueue = l.filter((o: any) => o.isGioData);
-      } else {
-        requestQueue = l;
-      }
-    });
-  });
-
-  onDestroy(() => {
-    unsubscribe_activeReqType();
-    unsubscribe_requestQueue();
-  });
+  const handleOut = (e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+    _clearVisible.set(false);
+    _filterVisible.set(false);
+  };
 </script>
 
-<div class="_gk-network-list">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="_gk-network-list" on:click={handleOut}>
   {#if $_activeReqType === 'gio'}
-    <GioRequestList {requestQueue} />
+    <GioRequestList />
   {:else}
-    <NormalRequestList {requestQueue} />
+    <NormalRequestList />
   {/if}
 </div>

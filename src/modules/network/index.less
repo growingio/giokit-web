@@ -12,6 +12,25 @@
       font-size: 1.1em;
       font-weight: 400;
     }
+
+    ._gk-network-header-tools {
+      display: flex;
+      align-items: center;
+
+      ._gk-network-header-tool {
+        margin-right: 0.6em;
+        position: relative;
+
+        ._gk-btn {
+          padding: calc(0.55em - 1px) calc(0.7em - 1px);
+
+          ._gk-icon svg {
+            width: 1em;
+            height: 1em;
+          }
+        }
+      }
+    }
   }
 
   ._gk-network-list {
@@ -103,7 +122,7 @@
         }
       }
 
-      > p {
+      >p {
         margin: 0 0 0.5em 0 !important;
         font-weight: bold;
         color: #242e59;
