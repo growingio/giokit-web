@@ -1,18 +1,16 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
-  import "./index.less";
+  import { onMount, onDestroy } from 'svelte';
+  import './index.less';
 
-  export let title = "暂无数据";
+  export let title = '暂无数据';
 
-  onMount(() => {
-  });
+  onMount(() => {});
 
-  onDestroy(() => {
-  });
+  onDestroy(() => {});
 </script>
 
 <div class="_gk-empty">
-  <div>
+  <div class="_gk-empty-logo">
     <svg
       width="194"
       height="200"

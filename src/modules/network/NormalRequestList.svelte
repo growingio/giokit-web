@@ -1,7 +1,8 @@
 <script lang="ts">
   import './index.less';
-  import { fixed } from '@/utils/glodash';
+  import { fixed, isEmpty } from '@/utils/glodash';
   import Collapse from '@/components/Collapse/index.svelte';
+  import Empty from '@/components/Empty/index.svelte';
   import NormalItemContent from './NormalItemContent.svelte';
 
   export let requestQueue: any[];
@@ -34,21 +35,29 @@
   };
 </script>
 
-{#each requestQueue as item, i}
-  <Collapse
-    title={item.name}
-    visible={active.includes(`${i}`)}
-    onChange={(v) => onItemToggle(v, `${i}`)}
-  >
-    <div slot="extra" class="_gk-collapse-item-head-extra">
-      <span>{item.method}</span>
-      <span class:_gk-network-item-red={item.status === 'ERROR'}>
-        {item.status}
-      </span>
-      <span class={`_gk-network-item-${item.durationColor}`}>
-        {durationFormat(item.duration)}
-      </span>
-    </div>
-    <NormalItemContent slot="content" {item} />
-  </Collapse>
-{/each}
+{#if !isEmpty(requestQueue)}
+  <div>
+    {#each requestQueue as item, i}
+      <Collapse
+        title={item.name}
+        visible={active.includes(`${i}`)}
+        onChange={(v) => onItemToggle(v, `${i}`)}
+      >
+        <div slot="extra" class="_gk-collapse-item-head-extra">
+          <span>{item.method}</span>
+          <span class:_gk-network-item-red={item.status === 'ERROR'}>
+            {item.status}
+          </span>
+          <span class={`_gk-network-item-${item.durationColor}`}>
+            {durationFormat(item.duration)}
+          </span>
+        </div>
+        <NormalItemContent slot="content" {item} />
+      </Collapse>
+    {/each}
+  </div>
+{:else}
+  <div class="_gk-network-gio-empty">
+    <Empty />
+  </div>
+{/if}

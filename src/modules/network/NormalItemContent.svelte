@@ -1,6 +1,6 @@
 <script lang="ts">
   import './index.less';
-  import { keys } from '@/utils/glodash';
+  import { keys, formatTime } from '@/utils/glodash';
   import Divider from '@/components/Divider/index.svelte';
   import qs from 'querystringify';
 
@@ -30,6 +30,10 @@
     <div class="_gk-network-content-values">
       <span>HTTP Status：</span>
       <span>{item.error ? item.error : item.status}</span>
+    </div>
+    <div class="_gk-network-content-values">
+      <span>Time：</span>
+      <span>{formatTime(new Date(item.startTime))}</span>
     </div>
   </div>
   <Divider />

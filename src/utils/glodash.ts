@@ -349,16 +349,10 @@ export const typeOf = (o: any): string => {
  * @param o any
  * @returns string
  */
-export const formatDate = (e: any) => {
+export const formatTime = (e: any) => {
   if (isDate(e)) {
     const t = (e: string | number) => (e < 10 ? '0' + e : e);
     return (
-      e.getFullYear() +
-      '-' +
-      t(e.getMonth() + 1) +
-      '-' +
-      t(e.getDate()) +
-      ' ' +
       t(e.getHours()) +
       ':' +
       t(e.getMinutes()) +

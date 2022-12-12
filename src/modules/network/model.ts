@@ -1,7 +1,7 @@
-import { _requestQueue } from './store';
+import { _requestQueue, _gioRequestQueue } from './store';
 import { get } from 'svelte/store';
 import { guid, getURL, genFormattedBody, niceTry } from '@/utils/tools';
-import { has, isNil, unset, head } from '@/utils/glodash';
+import { has, isNil, unset, head, isArray } from '@/utils/glodash';
 import { LZString } from './compress';
 
 export type RequestMethod =
@@ -32,6 +32,7 @@ export interface RequestItem {
   duration: number;
   durationColor?: string;
   isGioData?: boolean;
+  gioType?: string;
 }
 
 /**
@@ -71,15 +72,6 @@ export default class NetworkModel {
     this.initPerformance();
   }
 
-  // 获取当前性能时间
-  getTimestamp = () => {
-    if (window.performance) {
-      return window.performance.now();
-    } else {
-      return Date.now();
-    }
-  };
-
   // 获取请求时长颜色
   getDurationColor = (d: string | number) => {
     let n: number | string = Number(d);
@@ -115,8 +107,6 @@ export default class NetworkModel {
           const target: RequestItem = m[targetIndex];
           if (target) {
             target.duration = requstTiming.duration;
-            target.startTime = requstTiming.fetchStart;
-            target.endTime = requstTiming.responseEnd;
             target.durationColor = this.getDurationColor(target.duration);
           }
           return m;
@@ -144,7 +134,7 @@ export default class NetworkModel {
           name: (parsedURL.pathname.split('/').pop() || '') + parsedURL.search,
           method: args[0],
           url: parsedURL.toString(),
-          startTime: self.getTimestamp(),
+          startTime: Date.now(),
           status: 0,
           params: parsedURL.searchParams.toString(),
           body: {},
@@ -163,10 +153,9 @@ export default class NetworkModel {
             _gioxhr[this._id] = <RequestItem>{
               ..._gioxhr[this._id],
               body: self.getFormattedBody(args, _gioxhr[this._id].isGioData),
-              endTime: event.timeStamp || self.getTimestamp(),
+              endTime: event.timeStamp || Date.now(),
               duration:
-                (event.timeStamp || self.getTimestamp()) -
-                _gioxhr[this._id].startTime,
+                (event.timeStamp || Date.now()) - _gioxhr[this._id].startTime,
               status: this.status || 'OK'
             };
             _gioxhr[this._id].durationColor = self.getDurationColor(
@@ -178,7 +167,7 @@ export default class NetworkModel {
           }
         });
         this.addEventListener('error', (event: any) => {
-          const t = event.timeStamp || self.getTimestamp();
+          const t = event.timeStamp || Date.now();
           if (_gioxhr[this._id]) {
             _gioxhr[this._id] = <RequestItem>{
               ..._gioxhr[this._id],
@@ -195,7 +184,7 @@ export default class NetworkModel {
           }
         });
         if (_gioxhr[this._id]) {
-          _gioxhr[this._id].startTime = self.getTimestamp();
+          _gioxhr[this._id].startTime = Date.now();
         }
         originSend.apply(this, args as []);
       };
@@ -218,7 +207,7 @@ export default class NetworkModel {
           method: config.method || 'GET',
           headers: config.headers || {},
           url: parsedURL.toString(),
-          startTime: self.getTimestamp(),
+          startTime: Date.now(),
           status: 0,
           params: parsedURL.searchParams.toString(),
           body: self.getFormattedBody(config.body, isGioData),
@@ -232,8 +221,8 @@ export default class NetworkModel {
             requestItem = {
               ...requestItem,
               status: response?.status || 'OK',
-              endTime: self.getTimestamp(),
-              duration: self.getTimestamp() - requestItem.startTime
+              endTime: Date.now(),
+              duration: Date.now() - requestItem.startTime
             };
             console.log(requestItem, 'requestItem');
             requestItem.durationColor = self.getDurationColor(
@@ -242,9 +231,8 @@ export default class NetworkModel {
             self.addRequestItem(requestItem);
           })
           .catch((e: any) => {
-            requestItem.endTime = self.getTimestamp();
-            (requestItem.duration =
-              self.getTimestamp() - requestItem.startTime),
+            requestItem.endTime = Date.now();
+            (requestItem.duration = Date.now() - requestItem.startTime),
               (requestItem.error = e.message);
             requestItem.status = 'ERROR';
             requestItem.durationColor = self.getDurationColor(
@@ -272,7 +260,7 @@ export default class NetworkModel {
           method: 'POST',
           headers: { 'content-type': 'text/plain;charset=UTF-8' },
           url: parsedURL.toString(),
-          startTime: self.getTimestamp(),
+          startTime: Date.now(),
           status: 0,
           params: parsedURL.searchParams.toString(),
           body: self.getFormattedBody(data, isGioData),
@@ -282,7 +270,7 @@ export default class NetworkModel {
         };
         const res: any = originSendBeacon.apply(navigator, [url, data]);
         if (res) {
-          requestItem.endTime = self.getTimestamp();
+          requestItem.endTime = Date.now();
           requestItem.duration = requestItem.endTime - requestItem.startTime;
           requestItem.durationColor = self.getDurationColor(
             requestItem.duration
@@ -313,7 +301,13 @@ export default class NetworkModel {
 
   // 简单处理后添加至队列
   addRequestItem = (requestItem: RequestItem) => {
-    _requestQueue.update((o) => [...o, requestItem]);
+    if (requestItem.isGioData) {
+      if (isArray(requestItem.body)) {
+        requestItem.gioType = head(requestItem.body).eventType;
+      }
+      _gioRequestQueue.update((o) => [requestItem, ...o].slice(0, 50));
+    }
+    _requestQueue.update((o) => [requestItem, ...o].slice(0, 50));
   };
 
   // 恢复请求的hook逻辑
