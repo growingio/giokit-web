@@ -2,8 +2,8 @@ export const GIOEVENTTYPES = [
   'VISIT',
   'PAGE',
   'CUSTOM',
-  'CLICK',
-  'CHANGE',
-  'SUBMIT',
+  'VIEW_CLICK',
+  'VIEW_CHANGE',
+  'FORM_SUBMIT',
   'LOGIN_USER_ATTRIBUTES'
 ];
