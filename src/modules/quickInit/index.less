@@ -1,0 +1,85 @@
+._gk-qkinit {
+  height: 100%;
+
+  ._gk-qkinit-header {
+    font-size: 1.1em;
+    font-weight: 400;
+    padding-left: 1em;
+    margin-bottom: 1em;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      height: 1.2em;
+      width: 0.2em;
+      background: #fc5f3a;
+      position: absolute;
+      left: 0;
+      top: 0.1em;
+    }
+  }
+
+  ._gk-qkinit-desc {
+    color: #7B819C;
+  }
+
+  ._gk-qkinit-form {
+    text-align: center;
+
+    form {
+      display: inline-flex;
+      flex-direction: column;
+      margin: 0 auto;
+
+      ._gk-qkinit-form-step1,
+      ._gk-qkinit-form-step2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        ._gk-form-item {
+          margin: 0.8em 0;
+
+          ._gk-toggle-value {
+            margin-left: 1em;
+          }
+        }
+      }
+
+      ._gk-qkinit-form-step1 {
+        ._gk-form-item {
+          width: 29em;
+
+          ._gk-input {
+            flex: 1;
+
+            input {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    ._gk-qkinit-btns {
+      margin-top: 3em;
+
+      ._gk-btn {
+        margin: 0 0.5em;
+      }
+    }
+  }
+}
+
+._gk-help {
+  margin: 0 0.5em;
+  cursor: help;
+  line-height: 1.3;
+
+  svg {
+    height: 1.2em;
+    width: 1.2em;
+    fill: #7B819C;
+  }
+}
