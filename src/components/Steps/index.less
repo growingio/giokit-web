@@ -1,0 +1,32 @@
+._gk-steps {
+  display: flex;
+  align-items: center;
+  margin: 1em auto 1em;
+  justify-content: center;
+
+  ._gk-steps-item {
+    color: #ADB2C2;
+    font-size: 1.1em;
+    padding: 0.5em 2.2em;
+  }
+
+  ._gk-steps-item-active {
+    color: #1248E9;
+    border-bottom: 2px solid #1248E9;
+    padding-bottom: calc(0.5em - 2px);
+  }
+
+  ._gk-steps-item-finished {
+    color: #242E59;
+
+    ._gk-icon {
+      margin-right: 0.5em;
+
+      svg {
+        width: 1.1em;
+        height: 1.1em;
+        fill: #16CB79;
+      }
+    }
+  }
+}
