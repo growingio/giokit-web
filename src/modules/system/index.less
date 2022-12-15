@@ -11,6 +11,7 @@
     font-weight: 400;
     padding-left: 1em;
     margin-bottom: 1em;
+    position: relative;
 
     &::before {
       content: '';
@@ -34,6 +35,7 @@
     line-height: 1.5em;
     margin-bottom: 0.5em;
     padding-right: 0;
+
     span {
       word-break: break-all;
     }
@@ -48,6 +50,7 @@
 @media (min-width: 640px) {
   ._gk-system ._gk-system-page-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+
     ._gk-system-list-line:nth-child(odd) {
       padding-right: 1em;
     }

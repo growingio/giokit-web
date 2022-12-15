@@ -1,12 +1,13 @@
 <script lang="ts">
   import './index.less';
   import { _activeTool } from '../store';
-  import { commonTools, platformTools } from '../constants';
+  import { commonTools, platformTools } from '@/constants/constants';
   import { onDestroy } from 'svelte';
   import Log from '../../modules/log/index.svelte';
   import Storage from '../../modules/storage/index.svelte';
   import System from '../../modules/system/index.svelte';
   import Network from '../../modules/network/index.svelte';
+  import QuickInit from '../../modules/quickInit/index.svelte';
 
   /**
    * Inner properties
@@ -39,5 +40,8 @@
   {/if}
   {#if $_activeTool === 'storage'}
     <Storage />
+  {/if}
+  {#if $_activeTool === 'quick-init'}
+    <QuickInit />
   {/if}
 </div>
