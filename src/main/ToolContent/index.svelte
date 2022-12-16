@@ -8,6 +8,8 @@
   import System from '../../modules/system/index.svelte';
   import Network from '../../modules/network/index.svelte';
   import QuickInit from '../../modules/quickInit/index.svelte';
+  import InitVerification from '../../modules/initVerification/index.svelte';
+  import EventExecution from '../../modules/eventExecution/index.svelte';
 
   /**
    * Inner properties
@@ -43,5 +45,11 @@
   {/if}
   {#if $_activeTool === 'quick-init'}
     <QuickInit />
+  {/if}
+  {#if $_activeTool === 'init-verification'}
+    <InitVerification />
+  {/if}
+  {#if $_activeTool === 'event-execution'}
+    <EventExecution />
   {/if}
 </div>

@@ -36,15 +36,15 @@ export const platformTools = [
     label: '快速初始化',
     icon: 'rocket',
     key: 'quick-init'
-  },
-  {
-    label: '初始化校验',
-    icon: 'medical',
-    key: 'init-verification'
-  },
-  {
-    label: '自定义事件',
-    icon: 'command',
-    key: 'event-execution'
   }
+  // {
+  //   label: '初始化校验',
+  //   icon: 'medical',
+  //   key: 'init-verification'
+  // },
+  // {
+  //   label: '自定义事件',
+  //   icon: 'command',
+  //   key: 'event-execution'
+  // }
 ];
