@@ -1,5 +1,7 @@
 ._gk-qkinit {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   ._gk-qkinit-header {
     font-size: 1.1em;
@@ -26,11 +28,13 @@
 
   ._gk-qkinit-form {
     text-align: center;
+    overflow: auto;
 
-    form {
+    ._gk-form {
       display: inline-flex;
       flex-direction: column;
       margin: 0 auto;
+      max-width: 100%;
 
       ._gk-qkinit-form-step1,
       ._gk-qkinit-form-step2 {
@@ -39,7 +43,7 @@
         align-items: center;
 
         ._gk-form-item {
-          margin: 0.8em 0;
+          margin: 1.2em 0;
 
           ._gk-toggle-value {
             margin-left: 1em;
@@ -60,6 +64,56 @@
           }
         }
       }
+
+      ._gk-qkinit-form-step2 {
+        ._gk-form-item {
+          width: 23em;
+        }
+      }
+    }
+
+    ._gk-qkinit-form-step3 {
+      text-align: initial;
+      padding: 2em;
+
+      ._gk-qkinit-switcher {
+        margin: 1em;
+      }
+
+      ._gk-qkinit-hastool._gk-qkinit-header::before {
+        top: 0.5em;
+      }
+
+      ._gk-qkinit-hastool {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        ._gk-btn {
+          padding: calc(0.55em - 1px) calc(0.7em - 1px);
+
+          ._gk-icon {
+            svg {
+              height: 1em;
+              width: 1em;
+            }
+          }
+        }
+
+        ._gk-qkinit-code-copyed {
+          svg {
+            color: #16cb79 !important;
+          }
+        }
+      }
+
+      pre,
+      pre code {
+        max-width: 100%;
+        overflow: hidden;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
     }
 
     ._gk-qkinit-btns {
@@ -68,6 +122,11 @@
       ._gk-btn {
         margin: 0 0.5em;
       }
+    }
+
+    ._gk-qkinit-btns-step3 {
+      margin-bottom: 2em;
+      ;
     }
   }
 }

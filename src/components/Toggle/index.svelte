@@ -4,9 +4,11 @@
   export let checked: boolean = false;
   export let onChange: (checked: boolean) => void = (checked: boolean) => {};
 
-  const handleChange = () => {
+  const handleChange = (e: Event) => {
     checked = !checked;
-    onChange(checked);
+    // @ts-ignore
+    e.target.value = checked;
+    onChange(e, checked);
   };
 </script>
 
