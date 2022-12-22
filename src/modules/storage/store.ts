@@ -2,11 +2,11 @@ import { keys } from '@/utils/glodash';
 import { writable, get } from 'svelte/store';
 import Cookies from 'js-cookie';
 
-export const _activeStorage = writable('cookie');
-export const _handledIdx = writable(-1);
-export const _storageValue = writable([]);
+export const _activeStorage = writable<string>('cookie');
+export const _handledIdx = writable<number>(-1);
+export const _storageValue = writable<any[]>([]);
 
-export const getters = {
+export const getters: any = {
   cookie: () => {
     const cookieStore = Cookies.get();
     return keys(cookieStore).map((k) => ({

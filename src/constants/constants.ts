@@ -20,8 +20,8 @@ export const commonTools = [
     key: 'network'
   },
   {
-    label: '设备信息',
-    icon: 'system',
+    label: '页面和设备',
+    icon: 'device',
     key: 'system'
   },
   {
@@ -37,6 +37,16 @@ export const platformTools = [
     icon: 'rocket',
     key: 'quick-init'
   }
+  // {
+  //   label: '运行状态',
+  //   icon: 'state',
+  //   key: 'running-state'
+  // },
+  // {
+  //   label: '运行统计',
+  //   icon: 'statistics',
+  //   key: 'running-statistics'
+  // },
   // {
   //   label: '初始化校验',
   //   icon: 'medical',

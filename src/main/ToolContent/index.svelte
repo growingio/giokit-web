@@ -10,6 +10,8 @@
   import QuickInit from '../../modules/quickInit/index.svelte';
   import InitVerification from '../../modules/initVerification/index.svelte';
   import EventExecution from '../../modules/eventExecution/index.svelte';
+  import RunningState from '../../modules/runningState/index.svelte';
+  import RunningStatistics from '../../modules/runningStatistics/index.svelte';
 
   /**
    * Inner properties
@@ -51,5 +53,11 @@
   {/if}
   {#if $_activeTool === 'event-execution'}
     <EventExecution />
+  {/if}
+  {#if $_activeTool === 'running-state'}
+    <RunningState />
+  {/if}
+  {#if $_activeTool === 'running-statistics'}
+    <RunningStatistics />
   {/if}
 </div>
