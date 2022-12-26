@@ -11,6 +11,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { RequestItem } from './model';
   import { Unsubscriber, get } from 'svelte/store';
+  import Duration from './Duration.svelte';
   import Empty from '@/components/Empty/index.svelte';
   import JsonView from '@/components/JsonView/index.svelte';
 
@@ -55,9 +56,10 @@
           class:_gk-network-gio-item-active={$_gioActive === item._id}
           on:click={() => onSelect(item._id)}
         >
-          <p>
+          <div>
             {item.gioType}
-          </p>
+            <Duration {item} />
+          </div>
           <p>
             {formatTime(new Date(item.startTime))}
           </p>

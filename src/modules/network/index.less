@@ -86,18 +86,6 @@
             text-align: right;
           }
         }
-
-        ._gk-network-item-green {
-          color: #16cb79;
-        }
-
-        ._gk-network-item-yellow {
-          color: #faa937;
-        }
-
-        ._gk-network-item-red {
-          color: #ec134b;
-        }
       }
 
       &:not(:last-child) {
@@ -160,14 +148,15 @@
           border: 1px solid #dfe4ee;
           margin-bottom: 0.5em;
 
-          p {
-            margin: 0;
-            word-break: break-all;
+          div {
+            display: flex;
+            justify-content: space-between;
+          }
 
-            &:last-child {
-              margin-top: 0.3em;
-              color: #adb2c2;
-            }
+          p {
+            margin: 0.3em 0 0 0;
+            word-break: break-all;
+            color: #adb2c2;
           }
 
           &:hover {

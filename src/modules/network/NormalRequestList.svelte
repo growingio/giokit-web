@@ -1,10 +1,11 @@
 <script lang="ts">
   import './index.less';
-  import { fixed, isEmpty } from '@/utils/glodash';
+  import { _requestQueue } from './store';
+  import { isEmpty } from '@/utils/glodash';
   import Collapse from '@/components/Collapse/index.svelte';
+  import Duration from './Duration.svelte';
   import Empty from '@/components/Empty/index.svelte';
   import NormalItemContent from './NormalItemContent.svelte';
-  import { _requestQueue } from './store';
 
   let active: string[] = [];
 
@@ -14,23 +15,6 @@
       active = [...active, idx];
     } else {
       active = active.filter((o) => o != idx);
-    }
-  };
-
-  // 格式化请求时长
-  const durationFormat = (d: string | number) => {
-    let n: number | string = Number(d);
-    if (!isNaN(n)) {
-      if (n < 1000) {
-        n = `${fixed(n, 0)}ms`;
-      } else if (n >= 1000 && n < 1000000) {
-        n = `${fixed(n / 1000, 2)}s`;
-      } else {
-        n = `${fixed(n / 1000 / 60, 2)}min`;
-      }
-      return n;
-    } else {
-      return '-';
     }
   };
 </script>
@@ -48,9 +32,7 @@
           <span class:_gk-network-item-red={item.status === 'ERROR'}>
             {item.status}
           </span>
-          <span class={`_gk-network-item-${item.durationColor}`}>
-            {durationFormat(item.duration)}
-          </span>
+          <Duration {item} />
         </div>
         <NormalItemContent slot="content" {item} />
       </Collapse>
