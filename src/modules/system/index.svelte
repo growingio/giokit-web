@@ -87,36 +87,41 @@
 
 <div class="_gk-system">
   <div class="_gk-system-block">
-    <div class="_gk-system-leading">页面信息</div>
-    <div class="_gk-system-page-list">
+    <div class="_gk-content-header">页面信息</div>
+    <div class="_gk-content-header-desc">
+      查看当前页面在浏览器解析下的状态值。
+    </div>
+    <Divider />
+    <div class="_gk-grid-list">
       {#each keys(locations) as key}
-        <div class="_gk-system-list-line">
-          <span class="_gk-system-list-key">{key}：</span>
-          <span class="_gk-system-list-value">{locations[key]}</span>
+        <div class="_gk-grid-list-item">
+          <span class="_gk-grid-list-key">{key}：</span>
+          <span class="_gk-grid-list-value">{locations[key]}</span>
         </div>
       {/each}
     </div>
   </div>
-  <Divider />
   <div class="_gk-system-block">
-    <div class="_gk-system-leading">设备信息</div>
-    <div class="_gk-system-device-list">
-      <div class="_gk-system-list-line">
-        <span class="_gk-system-list-key">Client：</span>
-        <span class="_gk-system-list-value">{system}</span>
+    <div class="_gk-content-header">设备信息</div>
+    <div class="_gk-content-header-desc">查看当前设备的基本信息。</div>
+    <Divider />
+    <div class="_gk-grid-list">
+      <div class="_gk-grid-list-item">
+        <span class="_gk-grid-list-key">Client：</span>
+        <span class="_gk-grid-list-value">{system}</span>
       </div>
-      <div class="_gk-system-list-line">
-        <span class="_gk-system-list-key">Browser：</span>
-        <span class="_gk-system-list-value">{browser}</span>
+      <div class="_gk-grid-list-item">
+        <span class="_gk-grid-list-key">Browser：</span>
+        <span class="_gk-grid-list-value">{browser}</span>
       </div>
-      <div class="_gk-system-list-line">
-        <span class="_gk-system-list-key">Language：</span>
-        <span class="_gk-system-list-value">{navigator.language}</span>
+      <div class="_gk-grid-list-item">
+        <span class="_gk-grid-list-key">Language：</span>
+        <span class="_gk-grid-list-value">{navigator.language}</span>
       </div>
     </div>
-    <div class="_gk-system-list-line">
-      <span class="_gk-system-list-key">UserAgent：</span>
-      <span class="_gk-system-list-value">{navigator.userAgent}</span>
+    <div class="_gk-grid-list-item">
+      <span class="_gk-grid-list-key">UserAgent：</span>
+      <span class="_gk-grid-list-value">{navigator.userAgent}</span>
     </div>
   </div>
 </div>

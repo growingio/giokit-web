@@ -13,7 +13,9 @@
 </script>
 
 <div class="_gk-panel-paragraph">
-  <div class="_gk-panel-paragraph-title">常用工具</div>
+  <div class="_gk-panel-paragraph-title">
+    <div class="_gk-content-header">常用工具</div>
+  </div>
   <div class="_gk-panel-paragraph-content gk-grid gk-grid-cols-4 gk-gap-4">
     {#each commonTools as item}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -28,7 +30,9 @@
   </div>
 </div>
 <div class="_gk-panel-paragraph">
-  <div class="_gk-panel-paragraph-title">平台工具</div>
+  <div class="_gk-panel-paragraph-title">
+    <div class="_gk-content-header">平台工具</div>
+  </div>
   <div class="_gk-panel-paragraph-content gk-grid gk-grid-cols-4 gk-gap-4">
     {#each platformTools as item}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
