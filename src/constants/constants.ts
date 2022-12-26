@@ -36,12 +36,12 @@ export const platformTools = [
     label: '快速初始化',
     icon: 'rocket',
     key: 'quick-init'
+  },
+  {
+    label: '运行状态',
+    icon: 'state',
+    key: 'running-state'
   }
-  // {
-  //   label: '运行状态',
-  //   icon: 'state',
-  //   key: 'running-state'
-  // },
   // {
   //   label: '运行统计',
   //   icon: 'statistics',
