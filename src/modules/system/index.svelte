@@ -29,35 +29,37 @@
     });
     locations = o;
     system = (navigator?.userAgent?.match(/ \((.*?);/i) ?? [])[1] ?? 'N/A';
+    // 谷歌内核才会有的navigator.userAgentData
     if (
       // @ts-ignore
       navigator?.userAgentData?.brands &&
       // @ts-ignore
       !isEmpty(navigator.userAgentData.brands)
     ) {
-      // @ts-ignore
-      const brand = last(navigator.userAgentData.brands);
-      browser = `${brand.brand}/${brand.version}`;
+      // Edge
+      if (navigator.userAgent.indexOf('Edg/') > -1) {
+        // @ts-ignore
+        const brand = head(navigator.userAgentData.brands);
+        browser = `${brand.brand}/${brand.version}`;
+      } else {
+        // Chrome
+        // @ts-ignore
+        const brand = last(navigator.userAgentData.brands);
+        browser = `${brand.brand}/${brand.version}`;
+      }
     }
     if (!browser) {
-      try {
-        browser =
-          (navigator.userAgent.match(new RegExp(/Gecko\) (.*?) Safari/i)) ??
-            [])[1] ?? 'N/A';
-      } catch (error) {
-        browser = getBrowser();
-      }
+      browser = getBrowser();
     }
   });
 
   const getBrowser = () => {
     const regex: any = {
       ie: /msie (\d+\.\d+)/i,
-      firefox: /firefox\/(\d+\.\d+)/i,
+      firefox: /firefox\/(\d+)/i,
       opera: /OPR(\/| )(\d+(\.\d+)?)(.+?(version\/(\d+(\.\d+)?)))?/i,
-      safari: /safari\/?(\d+\.\d+)?/i,
-      chrome: /chrome\/(\d+\.\d+)/i,
-      edge: /edg\/(\d+\.\d+)/i
+      safari: /safari\/?(\d+)?/i,
+      chrome: /chrome\/(\d+)/i
     };
     const bts: any = {};
     keys(regex).forEach((k) => {
@@ -75,13 +77,7 @@
       return 'Opera';
     }
     if (bts.safari && !bts.chrome) {
-      return 'Safari';
-    }
-    if (bts.edge) {
-      return 'Edge';
-    }
-    if (bts.chrome) {
-      return 'Chrome';
+      return head(bts.safari);
     }
   };
 </script>
