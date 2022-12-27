@@ -1,6 +1,7 @@
 <script lang="ts">
   import './index.less';
   import { keys, formatTime } from '@/utils/glodash';
+  import { LZString } from './compress';
   import Divider from '@/components/Divider/index.svelte';
   import qs from 'querystringify';
 
@@ -59,6 +60,8 @@
   <Divider />
   <p>Request Payload</p>
   <div class="_gk-network-content-values-payload">
-    {JSON.stringify(item.body, null, 2) || ''}
+    {item.isGioData
+      ? LZString.compress(JSON.stringify(item.body))
+      : JSON.stringify(item.body, null, 2) || ''}
   </div>
 </div>

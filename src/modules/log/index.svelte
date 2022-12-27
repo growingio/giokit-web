@@ -1,6 +1,6 @@
 <script lang="ts">
   import './index.less';
-  import { _logQueue } from './store';
+  import { _activeTab, _logQueue } from './store';
   import { head, isEmpty, isString } from '@/utils/glodash';
   import LogRow from './logRow.svelte';
   import Tabs from '@/components/Tabs/index.svelte';
@@ -19,7 +19,7 @@
 
   $: {
     if (!isEmpty($_logQueue)) {
-      switch (activeTab) {
+      switch ($_activeTab) {
         case 'all':
           logQueue = $_logQueue;
           break;
@@ -43,7 +43,7 @@
         case 'info':
         case 'warn':
         case 'error': {
-          logQueue = $_logQueue.filter((o: any) => o.type === activeTab);
+          logQueue = $_logQueue.filter((o: any) => o.type === $_activeTab);
           break;
         }
         default:
@@ -53,12 +53,12 @@
   }
 
   const onTabsChange = (active: string) => {
-    activeTab = active;
+    _activeTab.set(active);
   };
 </script>
 
 <div class="_gk-log">
-  <Tabs items={logsTabs} defaultActive="all" onChange={onTabsChange} />
+  <Tabs items={logsTabs} defaultActive={$_activeTab} onChange={onTabsChange} />
   <div class="_gk-log-container">
     {#each logQueue as item}
       <LogRow logItem={item} />

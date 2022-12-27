@@ -89,7 +89,11 @@
 </script>
 
 <div class="_gk-storage">
-  <Tabs items={storageTabs} defaultActive="cookie" onChange={onTabsChange} />
+  <Tabs
+    items={storageTabs}
+    defaultActive={$_activeStorage}
+    onChange={onTabsChange}
+  />
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="_gk-storage-list-wrapper">
     <div

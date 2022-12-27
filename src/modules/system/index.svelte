@@ -2,6 +2,7 @@
   import {
     forEach,
     head,
+    last,
     isEmpty,
     isNumber,
     isString,
@@ -35,7 +36,7 @@
       !isEmpty(navigator.userAgentData.brands)
     ) {
       // @ts-ignore
-      const brand = head(navigator.userAgentData.brands);
+      const brand = last(navigator.userAgentData.brands);
       browser = `${brand.brand}/${brand.version}`;
     }
     if (!browser) {
