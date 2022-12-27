@@ -1,5 +1,8 @@
+@import "../../index.less";
+
 ._gk-tabs {
-  border-bottom: 1px solid #dfe4ee;
+  border-bottom: 1px solid @gray-4;
+
   ._gk-tabs-nav {
     display: flex;
     align-items: center;
@@ -14,7 +17,7 @@
       text-align: center;
 
       &:hover {
-        color: #1248e9;
+        color: @blue-1;
       }
 
       ._gk-tabs-tab-content {
@@ -28,7 +31,7 @@
     }
 
     ._gk-tabs-tab._gk-tabs-tab-active {
-      color: #1248e9;
+      color: @blue-1;
 
       &::after {
         content: '';
@@ -38,7 +41,7 @@
         position: absolute;
         bottom: -1px;
         left: 0;
-        background: #1248e9;
+        background: @blue-1;
       }
     }
   }

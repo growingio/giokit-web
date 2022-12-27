@@ -1,6 +1,8 @@
+@import '@/index.less';
+
 ._gk-panel-paragraph {
   border-radius: 6px;
-  background: #fff;
+  background: @white;
   box-shadow: 0px 0px 4px rgba(123, 129, 156, 0.5);
 
   &:not(:last-child) {
@@ -10,11 +12,14 @@
   ._gk-panel-paragraph-title {
     position: relative;
     padding: 1em 1em 0 1em;
-    border-bottom: 1px solid #dfe4ee;
+    border-bottom: 1px solid @gray-4;
   }
 
   ._gk-panel-paragraph-content {
     padding: 1em 0.5em;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
 
     ._gk-panel-paragraph-items {
       text-align: center;
@@ -23,7 +28,7 @@
       cursor: pointer;
 
       ._gk-icon {
-        color: #fc5f3a;
+        color: @orange;
 
         svg {
           width: 2em;

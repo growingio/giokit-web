@@ -1,6 +1,9 @@
+@import '@/index.less';
+
 // 面板关闭时
 #__giokit {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+
   *:focus-visible {
     outline: none;
   }
@@ -26,7 +29,7 @@
     right: 0;
     bottom: -100%;
     z-index: 10002;
-    background-color: #f7f8fc;
+    background-color: @gray-5;
     transition: bottom 0.3s;
     display: flex;
     flex-direction: column;
@@ -37,7 +40,7 @@
   ._gk-panel-head {
     position: relative;
     text-align: center;
-    border-bottom: 1px solid #dfe4ee;
+    border-bottom: 1px solid @gray-4;
     font-weight: 400;
 
     ._gk-panel-title {
@@ -45,7 +48,7 @@
       font-size: 1.5em;
 
       span {
-        color: #fc5f3a;
+        color: @orange;
       }
     }
 
@@ -56,18 +59,20 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+
       svg {
         width: 1.5em;
         height: 1.5em;
       }
+
       &:hover {
-        color: #1248e9;
+        color: @blue-1;
       }
     }
   }
 
   ._gk-header {
-    border-bottom: 1px solid #dfe4ee;
+    border-bottom: 1px solid @gray-4;
   }
 
   ._gk-panel-content {

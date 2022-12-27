@@ -1,8 +1,10 @@
+@import "../../index.less";
+
 ._gk-input {
   position: relative;
 
   input {
-    border: 1px solid #DFE4EE;
+    border: 1px solid @gray-4;
     border-radius: 4px;
     padding: 0.5em 0.6em;
     min-width: 14em;
@@ -12,49 +14,49 @@
     &:hover,
     &:active,
     &:focus {
-      border-color: #1248E9;
+      border-color: @blue-1;
     }
   }
 
   input::-webkit-input-placeholder {
     /*WebKit browsers*/
-    color: #DFE4EE
+    color: @gray-4
   }
 
   input::-moz-input-placeholder {
     /*Mozilla Firefox*/
-    color: #DFE4EE
+    color: @gray-4
   }
 
   input::-ms-input-placeholder {
     /*Internet Explorer*/
-    color: #DFE4EE
+    color: @gray-4
   }
 
   ._gk-input-disabled {
     cursor: not-allowed;
-    background-color: #F7F8FC;
+    background-color: @gray-5;
 
     &:hover,
     &:active,
     &:focus {
-      border-color: #DFE4EE;
+      border-color: @gray-4;
     }
   }
 
   ._gk-input-has-error {
-    color: #EC134B;
-    border-color: #EC134B;
+    color: @red-1;
+    border-color: @red-1;
 
     &:hover,
     &:active,
     &:focus {
-      border-color: #EC134B;
+      border-color: @red-1;
     }
   }
 
   ._gk-input-error {
-    color: #EC134B;
+    color: @red-1;
     position: absolute;
     top: 34px;
   }

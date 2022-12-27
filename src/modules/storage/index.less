@@ -1,3 +1,5 @@
+@import '@/index.less';
+
 ._gk-storage {
   margin-top: -1em;
   display: flex;
@@ -16,8 +18,8 @@
     height: 100%;
 
     ._gk-storage-list-header {
-      background-color: #f7f8fc;
-      border-top: 1px solid #dfe4ee;
+      background-color: @gray-5;
+      border-top: 1px solid @gray-4;
       position: sticky;
       top: 0;
       z-index: 1;
@@ -26,7 +28,7 @@
     ._gk-storage-list-header,
     ._gk-storage-list-item {
       display: flex;
-      border-bottom: 1px solid #dfe4ee;
+      border-bottom: 1px solid @gray-4;
     }
 
     ._gk-storage-list-header ._gk-storage-list-header-content,
@@ -37,7 +39,7 @@
 
       >div {
         word-wrap: break-word;
-        border-right: 1px solid #dfe4ee;
+        border-right: 1px solid @gray-4;
         padding: 0.5em;
       }
     }
@@ -82,7 +84,7 @@
       cursor: pointer;
 
       svg {
-        color: #1248e9;
+        color: @blue-1;
       }
     }
   }
@@ -90,13 +92,13 @@
 
 ._gk-storage-list-item-copyed {
   svg {
-    color: #16cb79 !important;
+    color: @green-1 !important;
   }
 }
 
 #_gk-storage-list-item-options-tippy {
   position: absolute;
-  background-color: #fff;
+  background-color: @white;
   box-shadow: rgb(0 0 0 / 30%) 0px 0px 4px,
     rgb(255 255 255 / 5%) 0px 1px 0px inset;
   border-radius: 4px;
@@ -104,7 +106,7 @@
   ._gk-storage-tippy-arrow::before {
     width: 0.5em;
     height: 0.5em;
-    background-color: #fff;
+    background-color: @white;
     box-shadow: 2px 2px 5px #0000000f;
     transform: rotate(-45deg);
     position: absolute;

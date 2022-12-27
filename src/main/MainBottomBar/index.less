@@ -1,18 +1,23 @@
+@import '@/index.less';
+
 ._gk-main-bottom-bar {
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid #dfe4ee;
-  border-bottom: 1px solid #dfe4ee;
+  border-top: 1px solid @gray-4;
+  border-bottom: 1px solid @gray-4;
+
   ._gk-main-bottom-bar-item {
     width: 100%;
     text-align: center;
     line-height: 3em;
     cursor: pointer;
+
     &:not(:last-child) {
-      border-right: 1px solid #dfe4ee;
+      border-right: 1px solid @gray-4;
     }
+
     &:hover {
-      color: #1248e9;
+      color: @blue-1;
     }
   }
 }

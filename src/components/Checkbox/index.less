@@ -1,3 +1,5 @@
+@import '@/index.less';
+
 ._gk-checkbox {
   display: inline-flex;
   align-items: center;
@@ -6,12 +8,12 @@
 
   &:hover {
     ._gk-checkbox-wrapper {
-      border-color: #1248e9;
+      border-color: @blue-1;
     }
   }
 
   ._gk-checkbox-wrapper {
-    border: 1px solid #dfe4ee;
+    border: 1px solid @gray-4;
     border-radius: 4px;
     margin-right: 0.5em;
     line-height: 0;
@@ -41,12 +43,12 @@
 
   ._gk-checkbox-wrapper._gk-checked,
   ._gk-checkbox-wrapper._gk-indeterminate {
-    border-color: #1248e9;
+    border-color: @blue-1;
   }
 
   ._gk-checkbox-wrapper._gk-checked {
     ._gk-checkbox-inner {
-      background-color: #1248e9;
+      background-color: @blue-1;
 
       &::after {
         top: 45%;
@@ -56,7 +58,7 @@
         height: 0.57125em;
         position: relative;
         display: table;
-        border: 2px solid #fff;
+        border: 2px solid @white;
         border-top: 0;
         border-left: 0;
         transform: rotate(45deg) scale(1) translate(-50%, -50%);
@@ -69,7 +71,7 @@
 
   ._gk-checkbox-wrapper._gk-indeterminate {
     ._gk-checkbox-inner {
-      background-color: #1248e9;
+      background-color: @blue-1;
 
       &::after {
         top: 50%;
@@ -79,7 +81,7 @@
         height: 0;
         position: relative;
         display: table;
-        border: 2px solid #fff;
+        border: 2px solid @white;
         border-top: 0;
         border-left: 0;
         transform: scale(1) translate(-50%, -50%);

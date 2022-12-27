@@ -1,6 +1,8 @@
+@import '@/index.less';
+
 ._gk-content {
   border-radius: 6px;
-  background: #fff;
+  background: @white;
   box-shadow: 0px 0px 4px rgba(123, 129, 156, 0.5);
   position: absolute;
   top: 1em;
@@ -22,7 +24,7 @@
     display: block;
     height: 1.2em;
     width: 0.2em;
-    background: #fc5f3a;
+    background: @orange;
     position: absolute;
     left: 0;
     top: 0.1em;
@@ -30,7 +32,7 @@
 }
 
 ._gk-content-header-desc {
-  color: #7B819C;
+  color: @gray-2;
 }
 
 ._gk-grid-list {
@@ -46,7 +48,7 @@
 
     ._gk-grid-list-key {
       font-weight: bold;
-      color: #242e59;
+      color: @gray-1;
     }
 
     span {

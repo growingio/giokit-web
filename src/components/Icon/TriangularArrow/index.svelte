@@ -1,15 +1,13 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
-  import { slide } from "svelte/transition";
-  import "./index.less";
+  import { onMount, onDestroy } from 'svelte';
+  import { slide } from 'svelte/transition';
+  import './index.less';
 
-  export let direction: "right" | "down" | "left" | "up" = "right";
+  export let direction: 'right' | 'down' | 'left' | 'up' = 'right';
 
-  onMount(() => {
-  });
+  onMount(() => {});
 
-  onDestroy(() => {
-  });
+  onDestroy(() => {});
 </script>
 
 <i class="_gk-triangular-arrow">

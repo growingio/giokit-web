@@ -1,5 +1,5 @@
 import Giokit from './GioKit.svelte';
-import './index.css';
+import './index.less';
 
 const app = new Giokit({
   target: document.documentElement

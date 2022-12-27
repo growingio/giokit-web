@@ -1,3 +1,5 @@
+@import "../../index.less";
+
 ._gk-modal-container {
   position: absolute;
   top: 0;
@@ -26,7 +28,7 @@
     display: block;
     min-width: 20em;
     max-width: 40em;
-    background: #fff;
+    background: @white;
     z-index: 10011;
     border-radius: 4px;
     padding: 1.5em;
@@ -66,19 +68,19 @@
 
   ._gk-modal._gk-modal-info {
     ._gk-modal-title svg {
-      color: #1248e9;
+      color: @blue-1;
     }
   }
 
   ._gk-modal._gk-modal-warning {
     ._gk-modal-title svg {
-      color: #faa937;
+      color: @yellow-1;
     }
   }
 
   ._gk-modal._gk-modal-error {
     ._gk-modal-title svg {
-      color: #ec134b;
+      color: @red-1;
     }
   }
 }

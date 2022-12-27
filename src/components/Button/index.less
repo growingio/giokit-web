@@ -1,3 +1,5 @@
+@import '@/index.less';
+
 #__giokit button {
   outline: none;
   border: none;
@@ -16,28 +18,28 @@
 }
 
 ._gk-btn-default {
-  border: 1px solid #dfe4ee !important;
-  background-color: #fff;
-  color: #242e59;
+  border: 1px solid @gray-4 !important;
+  background-color: @white;
+  color: @gray-1;
   padding: calc(0.55em - 1px) calc(1.2em - 1px);
 }
 
 ._gk-btn-default:hover {
-  color: #1248e9;
-  background-color: #f7f8fc;
+  color: @blue-1;
+  background-color: @gray-5;
 }
 
 ._gk-btn-primary {
-  color: #fff;
-  background-color: #3867f4;
+  color: @white;
+  background-color: @blue-2;
 }
 
 ._gk-btn-primary:hover {
-  background-color: #1248e9;
+  background-color: @blue-1;
 }
 
 ._gk-btn-default:hover svg {
-  fill: #1248e9;
+  fill: @blue-1;
 }
 
 ._gk-btn-small {
@@ -50,19 +52,19 @@
 
 ._gk-btn-disabled {
   cursor: not-allowed !important;
-  background: #F7F8FC;
+  background: @gray-5;
 
   svg {
-    fill: #ADB2C2;
+    fill: @gray-3;
   }
 
-  color: #ADB2C2;
+  color: @gray-3;
 
   &:hover {
     svg {
-      fill: #ADB2C2;
+      fill: @gray-3;
     }
 
-    color: #ADB2C2;
+    color: @gray-3;
   }
 }
