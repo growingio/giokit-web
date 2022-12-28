@@ -1,11 +1,11 @@
 <script lang="ts">
   import './index.less';
   import { _activeReqType } from './store';
+  import ClearTip from './components/ClearTip/index.svelte';
   import Divider from '@/components/Divider/index.svelte';
-  import RequestList from './RequestList.svelte';
+  import FilterTip from './components/FilterTip/index.svelte';
+  import RequestList from './components/RequestList/index.svelte';
   import Switch from '@/components/Switch/index.svelte';
-  import ClearTip from './ClearTip.svelte';
-  import FilterTip from './FilterTip.svelte';
 
   const switchers = [
     { label: 'Gio', value: 'gio' },

@@ -1,17 +1,17 @@
 <script lang="ts">
-  import './index.less';
+  import '../../index.less';
   import {
     _gioActive,
     _gioActiveEvent,
     _gioRequestQueue,
     _activeReqType,
     _filterActive
-  } from './store';
+  } from '../../store';
   import { formatTime, isEmpty } from '@/utils/glodash';
   import { onMount, onDestroy } from 'svelte';
-  import { RequestItem } from './model';
+  import { RequestItem } from '../../model';
   import { Unsubscriber, get } from 'svelte/store';
-  import Duration from './Duration.svelte';
+  import Duration from '../Duration/index.svelte';
   import Empty from '@/components/Empty/index.svelte';
   import JsonView from '@/components/JsonView/index.svelte';
 

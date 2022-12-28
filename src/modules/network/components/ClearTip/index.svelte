@@ -10,8 +10,8 @@
     _gioActiveEvent,
     _gioRequestQueue,
     _requestQueue
-  } from './store';
-  import './ClearTip.less';
+  } from '../../store';
+  import './index.less';
   import { isEmpty } from '@/utils/glodash';
 
   const handleClear = () => {

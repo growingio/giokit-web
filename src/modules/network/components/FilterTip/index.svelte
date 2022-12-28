@@ -1,5 +1,5 @@
 <script lang="ts">
-  import './FilterTip.less';
+  import './index.less';
   import {
     _activeReqType,
     _gioRequestQueue,
@@ -7,7 +7,7 @@
     _clearVisible,
     _filterVisible,
     _filterActive
-  } from './store';
+  } from '../../store';
   import { isEmpty } from '@/utils/glodash';
   import Button from '@/components/Button/index.svelte';
   import Icon from '@/components/Icon/index.svelte';

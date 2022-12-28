@@ -1,5 +1,5 @@
 <script lang="ts">
-  import './index.less';
+  import '../../index.less';
   import {
     _activeReqType,
     _clearVisible,
@@ -7,9 +7,9 @@
     _requestQueue,
     _gioRequestQueue,
     _filterActive
-  } from './store';
-  import NormalRequestList from './NormalRequestList.svelte';
-  import GioRequestList from './GioRequestList.svelte';
+  } from '../../store';
+  import NormalRequestList from '../NormalRequestList/index.svelte';
+  import GioRequestList from '../GioRequestList/index.svelte';
 
   const handleOut = (e: Event) => {
     e.preventDefault();

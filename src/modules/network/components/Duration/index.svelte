@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fixed } from '@/utils/glodash';
-  import './Duration.less';
+  import './index.less';
 
   export let item: any = {};
 
