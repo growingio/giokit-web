@@ -1,8 +1,11 @@
 import { _requestQueue, _gioRequestQueue } from './store';
+import { BeaconProxy } from './proxy/beacon.proxy';
+import { FetchProxy } from './proxy/fetch.proxy';
+import { genFormattedBody, niceTry } from '@/utils/tools';
 import { get } from 'svelte/store';
-import { guid, getURL, genFormattedBody, niceTry } from '@/utils/tools';
-import { has, isNil, unset, head, isArray } from '@/utils/glodash';
+import { has, isNil, head, isArray } from '@/utils/glodash';
 import { LZString } from './compress';
+import { XHRProxy } from './proxy/xhr.proxy';
 
 export type RequestMethod =
   | ''
@@ -66,28 +69,11 @@ export default class NetworkModel {
   public observer: any;
 
   constructor() {
-    this.hookXHR();
-    this.hookFetch();
-    this.hookSendBeacon();
+    this.mockXHR();
+    this.mockFetch();
+    this.mockSendBeacon();
     this.initPerformance();
   }
-
-  // 获取请求时长颜色
-  getDurationColor = (d: string | number) => {
-    let n: number | string = Number(d);
-    if (!isNaN(n)) {
-      if (n < 1000) {
-        n = 'green';
-      } else if (n >= 1000 && n < 5000) {
-        n = 'yellow';
-      } else {
-        n = 'red';
-      }
-      return n;
-    } else {
-      return 'normal';
-    }
-  };
 
   // 请求时长监控
   initPerformance = () => {
@@ -107,7 +93,7 @@ export default class NetworkModel {
           const target: RequestItem = m[targetIndex];
           if (target) {
             target.duration = requstTiming.duration;
-            target.durationColor = this.getDurationColor(target.duration);
+            target.durationColor = getDurationColor(target.duration);
           }
           return m;
         });
@@ -118,196 +104,87 @@ export default class NetworkModel {
     });
   };
 
-  // 重写XHR
-  hookXHR = () => {
-    const self = this;
-    this.originXMLHttpRequest = window.XMLHttpRequest;
-    const originXMLHttpRequestProto = XMLHttpRequest.prototype;
-    let _gioxhr: any = {};
-    rewriter(originXMLHttpRequestProto, 'open', (originOpen: () => void) => {
-      return function (this: any, ...args: any[]): void {
-        const parsedURL = getURL(args[1]);
-        this._id = guid();
-        _gioxhr[this._id] = <RequestItem>{
-          _id: this._id,
-          type: 'XMLHttpRequest',
-          name: (parsedURL.pathname.split('/').pop() || '') + parsedURL.search,
-          method: args[0],
-          url: parsedURL.toString(),
-          startTime: Date.now(),
-          status: 0,
-          params: parsedURL.searchParams.toString(),
-          body: {},
-          endTime: 0,
-          duration: 0,
-          isGioData: self.isGio(parsedURL.toString())
-        };
-        originOpen.apply(this, args as []);
-      };
-    });
-    rewriter(originXMLHttpRequestProto, 'send', (originSend: () => void) => {
-      return function (this: any, ...args: any[]): void {
-        // 在请求内部也进行时长的统计
-        this.addEventListener('loadend', (event: any) => {
-          if (_gioxhr[this._id]) {
-            _gioxhr[this._id] = <RequestItem>{
-              ..._gioxhr[this._id],
-              body: self.getFormattedBody(args, _gioxhr[this._id].isGioData),
-              endTime: event.timeStamp || Date.now(),
-              duration:
-                (event.timeStamp || Date.now()) - _gioxhr[this._id].startTime,
-              status: this.status || 'OK'
-            };
-            _gioxhr[this._id].durationColor = self.getDurationColor(
-              _gioxhr[this._id].duration
-            );
-            const requestItem: RequestItem = _gioxhr[this._id];
-            self.addRequestItem(requestItem);
-            unset(_gioxhr, this._id);
-          }
-        });
-        this.addEventListener('error', (event: any) => {
-          const t = event.timeStamp || Date.now();
-          if (_gioxhr[this._id]) {
-            _gioxhr[this._id] = <RequestItem>{
-              ..._gioxhr[this._id],
-              endTime: t,
-              duration: t - _gioxhr[this._id].startTime,
-              status: this.status || 'ERROR'
-            };
-            _gioxhr[this._id].durationColor = self.getDurationColor(
-              _gioxhr[this._id].duration
-            );
-            const requestItem: RequestItem = _gioxhr[this._id];
-            self.addRequestItem(requestItem);
-            unset(_gioxhr, this._id);
-          }
-        });
-        if (_gioxhr[this._id]) {
-          _gioxhr[this._id].startTime = Date.now();
-        }
-        originSend.apply(this, args as []);
-      };
-    });
-  };
-
-  // 重写fetch
-  hookFetch = () => {
-    const self = this;
-    this.originFetch = window.fetch;
-    rewriter(window, 'fetch', (originFetch: () => void) => {
-      return function (url: string, config: any = {}): void {
-        console.log(config, 'config');
-        const parsedURL = getURL(url);
-        const isGioData = self.isGio(parsedURL.toString());
-        let requestItem: RequestItem = {
-          _id: guid(),
-          type: 'fetch',
-          name: (parsedURL.pathname.split('/').pop() || '') + parsedURL.search,
-          method: config.method || 'GET',
-          headers: config.headers || {},
-          url: parsedURL.toString(),
-          startTime: Date.now(),
-          status: 0,
-          params: parsedURL.searchParams.toString(),
-          body: self.getFormattedBody(config.body, isGioData),
-          endTime: 0,
-          duration: 0,
-          isGioData
-        };
-        return originFetch
-          .apply(window, [url, config])
-          .then((response: Response) => {
-            requestItem = {
-              ...requestItem,
-              status: response?.status || 'OK',
-              endTime: Date.now(),
-              duration: Date.now() - requestItem.startTime
-            };
-            console.log(requestItem, 'requestItem');
-            requestItem.durationColor = self.getDurationColor(
-              requestItem.duration
-            );
-            self.addRequestItem(requestItem);
-          })
-          .catch((e: any) => {
-            requestItem.endTime = Date.now();
-            (requestItem.duration = Date.now() - requestItem.startTime),
-              (requestItem.error = e.message);
-            requestItem.status = 'ERROR';
-            requestItem.durationColor = self.getDurationColor(
-              requestItem.duration
-            );
-            self.addRequestItem(requestItem);
-            throw e;
-          });
-      };
-    });
-  };
-
-  // 重写sendBeacon
-  hookSendBeacon = () => {
-    const self = this;
-    this.originSendBeacon = navigator.sendBeacon;
-    rewriter(navigator, 'sendBeacon', (originSendBeacon: () => void) => {
-      return function (url: string, data: any): void {
-        const parsedURL = getURL(arguments[0]);
-        const isGioData = self.isGio(parsedURL.toString());
-        let requestItem: RequestItem = {
-          _id: guid(),
-          type: 'ping',
-          name: (parsedURL.pathname.split('/').pop() || '') + parsedURL.search,
-          method: 'POST',
-          headers: { 'content-type': 'text/plain;charset=UTF-8' },
-          url: parsedURL.toString(),
-          startTime: Date.now(),
-          status: 0,
-          params: parsedURL.searchParams.toString(),
-          body: self.getFormattedBody(data, isGioData),
-          endTime: 0,
-          duration: 0,
-          isGioData
-        };
-        const res: any = originSendBeacon.apply(navigator, [url, data]);
-        if (res) {
-          requestItem.endTime = Date.now();
-          requestItem.duration = requestItem.endTime - requestItem.startTime;
-          requestItem.durationColor = self.getDurationColor(
-            requestItem.duration
-          );
-          requestItem.status = 'OK';
-        }
-        self.addRequestItem(requestItem);
-        return res;
-      };
-    });
-  };
-
-  // 判断是否为Gio的上报请求
-  isGio = (url: string) => {
-    const { host, projectId } = (window as any).vds;
-    return url.indexOf(host) > -1 && url.indexOf(`${projectId}/collect`) > -1;
-  };
-
-  // 获取格式化后的请求body
-  getFormattedBody = (body: any, isGioData: boolean = false) => {
-    if (isGioData) {
-      const ret = LZString.decompressFromUint8Array(body) || body;
-      return niceTry(() => JSON.parse(ret)) ?? ret;
-    } else {
-      return genFormattedBody(body);
+  /**
+   * mock XMLHttpRequest
+   * @private
+   */
+  private mockXHR() {
+    if (!window.hasOwnProperty('XMLHttpRequest')) {
+      return;
     }
-  };
+    window.XMLHttpRequest = XHRProxy.create((item: RequestItem) => {
+      this.updateRequestItem(item);
+    });
+  }
 
-  // 简单处理后添加至队列
-  addRequestItem = (requestItem: RequestItem) => {
+  /**
+   * mock fetch request
+   * @private
+   */
+  private mockFetch() {
+    if (!window.hasOwnProperty('fetch')) {
+      return;
+    }
+    window.fetch = FetchProxy.create((item: RequestItem) => {
+      this.updateRequestItem(item);
+    });
+  }
+
+  /**
+   * mock navigator.sendBeacon
+   * @private
+   */
+  private mockSendBeacon() {
+    if (!window.navigator.sendBeacon) {
+      return;
+    }
+    window.navigator.sendBeacon = BeaconProxy.create((item: RequestItem) => {
+      this.updateRequestItem(item);
+    });
+  }
+
+  public unMock() {
+    // recover original functions
+    if (window.hasOwnProperty('XMLHttpRequest')) {
+      window.XMLHttpRequest = XHRProxy.origXMLHttpRequest;
+    }
+    if (window.hasOwnProperty('fetch')) {
+      window.fetch = FetchProxy.origFetch;
+    }
+    if (!!window.navigator.sendBeacon) {
+      window.navigator.sendBeacon = BeaconProxy.origSendBeacon;
+    }
+  }
+
+  // 更新请求队列
+  updateRequestItem = (requestItem: RequestItem) => {
     if (requestItem.isGioData) {
       if (isArray(requestItem.body)) {
         requestItem.gioType = head(requestItem.body).eventType;
       }
-      _gioRequestQueue.update((o) => [requestItem, ...o].slice(0, 50));
+      _gioRequestQueue.update((l: RequestItem[]) => {
+        const tl = [...l];
+        const idx = l.findIndex((o) => o._id === requestItem._id);
+        // 有相同id的请求则更新请求内容
+        if (idx > -1) {
+          tl[idx] = requestItem;
+          return tl;
+        } else {
+          // 不存在则推入队列
+          return [...l, requestItem];
+        }
+      });
     }
-    _requestQueue.update((o) => [requestItem, ...o].slice(0, 50));
+    _requestQueue.update((l: RequestItem[]) => {
+      const tl = [...l];
+      const idx = l.findIndex((o) => o._id === requestItem._id);
+      if (idx > -1) {
+        tl[idx] = requestItem;
+        return tl;
+      } else {
+        return [...l, requestItem];
+      }
+    });
   };
 
   // 恢复请求的hook逻辑
@@ -323,3 +200,36 @@ export default class NetworkModel {
     }
   }
 }
+
+// 判断是否为Gio的上报请求
+export const isGio = (url: string) => {
+  const { host, projectId } = (window as any).vds;
+  return url.indexOf(host) > -1 && url.indexOf(`${projectId}/collect`) > -1;
+};
+
+// 获取格式化后的请求body
+export const getFormattedBody = (body: any, isGioData: boolean = false) => {
+  if (isGioData) {
+    const ret = LZString.decompressFromUint8Array(body) || body;
+    return niceTry(() => JSON.parse(ret)) ?? ret;
+  } else {
+    return genFormattedBody(body);
+  }
+};
+
+// 获取请求时长颜色
+export const getDurationColor = (d: string | number) => {
+  let n: number | string = Number(d);
+  if (!isNaN(n)) {
+    if (n < 1000) {
+      n = 'green';
+    } else if (n >= 1000 && n < 5000) {
+      n = 'yellow';
+    } else {
+      n = 'red';
+    }
+    return n;
+  } else {
+    return 'normal';
+  }
+};
