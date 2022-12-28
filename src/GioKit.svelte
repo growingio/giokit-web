@@ -11,6 +11,10 @@
   import ToolContent from './main/ToolContent/index.svelte';
 
   /**
+   * Public properties
+   */
+  export let switchButtonPosition = { x: 0, y: 0 };
+  /**
    * Inner properties
    */
   let fontSize: string = '13px';
@@ -22,6 +26,9 @@
   let activeTool: string = '';
   let bottomBarList: any[] = [];
 
+  let logModel: any;
+  let networkModel: any;
+
   $: {
     // 窗口开关动画
     if (openGioKit === true) {
@@ -30,7 +37,6 @@
       cssTimer && clearTimeout(cssTimer);
       cssTimer = setTimeout(() => {
         openMain = true;
-        // autoScrollToBottom();
       }, 10);
     } else {
       openMain = false;
@@ -68,10 +74,14 @@
       }
     }
 
-    let logModel = new LogModel();
-    let networkModel = new NetworkModel();
+    logModel = new LogModel();
+    networkModel = new NetworkModel();
   });
-  onDestroy(() => {});
+
+  onDestroy(() => {
+    logModel.unmockConsole();
+    networkModel.unMock();
+  });
 
   /**
    * Methods
@@ -90,8 +100,6 @@
     { label: '至底部', key: 'bottom', onClick: () => {} },
     { label: '关闭', key: 'close', onClick: onTapClose }
   ];
-
-  console.log($_activeTool);
 </script>
 
 <div
@@ -99,7 +107,7 @@
   class:gk-open={openMain}
   style={fontSize ? 'font-size:' + fontSize + ';' : ''}
 >
-  <Switcher on:click={onTapOpen} />
+  <Switcher on:click={onTapOpen} bind:position={switchButtonPosition} />
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div
     class="_gk-mask"

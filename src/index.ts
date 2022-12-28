@@ -1,8 +1,3 @@
-import Giokit from './GioKit.svelte';
-import './index.less';
+import { GioKit } from './GioKit';
 
-const app = new Giokit({
-  target: document.documentElement
-});
-
-export default app;
+export default GioKit;

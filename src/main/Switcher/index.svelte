@@ -40,8 +40,8 @@
     switchPos.y = switchY;
     btnSwitchPos.x = switchX;
     btnSwitchPos.y = switchY;
-    // tool.setStorage('switch_x', switchX + '');
-    // tool.setStorage('switch_y', switchY + '');
+    localStorage.setItem('GioKit_switch_x', switchX + '');
+    localStorage.setItem('GioKit_switch_y', switchY + '');
   };
 
   /**
