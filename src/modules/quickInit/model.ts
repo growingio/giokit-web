@@ -27,7 +27,20 @@ export const generateNPMPluginsImport = (options: any) => {
 };
 
 // 按需集成模版
-export const integratedTemplate = `<script type="text/javascript">
+export const fullTemplate = `<script type="text/javascript">
+  !(function (e, n, t, c, i) {
+    (e[i] =
+      e[i] ||
+      function () {
+        (e[i].q = e[i].q || []).push(arguments);
+      }),
+      (t = n.createElement('script'));
+    s = n.getElementsByTagName('script')[0];
+    (t.async = 1), (t.src = c), s.parentNode.insertBefore(t, s);
+  })(window, document, 'script', 'https://assets.giocdn.com/sdk/webjs/cdp/gdp-full.js', 'gdp');`;
+
+// 按需集成模版
+export const demandedTemplate = `<script type="text/javascript">
   !(function (e, n, t, c, i) {
     (e[i] =
       e[i] ||
@@ -38,6 +51,12 @@ export const integratedTemplate = `<script type="text/javascript">
     s = n.getElementsByTagName('script')[0];
     (t.async = 1), (t.src = c), s.parentNode.insertBefore(t, s);
   })(window, document, 'script', 'https://assets.giocdn.com/sdk/webjs/cdp/gdp.js', 'gdp');`;
+
+// 生成npm引入代码
+export const generateNPMImport = (full: boolean = false) =>
+  full
+    ? `import gdp from 'gio-webjs-sdk-cdp/gdp-full';\n`
+    : `import gdp from 'gio-webjs-sdk-cdp';\n`;
 
 // 生成插件注册代码
 export const generatePluginsRegister = (

@@ -48,3 +48,25 @@
     }
   }
 }
+
+._gk-toggle._gk-toggle-checked._gk-toggle-disabled {
+  background: @gray-3;
+  cursor: not-allowed !important;
+
+  ._gk-toggle-handle {
+    &::before {
+      background-color: @gray-5;
+    }
+  }
+}
+
+._gk-toggle._gk-toggle-disabled {
+  background: @gray-5;
+  cursor: not-allowed !important;
+
+  ._gk-toggle-handle {
+    &::before {
+      background-color: @gray-3;
+    }
+  }
+}

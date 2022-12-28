@@ -27,3 +27,4 @@ declare interface Window {
 declare module 'tippy.js';
 declare module 'js-cookie';
 declare module 'querystringify';
+declare module 'prismjs';

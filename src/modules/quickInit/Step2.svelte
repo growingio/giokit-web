@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { _initOptions, step2Initial } from './store';
+  import {
+    _initOptions,
+    step2Initial,
+    _integrationType,
+    _showAlert
+  } from './store';
   import { onMount } from 'svelte';
   import Button from '@/components/Button/index.svelte';
   import FormItem from '@/components/FormItem/index.svelte';
@@ -7,6 +12,18 @@
   import Input from '@/components/Input/index.svelte';
   import Toggle from '@/components/Toggle/index.svelte';
   import Tooltip from '@/components/Tooltip/index.svelte';
+  import Switch from '@/components/Switch/index.svelte';
+
+  const switchers = [
+    {
+      label: '按需集成',
+      value: 'demanded'
+    },
+    {
+      label: '全量集成',
+      value: 'full'
+    }
+  ];
 
   const fileds = [
     'gioCompress',
@@ -44,6 +61,23 @@
     step2Data = step2Data;
   });
 
+  const onSwitch = (t: string) => {
+    _integrationType.set(t);
+    if (t === 'full') {
+      fileds.forEach((k) => {
+        if (k !== 'appId') {
+          step2Data[k] = true;
+        }
+      });
+    } else {
+      fileds.forEach((k) => {
+        if (k !== 'appId') {
+          step2Data[k] = false;
+        }
+      });
+    }
+  };
+
   const onChange = (e: Event | any, key: string) => {
     let value = e.target.value;
     if (value === 'true') {
@@ -71,6 +105,12 @@
       return false;
     } else {
       _initOptions.update((v) => ({ ...v, ...step2Data }));
+      // 选择按需集成但开启了全部功能时，自动切换为全量模式以减少初始化代码量
+      const opens = Object.values(step2Data).filter((o) => o === true);
+      if (opens.length === 10 && $_integrationType === 'demanded') {
+        _integrationType.set('full');
+        _showAlert.set(true);
+      }
       onNext();
     }
   };
@@ -83,9 +123,14 @@
 </script>
 
 <div class="_gk-qkinit-form-step2">
+  <div class="_gk-qkinit-form-step2-switcher">
+    请选择集成类型：
+    <Switch options={switchers} value={$_integrationType} onChange={onSwitch} />
+  </div>
   <FormItem label="小程序内嵌">
     <Toggle
       checked={step2Data.gioEmbeddedAdapter}
+      disabled={$_integrationType === 'full'}
       onChange={(e) => onChange(e, 'gioEmbeddedAdapter')}
     />
     <span class="_gk-toggle-value">
@@ -111,6 +156,7 @@
   <FormItem label="App内嵌">
     <Toggle
       checked={step2Data.gioHybridAdapter}
+      disabled={$_integrationType === 'full'}
       onChange={(e) => onChange(e, 'gioHybridAdapter')}
     />
     <span class="_gk-toggle-value">
@@ -124,6 +170,7 @@
     <FormItem label="App内嵌圈选">
       <Toggle
         checked={step2Data.gioHybridCircle}
+        disabled={$_integrationType === 'full'}
         onChange={(e) => onChange(e, 'gioHybridCircle')}
       />
       <span class="_gk-toggle-value">
@@ -137,6 +184,7 @@
   <FormItem label="无埋点">
     <Toggle
       checked={step2Data.gioEventAutoTracking}
+      disabled={$_integrationType === 'full'}
       onChange={(e) => onChange(e, 'gioEventAutoTracking')}
     />
     <span class="_gk-toggle-value"
@@ -152,6 +200,7 @@
     <FormItem label="无埋点圈选">
       <Toggle
         checked={step2Data.gioWebCircle}
+        disabled={$_integrationType === 'full'}
         onChange={(e) => onChange(e, 'gioWebCircle')}
       />
       <span class="_gk-toggle-value">
@@ -167,6 +216,7 @@
   <FormItem label="半自动浏览">
     <Toggle
       checked={step2Data.gioImpressionTracking}
+      disabled={$_integrationType === 'full'}
       onChange={(e) => onChange(e, 'gioImpressionTracking')}
     />
     <span class="_gk-toggle-value">
@@ -179,17 +229,23 @@
   <FormItem label="加密压缩">
     <Toggle
       checked={step2Data.gioCompress}
+      disabled={$_integrationType === 'full'}
       onChange={(e) => onChange(e, 'gioCompress')}
     />
     <span class="_gk-toggle-value">{step2Data.gioCompress ? '开' : '关'}</span>
   </FormItem>
   <FormItem label="调试模式">
-    <Toggle checked={step2Data.debug} onChange={(e) => onChange(e, 'debug')} />
+    <Toggle
+      checked={step2Data.debug}
+      disabled={$_integrationType === 'full'}
+      onChange={(e) => onChange(e, 'debug')}
+    />
     <span class="_gk-toggle-value">{step2Data.debug ? '开' : '关'}</span>
   </FormItem>
   <FormItem label="多用户身份">
     <Toggle
       checked={step2Data.enableIdMapping}
+      disabled={$_integrationType === 'full'}
       onChange={(e) => onChange(e, 'enableIdMapping')}
     />
     <span class="_gk-toggle-value">
@@ -199,6 +255,7 @@
   <FormItem label="Hash解析">
     <Toggle
       checked={step2Data.hashtag}
+      disabled={$_integrationType === 'full'}
       onChange={(e) => onChange(e, 'hashtag')}
     />
     <span class="_gk-toggle-value">{step2Data.hashtag ? '开' : '关'}</span>

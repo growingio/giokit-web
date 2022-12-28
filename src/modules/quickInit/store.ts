@@ -20,4 +20,7 @@ export const step2Initial = {
   enableIdMapping: false,
   hashtag: false
 };
+
+export const _integrationType = writable<string>('demanded');
 export const _initOptions = writable<any>({ ...step1Initial, ...step2Initial });
+export const _showAlert = writable<boolean>(false);

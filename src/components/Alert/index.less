@@ -1,0 +1,79 @@
+@import '@/index.less';
+
+._gk-alert {
+  border-radius: 8px;
+  display: flex;
+  padding: 1em;
+
+  ._gk-alert-icon {
+    margin-right: 1em;
+
+    ._gk-icon svg {
+      width: 1.3em;
+      height: 1.3em;
+    }
+  }
+
+  ._gk-alert-content {
+    flex: 1;
+    line-height: 1.1;
+
+    ._gk-alert-message {
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+
+    ._gk-alert-desc {
+      margin-top: 0.5em;
+    }
+  }
+
+  ._gk-alert-close {
+    margin-left: 1em;
+
+    ._gk-icon {
+      cursor: pointer;
+
+      svg {
+        width: 1em;
+        height: 1em;
+      }
+    }
+  }
+}
+
+._gk-alert-info {
+  border: 1px solid @blue-1;
+  background: @blue-3;
+
+  ._gk-alert-icon ._gk-icon svg {
+    color: @blue-1;
+  }
+}
+
+._gk-alert-success {
+  border: 1px solid @green-1;
+  background: @green-3;
+
+  ._gk-alert-icon ._gk-icon svg {
+    color: @green-1;
+  }
+}
+
+._gk-alert-warning {
+  border: 1px solid @yellow-1;
+  background: @yellow-3;
+
+  ._gk-alert-icon ._gk-icon svg {
+    color: @yellow-1;
+  }
+}
+
+._gk-alert-error {
+  border: 1px solid @red-1;
+  background: @red-3;
+
+  ._gk-alert-icon ._gk-icon svg {
+    color: @red-1;
+  }
+}

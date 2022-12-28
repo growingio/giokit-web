@@ -4,7 +4,7 @@
 
   export let options: any[];
   export let value: string | number;
-  export let onChange: (value) => void = () => {};
+  export let onChange: (value: any) => void = (value: any) => {};
 
   let active: string | number = '';
 
@@ -16,7 +16,7 @@
     }
   }
 
-  const handleChange = (value: string | number) => {
+  const handleChange = (value: string) => {
     active = value;
     onChange(value);
   };
