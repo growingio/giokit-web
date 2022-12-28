@@ -14,7 +14,7 @@
    * Inner properties
    */
   let fontSize: string = '13px';
-  let openGioKit: boolean = true;
+  let openGioKit: boolean = false;
   let openMain: boolean = false;
   let openMask: boolean = false;
   let openPanel: boolean = false;
