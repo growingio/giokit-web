@@ -1,5 +1,7 @@
 <script lang="ts">
   import './index.less';
+  import Icon from '@/components/Icon/index.svelte';
+
   /**
    * Public properties
    */
@@ -61,8 +63,8 @@
     if (y + btnSwitch.offsetHeight > docHeight) {
       y = docHeight - btnSwitch.offsetHeight;
     }
-    if (x < 0) {
-      x = 0;
+    if (x < 25) {
+      x = 25;
     }
     if (y < 80) {
       y = 80;
@@ -114,5 +116,5 @@
   on:touchmove|nonpassive={onTouchMove}
   on:click
 >
-  GioKit
+  <Icon name="gio" />
 </div>
