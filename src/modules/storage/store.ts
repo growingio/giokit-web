@@ -9,22 +9,28 @@ export const _storageValue = writable<any[]>([]);
 export const getters: any = {
   cookie: () => {
     const cookieStore = Cookies.get();
-    return keys(cookieStore).map((k) => ({
-      key: k,
-      value: cookieStore[k]
-    }));
+    return keys(cookieStore)
+      .sort()
+      .map((k) => ({
+        key: k,
+        value: cookieStore[k]
+      }));
   },
   local: () => {
-    return keys({ ...localStorage }).map((k) => ({
-      key: k,
-      value: localStorage[k]
-    }));
+    return keys({ ...localStorage })
+      .sort()
+      .map((k) => ({
+        key: k,
+        value: localStorage[k]
+      }));
   },
   session: () => {
-    return keys({ ...sessionStorage }).map((k) => ({
-      key: k,
-      value: sessionStorage[k]
-    }));
+    return keys({ ...sessionStorage })
+      .sort()
+      .map((k) => ({
+        key: k,
+        value: sessionStorage[k]
+      }));
   }
 };
 
