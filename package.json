@@ -1,11 +1,11 @@
 {
-  "name": "giokit-web",
+  "name": "giokit",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
+    "start": "vite build -w",
+    "dev": "vite  build -w",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"

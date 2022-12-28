@@ -5,17 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GioKit Demo</title>
-    <script type="module" src="/src/index.ts"></script>
-    <link
-      rel="shortcut icon"
-      href="./demo/assets/favicon.ico"
-      type="image/x-icon"
-    />
-
-    <link rel="stylesheet" href="./demo/assets/global.css" />
-    <script src="./demo/utils/vconsole.min.js"></script>
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/global.css" />
+    <script src="../dist/giokit.min.js"></script>
+    <script src="./utils/vconsole.min.js"></script>
     <script type="text/javascript">
-      var vConsole = new window.VConsole();
+      // var vConsole = new VConsole();
+      var gioKit = new GioKit();
     </script>
     <!-- <script src="./demo/utils/vue.global.js"></script> -->
     <!-- <script src="./demo/utils/dokit.min.js"></script> -->
@@ -217,7 +213,7 @@
       </div>
     </div>
     <div id="app"></div>
-    <script async src="./demo/utils/init.js"></script>
-    <script async src="./demo/utils/handlers.js"></script>
+    <script async src="./utils/init.js"></script>
+    <script async src="./utils/handlers.js"></script>
   </body>
 </html>
