@@ -25,7 +25,7 @@ export default class LogsModel {
   }
 
   /**
-   * Hook `window.console` with vConsole log method.
+   * Hook `window.console` with GioKit log method.
    * Methods will be hooked only once.
    */
   public hookConsole() {
@@ -38,7 +38,7 @@ export default class LogsModel {
       (<any>window.console) = {};
     } else {
       this.LOG_METHODS.map((method) => {
-        this.origConsole[method] = window.console[method];
+        this.origConsole[method] = (window.console as any)[method];
       });
       this.origConsole.time = window.console.time;
       this.origConsole.timeEnd = window.console.timeEnd;
@@ -54,8 +54,9 @@ export default class LogsModel {
   }
 
   protected _hookConsoleLog() {
+    // @ts-ignore
     this.LOG_METHODS.map((method: LogMethod) => {
-      window.console[method] = ((...args) => {
+      window.console[method] = ((...args: any[]) => {
         this.addLogItem({
           type: method,
           origData: args || []
@@ -86,7 +87,7 @@ export default class LogsModel {
   }
 
   protected _hookConsoleClear() {
-    window.console.clear = ((...args) => {
+    window.console.clear = ((...args: any[]) => {
       this.clearLog();
       this.callOriginalConsole('clear', ...args);
     }).bind(window.console);
@@ -97,14 +98,28 @@ export default class LogsModel {
   /**
    * Call origin `window.console[method](...args)`
    */
-  public callOriginalConsole(method: string, ...args) {
+  public callOriginalConsole(method: string, ...args: any[]) {
     if (typeof this.origConsole[method] === 'function') {
       this.origConsole[method].apply(window.console, args);
     }
   }
 
   /**
-   * Add a vConsole log.
+   * Recover `window.console`.
+   */
+  public unmockConsole() {
+    // recover original console methods
+    for (const method in this.origConsole) {
+      (window.console as any)[method] = this.origConsole[method] as any;
+      delete this.origConsole[method];
+    }
+    if ((<any>window)._vcOrigConsole) {
+      delete (<any>window)._vcOrigConsole;
+    }
+  }
+
+  /**
+   * Add a GioKit log.
    */
   public addLogItem(
     item: {
@@ -121,7 +136,7 @@ export default class LogsModel {
       data: getLogDatasWithFormatting(item.origData || []),
       repeated: 0
     };
-    _logQueue.update((o) => {
+    _logQueue.update((o: any) => {
       return [...o, log];
     });
     if (!opt?.noOrig) {

@@ -50,7 +50,6 @@
     e.stopPropagation();
     // 表单校验
     fileds.forEach((key) => {
-      console.log(step1Data[key], !isString(step1Data[key]));
       if (!isString(step1Data[key]) || isEmpty(step1Data[key])) {
         errorMsg[key] = ERROR_MESSAGE[key];
       }
