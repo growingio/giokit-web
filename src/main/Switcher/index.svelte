@@ -70,12 +70,12 @@
     return [x, y];
   };
 
-  const onTouchStart = (e) => {
+  const onTouchStart = (e: any) => {
     switchPos.startX = e.touches[0].pageX;
     switchPos.startY = e.touches[0].pageY;
     switchPos.hasMoved = false;
   };
-  const onTouchEnd = (e) => {
+  const onTouchEnd = (e: any) => {
     if (!switchPos.hasMoved) {
       return;
     }
@@ -84,7 +84,7 @@
     switchPos.hasMoved = false;
     setSwitchPosition(switchPos.endX, switchPos.endY);
   };
-  const onTouchMove = (e) => {
+  const onTouchMove = (e: any) => {
     if (e.touches.length <= 0) {
       return;
     }
@@ -102,6 +102,7 @@
   };
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
   class="_gk-switcher"
   style="right: {btnSwitchPos.x}px; bottom: {btnSwitchPos.y}px; display: {show

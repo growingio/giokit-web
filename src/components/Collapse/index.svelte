@@ -1,19 +1,16 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
-  import { slide } from "svelte/transition";
-  import "./index.less";
-  import TriangularArrow from "@/components/Icon/TriangularArrow/index.svelte";
+  import { onMount, onDestroy } from 'svelte';
+  import { slide } from 'svelte/transition';
+  import './index.less';
+  import TriangularArrow from '@/components/Icon/TriangularArrow/index.svelte';
 
   export let visible: boolean = true;
   export let title: string;
-  export let extra: any = null;
   export let onChange: (visible: boolean) => void = () => {};
 
-  onMount(() => {
-  });
+  onMount(() => {});
 
-  onDestroy(() => {
-  });
+  onDestroy(() => {});
 
   const toggle = () => {
     visible = !visible;
@@ -22,13 +19,13 @@
 </script>
 
 <div class="_gk-collapse">
-  <div class="_gk-collapse-item" class:_gk-collapse-item-active={visible} >
+  <div class="_gk-collapse-item" class:_gk-collapse-item-active={visible}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="_gk-collapse-item-head" on:click={() => toggle()}>
       <div class="_gk-collapse-item-head-icon">
-        <TriangularArrow direction={visible ? "down" : "right"} />
+        <TriangularArrow direction={visible ? 'down' : 'right'} />
       </div>
-      <div class='_gk-collapse-item-head-content'>
+      <div class="_gk-collapse-item-head-content">
         <div class="_gk-collapse-item-head-title">{title}</div>
         <slot name="extra" />
       </div>
