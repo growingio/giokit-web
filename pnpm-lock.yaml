@@ -24,6 +24,7 @@ specifiers:
   tslib: ^2.4.0
   typescript: ^4.6.4
   vite: ^3.2.0
+  vite-plugin-style-inject: ^0.0.1
 
 dependencies:
   copy-text-to-clipboard: 3.0.1
@@ -51,6 +52,7 @@ devDependencies:
   tslib: 2.4.1
   typescript: 4.8.4
   vite: 3.2.2_less@4.1.3
+  vite-plugin-style-inject: 0.0.1_vite@3.2.2
 
 packages:
 
@@ -2580,6 +2582,14 @@ packages:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
       punycode: 2.1.1
+    dev: true
+
+  /vite-plugin-style-inject/0.0.1_vite@3.2.2:
+    resolution: {integrity: sha512-VsaBOb8ozMQn3kpMt4gIcyNt4BRMQ3Cq30eLIBtq1CH8U6iB1FnxVYspwITzJdXbMQA61QhyAx9QnNLwVRbDlg==}
+    peerDependencies:
+      vite: ^2.0.0
+    dependencies:
+      vite: 3.2.2_less@4.1.3
     dev: true
 
   /vite/3.2.2_less@4.1.3:
