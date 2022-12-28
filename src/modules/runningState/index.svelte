@@ -5,7 +5,7 @@
   let vds: any = {};
 
   $: {
-    vds = window.vds;
+    vds = window.vds ?? {};
   }
 
   const sdkStatus = () => {
@@ -21,15 +21,18 @@
         return '未集成采集SDK';
       }
     } else {
-      // 其他版本
-      return (window as any).gioSDKInstalled && window.vds;
+      if (window.gdp) {
+        return window.vds ? '初始化完成' : '已集成未初始化SDK';
+      } else {
+        return '未集成采集SDK';
+      }
     }
   };
 
   const pluginStatus = (v: boolean, pluginName: string): string => {
     const gdp = window.gdp || window.gio || function () {};
     let plugins = [];
-    if (isFunction(window.vds.canIUse) && vds.canIUse('getPlugins')) {
+    if (isFunction(window?.vds?.canIUse) && vds.canIUse('getPlugins')) {
       plugins = gdp('getPlugins') ?? [];
       const hasPlugin = plugins.find(
         (o: any) => o.name === pluginName && o.method
@@ -67,11 +70,13 @@
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">SDK版本：</span>
-      <span class="_gk-grid-list-value">{vds.gioSDKVersion || vds.sdkVer}</span>
+      <span class="_gk-grid-list-value">
+        {(vds.gioSDKVersion || vds.sdkVer) ?? '-'}
+      </span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">站点版本：</span>
-      <span class="_gk-grid-list-value">{vds.version}</span>
+      <span class="_gk-grid-list-value">{vds.version ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">本地集成：</span>
@@ -87,27 +92,27 @@
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">Gio项目ID：</span>
-      <span class="_gk-grid-list-value">{vds.projectId}</span>
+      <span class="_gk-grid-list-value">{vds.projectId ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">Gio数据源ID：</span>
-      <span class="_gk-grid-list-value">{vds.dataSourceId}</span>
+      <span class="_gk-grid-list-value">{vds.dataSourceId ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">Gio小程序应用ID：</span>
-      <span class="_gk-grid-list-value">{vds.appId}</span>
+      <span class="_gk-grid-list-value">{vds.appId ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">GioWeb弹窗数据请求地址：</span>
-      <span class="_gk-grid-list-value">{vds.gtouchHost}</span>
+      <span class="_gk-grid-list-value">{vds.gtouchHost ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">Gio数据上报请求协议：</span>
-      <span class="_gk-grid-list-value">{vds.scheme}</span>
+      <span class="_gk-grid-list-value">{vds.scheme ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">Gio数据上报请求地址：</span>
-      <span class="_gk-grid-list-value">{vds.host}</span>
+      <span class="_gk-grid-list-value">{vds.host ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">数据采集开关：</span>
@@ -138,11 +143,11 @@
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">平台：</span>
-      <span class="_gk-grid-list-value">{vds.platform}</span>
+      <span class="_gk-grid-list-value">{vds.platform ?? '-'}</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">Session有效期：</span>
-      <span class="_gk-grid-list-value">{vds.sessionExpires} 分钟</span>
+      <span class="_gk-grid-list-value">{vds.sessionExpires ?? '-'} 分钟</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">埋点：</span>
