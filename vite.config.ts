@@ -31,6 +31,10 @@ export default defineConfig({
       fileName: () => 'gioKit.min.js'
     },
     target: 'es2015',
-    cssTarget: 'chrome61'
+    cssTarget: 'chrome61',
+    minify: 'terser',
+    terserOptions: {
+      format: { comments: false }
+    }
   }
 });
