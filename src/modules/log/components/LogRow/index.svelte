@@ -1,12 +1,23 @@
 <script lang="ts">
+  import { isArray, isObject } from '@/utils/glodash';
   import { isNumber, isString } from '@/utils/glodash';
   import { safeJSONStringify } from '@/utils/tools';
   import copy from 'copy-text-to-clipboard';
   import Icon from '@/components/Icon/index.svelte';
+  import LogTree from '../LogTree/index.svelte';
+  import LogValue from '../LogValue/index.svelte';
 
   export let logItem: any;
 
   let copyIcon: 'copy' | 'check' | 'close' = 'copy';
+
+  const isTree = (origData: any) => {
+    class UninvocatableObject {}
+    return (
+      !(origData instanceof UninvocatableObject) &&
+      (isArray(origData) || isObject(origData))
+    );
+  };
 
   const handleCopy = () => {
     const texts: string[] = [];
@@ -61,7 +72,15 @@
   {/if}
   <div class="_gk-log-row-content">
     {#each logItem.data as logData, i (i)}
-      <i style={logData.style}>{`${logData.oData} `}</i>
+      {#if isTree(logData.oData)}
+        <LogTree
+          origData={logData.oData}
+          keyPath={String(i)}
+          toggle={logData.toggle}
+        />
+      {:else}
+        <LogValue origData={logData.oData} style={logData.style} />
+      {/if}
     {/each}
   </div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->

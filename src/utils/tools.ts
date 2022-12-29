@@ -2,11 +2,15 @@ import {
   getPrototypeName,
   isArray,
   isBigInt,
+  isBoolean,
   isFunction,
   isIterable,
+  isNull,
+  isNumber,
   isObject,
   isString,
-  isSymbol
+  isSymbol,
+  isUndefined
 } from './glodash';
 
 // 生成uuid
@@ -121,7 +125,7 @@ export const getLogDatasWithFormatting = (oDatas: any[]) => {
         oData: subLogs[i]
       });
     }
-    // (window as any)._vcOrigConsole.log('getLogDataWithSubstitutions format', logDataList);
+    // (window as any)._gkOrigConsole.log('getLogDataWithSubstitutions format', logDataList);
     return logDataList;
   } else {
     const logDataList: any[] = [];
@@ -130,7 +134,7 @@ export const getLogDatasWithFormatting = (oDatas: any[]) => {
         oData: oDatas[i]
       });
     }
-    // (window as any)._vcOrigConsole.log('getLogDataWithSubstitutions normal', logDataList);
+    // (window as any)._gkOrigConsole.log('getLogDataWithSubstitutions normal', logDataList);
     return logDataList;
   }
 };
@@ -146,6 +150,7 @@ export function getVisibleText(text: string) {
   if (typeof text !== 'string') {
     return text;
   }
+  // @ts-ignore
   return String(text).replace(_visibleTextPatterns, _visibleTextReplacer);
 }
 
@@ -453,4 +458,105 @@ export function isWindow(value: any) {
     name === '[object DOMWindow]' ||
     name === '[object global]'
   );
+}
+
+const getPreviewText = (val: any, end: string) => {
+  const json = safeJSONStringify(val, { maxDepth: 0 });
+  let preview = json.substring(0, 36);
+  let ret = getObjName(val);
+  if (json.length > 36) {
+    preview += `...${end}`;
+  }
+  // ret = tool.getVisibleText(tool.htmlEncode(ret + ' ' + preview));
+  ret = getVisibleText(ret + ' ' + preview);
+  return ret;
+};
+
+/**
+ * Get a value's text content and its type.
+ */
+class UninvocatableObject {}
+export const getValueTextAndType = (val: any, wrapString = true) => {
+  let valueType = 'undefined';
+  let text = val;
+  if (val instanceof UninvocatableObject) {
+    valueType = 'uninvocatable';
+    text = '(...)';
+  } else if (isArray(val)) {
+    valueType = 'array';
+    text = getPreviewText(val, ']');
+  } else if (isObject(val)) {
+    valueType = 'object';
+    text = getPreviewText(val, '}');
+  } else if (isString(val)) {
+    valueType = 'string';
+    text = getVisibleText(val);
+    if (wrapString) {
+      text = '"' + text + '"';
+    }
+  } else if (isNumber(val)) {
+    valueType = 'number';
+    text = String(val);
+  } else if (isBigInt(val)) {
+    valueType = 'bigint';
+    text = String(val) + 'n';
+  } else if (isBoolean(val)) {
+    valueType = 'boolean';
+    text = String(val);
+  } else if (isNull(val)) {
+    valueType = 'null';
+    text = 'null';
+  } else if (isUndefined(val)) {
+    valueType = 'undefined';
+    text = 'undefined';
+  } else if (isFunction(val)) {
+    valueType = 'function';
+    text = 'f ' + (val.name || 'function') + '( )';
+  } else if (isSymbol(val)) {
+    valueType = 'symbol';
+    text = String(val);
+  }
+  return { text, valueType };
+};
+
+const _sortArrayCompareFn = <T extends string>(a: T, b: T) => {
+  return String(a).localeCompare(String(b), undefined, {
+    numeric: true,
+    sensitivity: 'base'
+  });
+};
+/**
+ * Sore an `string[]` by string.
+ */
+export function sortArray(arr: string[]) {
+  return arr.sort(_sortArrayCompareFn);
+}
+
+/**
+ * Get enumerable and non-enumerable keys of an object or array.
+ */
+export function getEnumerableAndNonEnumerableKeys(obj: any) {
+  if (!isObject(obj) && !isArray(obj)) {
+    return [];
+  }
+  return Object.getOwnPropertyNames(obj);
+}
+
+/**
+ * Get non-enumerable keys of an object or array.
+ */
+export function getNonEnumerableKeys(obj: any) {
+  const enumKeys = getEnumerableKeys(obj);
+  const enumAndNonEnumKeys = getEnumerableAndNonEnumerableKeys(obj);
+  return enumAndNonEnumKeys.filter((key: string) => {
+    const i = enumKeys.indexOf(key);
+    return i === -1;
+  });
+}
+
+export function getSymbolKeys(obj: any) {
+  if (!isObject(obj) && !isArray(obj)) {
+    return [];
+  }
+  return Object.getOwnPropertySymbols(obj);
 }

@@ -2,7 +2,7 @@
   import './index.less';
   import { _activeTab, _logQueue } from './store';
   import { head, isEmpty, isString } from '@/utils/glodash';
-  import LogRow from './logRow.svelte';
+  import LogRow from './components/LogRow/index.svelte';
   import Tabs from '@/components/Tabs/index.svelte';
 
   const logsTabs = [
@@ -15,7 +15,6 @@
   ];
 
   let logQueue: any[] = [];
-  let activeTab: string = 'all';
 
   $: {
     if (!isEmpty($_logQueue)) {

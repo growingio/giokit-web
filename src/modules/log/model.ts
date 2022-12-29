@@ -9,6 +9,7 @@ export interface LogItem {
   _id: string;
   type: LogMethod;
   cmdType: LogMethod;
+  toggle: Record<string, boolean>;
   time: number;
   data: any[];
   repeated: number;
@@ -50,7 +51,7 @@ export default class LogsModel {
     this._mockConsoleClear();
 
     // convenient for other uses
-    (<any>window)._vcOrigConsole = this.origConsole;
+    (<any>window)._gkOrigConsole = this.origConsole;
   }
 
   protected _mockConsoleLog() {
@@ -113,8 +114,8 @@ export default class LogsModel {
       (window.console as any)[method] = this.origConsole[method] as any;
       delete this.origConsole[method];
     }
-    if ((<any>window)._vcOrigConsole) {
-      delete (<any>window)._vcOrigConsole;
+    if ((<any>window)._gkOrigConsole) {
+      delete (<any>window)._gkOrigConsole;
     }
   }
 
@@ -132,6 +133,7 @@ export default class LogsModel {
       _id: guid(),
       type: item.type,
       cmdType: opt?.cmdType,
+      toggle: {},
       time: Date.now(),
       data: getLogDatasWithFormatting(item.origData || []),
       repeated: 0

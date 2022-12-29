@@ -1,6 +1,10 @@
 export const isNil = (o: any): boolean =>
   ['undefined', 'null'].includes(typeOf(o));
 
+export const isUndefined = (o: any) => o === undefined;
+
+export const isNull = (o: any) => o === null;
+
 export const isString = (o: any): boolean => typeOf(o) === 'string';
 
 export const isNumber = (o: any): boolean => typeOf(o) === 'number';
@@ -8,7 +12,18 @@ export const isNumber = (o: any): boolean => typeOf(o) === 'number';
 export const isBoolean = (o: any): boolean => typeOf(o) === 'boolean';
 
 export const isObject = (o: any): boolean =>
-  typeOf(o) === 'object' && !isNil(o);
+  (typeOf(o) === 'object' ||
+    // if it isn't a primitive value, then it is a common object
+    (!isNumber(o) &&
+      !isBigInt(o) &&
+      !isString(o) &&
+      !isBoolean(o) &&
+      !isArray(o) &&
+      !isNull(o) &&
+      !isFunction(o) &&
+      !isUndefined(o) &&
+      !isSymbol(o))) &&
+  !isNil(o);
 
 export const isRegExp = (o: any): boolean => typeOf(o) === 'regexp';
 
