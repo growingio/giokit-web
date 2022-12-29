@@ -8,7 +8,7 @@
     isString,
     keys
   } from '@/utils/glodash';
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import Divider from '@/components/Divider/index.svelte';
 
   import './index.less';
@@ -19,6 +19,9 @@
   let system: string = '';
   // 浏览器
   let browser: string = '';
+
+  let innerWidth: number = window.innerWidth;
+  let innerHeight: number = window.innerHeight;
 
   onMount(() => {
     let o: any = {};
@@ -51,6 +54,12 @@
     if (!browser) {
       browser = getBrowser();
     }
+
+    window.addEventListener('resize', onWindowResize);
+  });
+
+  onDestroy(() => {
+    window.removeEventListener('resize', onWindowResize);
   });
 
   const getBrowser = () => {
@@ -80,6 +89,15 @@
       return head(bts.safari);
     }
   };
+
+  const onWindowResize = () => {
+    if (window.innerWidth !== innerWidth) {
+      innerWidth = window.innerWidth;
+    }
+    if (window.innerHeight !== innerHeight) {
+      innerHeight = window.innerHeight;
+    }
+  };
 </script>
 
 <div class="_gk-system">
@@ -104,19 +122,31 @@
     <Divider />
     <div class="_gk-grid-list">
       <div class="_gk-grid-list-item">
-        <span class="_gk-grid-list-key">Client：</span>
+        <span class="_gk-grid-list-key">系统：</span>
         <span class="_gk-grid-list-value">{system}</span>
       </div>
       <div class="_gk-grid-list-item">
-        <span class="_gk-grid-list-key">Browser：</span>
+        <span class="_gk-grid-list-key">浏览器：</span>
         <span class="_gk-grid-list-value">{browser}</span>
       </div>
       <div class="_gk-grid-list-item">
-        <span class="_gk-grid-list-key">Language：</span>
+        <span class="_gk-grid-list-key">分辨率：</span>
+        <span class="_gk-grid-list-value">
+          {window.screen.width}x{window.screen.height}
+        </span>
+      </div>
+      <div class="_gk-grid-list-item">
+        <span class="_gk-grid-list-key">视图宽高：</span>
+        <span class="_gk-grid-list-value">
+          {innerWidth}x{innerHeight}
+        </span>
+      </div>
+      <div class="_gk-grid-list-item">
+        <span class="_gk-grid-list-key">语言：</span>
         <span class="_gk-grid-list-value">{navigator.language}</span>
       </div>
     </div>
-    <div class="_gk-grid-list-item">
+    <div class="_gk-grid-list-item _gk-mt-2">
       <span class="_gk-grid-list-key">UserAgent：</span>
       <span class="_gk-grid-list-value">{navigator.userAgent}</span>
     </div>
