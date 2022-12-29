@@ -462,9 +462,9 @@ export function isWindow(value: any) {
 
 const getPreviewText = (val: any, end: string) => {
   const json = safeJSONStringify(val, { maxDepth: 0 });
-  let preview = json.substring(0, 36);
+  let preview = json.substring(0, 50);
   let ret = getObjName(val);
-  if (json.length > 36) {
+  if (json.length > 50) {
     preview += `...${end}`;
   }
   // ret = tool.getVisibleText(tool.htmlEncode(ret + ' ' + preview));

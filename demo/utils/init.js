@@ -35,5 +35,5 @@ gdp('init', '91eaf9b283361032', '95fcb6d4b44fc4cd', {
   host: 'http://cdp-api.growingio.com'
 });
 
-console.log(window.location);
-console.log(Object.keys(window));
+// console.log(window.location);
+// console.log(Object.keys(window));

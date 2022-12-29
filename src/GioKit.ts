@@ -82,26 +82,6 @@ export class GioKit {
   };
 
   /**
-   * Show GioKit panel.
-   */
-  public show() {
-    if (!this.inited) {
-      return;
-    }
-    this.componentInstance.openGioKit = true;
-  }
-
-  /**
-   * Hide GioKit panel.
-   */
-  public hide() {
-    if (!this.inited) {
-      return;
-    }
-    this.componentInstance.openGioKit = false;
-  }
-
-  /**
    * Remove GioKit.
    */
   public destroy() {
