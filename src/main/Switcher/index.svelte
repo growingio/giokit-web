@@ -66,9 +66,15 @@
     if (x < 25) {
       x = 25;
     }
+    if (docWidth - x < btnSwitch.offsetWidth + 10) {
+      x = docWidth - (btnSwitch.offsetWidth + 10);
+    }
     if (y < 80) {
       y = 80;
-    } // safe area for iOS Home indicator
+    }
+    if (window.innerHeight - y < btnSwitch.offsetHeight + 10) {
+      y = window.innerHeight - (btnSwitch.offsetHeight + 10);
+    }
     return [x, y];
   };
 
