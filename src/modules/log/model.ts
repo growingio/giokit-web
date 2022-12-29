@@ -21,14 +21,14 @@ export default class LogsModel {
   public origConsole: { [method: string]: Function } = {};
 
   constructor() {
-    this.hookConsole();
+    this.mockConsole();
   }
 
   /**
    * Hook `window.console` with GioKit log method.
-   * Methods will be hooked only once.
+   * Methods will be mocked only once.
    */
-  public hookConsole() {
+  public mockConsole() {
     if (typeof this.origConsole.log === 'function') {
       return;
     }
@@ -45,15 +45,15 @@ export default class LogsModel {
       this.origConsole.clear = window.console.clear;
     }
 
-    this._hookConsoleLog();
-    this._hookConsoleTime();
-    this._hookConsoleClear();
+    this._mockConsoleLog();
+    this._mockConsoleTime();
+    this._mockConsoleClear();
 
     // convenient for other uses
     (<any>window)._vcOrigConsole = this.origConsole;
   }
 
-  protected _hookConsoleLog() {
+  protected _mockConsoleLog() {
     // @ts-ignore
     this.LOG_METHODS.map((method: LogMethod) => {
       window.console[method] = ((...args: any[]) => {
@@ -65,7 +65,7 @@ export default class LogsModel {
     });
   }
 
-  protected _hookConsoleTime() {
+  protected _mockConsoleTime() {
     const timeLog: { [label: string]: number } = {};
 
     window.console.time = ((label: string = '') => {
@@ -86,7 +86,7 @@ export default class LogsModel {
     }).bind(window.console);
   }
 
-  protected _hookConsoleClear() {
+  protected _mockConsoleClear() {
     window.console.clear = ((...args: any[]) => {
       this.clearLog();
       this.callOriginalConsole('clear', ...args);
@@ -107,7 +107,7 @@ export default class LogsModel {
   /**
    * Recover `window.console`.
    */
-  public unmockConsole() {
+  public unMock() {
     // recover original console methods
     for (const method in this.origConsole) {
       (window.console as any)[method] = this.origConsole[method] as any;

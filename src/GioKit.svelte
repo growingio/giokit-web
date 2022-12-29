@@ -79,7 +79,7 @@
   });
 
   onDestroy(() => {
-    logModel.unmockConsole();
+    logModel.unMock();
     networkModel.unMock();
   });
 

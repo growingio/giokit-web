@@ -3,7 +3,7 @@ import { BeaconProxy } from './proxy/beacon.proxy';
 import { FetchProxy } from './proxy/fetch.proxy';
 import { genFormattedBody, niceTry } from '@/utils/tools';
 import { get } from 'svelte/store';
-import { has, isNil, head, isArray } from '@/utils/glodash';
+import { head, isArray } from '@/utils/glodash';
 import { LZString } from './compress';
 import { XHRProxy } from './proxy/xhr.proxy';
 
@@ -36,30 +36,6 @@ export interface RequestItem {
   durationColor?: string;
   isGioData?: boolean;
   gioType?: string;
-}
-
-/**
- * 重写对象上面的某个属性
- * @param source 需要被重写的对象
- * @param name 需要被重写对象的key
- * @param replacement 以原有的函数作为参数，执行并重写原有函数
- * @param isForced 是否强制重写（可能原先没有该属性）
- * @returns void
- */
-export function rewriter(
-  source: any,
-  key: string,
-  replacement: (...args: any[]) => any,
-  isForced = false
-): void {
-  if (isNil(source)) return;
-  if (has(source, key) || isForced) {
-    const original = source[key];
-    const wrapped = replacement(original);
-    if (typeof wrapped === 'function') {
-      source[key] = wrapped;
-    }
-  }
 }
 
 export default class NetworkModel {
