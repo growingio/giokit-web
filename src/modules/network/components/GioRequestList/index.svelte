@@ -57,7 +57,7 @@
           on:click={() => onSelect(item._id)}
         >
           <div>
-            {item.gioEventType}
+            <span class="_gk-network-gio-item-type">{item.gioEventType}</span>
             <Duration {item} />
           </div>
           <p>
