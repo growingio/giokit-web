@@ -12,7 +12,7 @@
   import { Unsubscriber } from 'svelte/store';
   import { _appearedIds } from './store';
 
-  let bulletList: any[] = [];
+  let monitorList: any[] = [];
   let unsubscribe: Unsubscriber;
 
   onMount(() => {
@@ -21,9 +21,9 @@
         const target = last(q);
         if (!$_appearedIds.includes(target._id)) {
           _appearedIds.update((l) => [...l, target._id]);
-          bulletList = [...bulletList, target];
+          monitorList = [...monitorList, target];
           window.setTimeout(() => {
-            bulletList = bulletList.filter((o) => o._id !== target._id);
+            monitorList = monitorList.filter((o) => o._id !== target._id);
           }, 2000);
         }
       }
@@ -43,12 +43,12 @@
 </script>
 
 {#if $_showRealTimeMonitor}
-  <div class="_gk-network-bullet">
-    {#each bulletList as item}
+  <div class="_gk-realtime-monitor">
+    {#each monitorList as item}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
         transition:fly={{ x: 80, duration: 400 }}
-        class="_gk-network-bullet-item"
+        class="_gk-realtime-monitor-item"
         on:click={() => onSelect(item)}
       >
         <div class="_gk-item-idx">
