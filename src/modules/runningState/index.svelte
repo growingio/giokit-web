@@ -147,7 +147,7 @@
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">Session有效期：</span>
-      <span class="_gk-grid-list-value">{vds.sessionExpires ?? '-'} 分钟</span>
+      <span class="_gk-grid-list-value">{vds.sessionExpires ?? 30} 分钟</span>
     </div>
     <div class="_gk-grid-list-item">
       <span class="_gk-grid-list-key">埋点：</span>
