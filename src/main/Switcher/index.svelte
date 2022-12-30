@@ -1,6 +1,10 @@
 <script lang="ts">
   import './index.less';
+  import { _showNetworkBullet } from '../store';
+  import { onMount } from 'svelte';
+  import { Unsubscriber } from 'svelte/store';
   import Icon from '@/components/Icon/index.svelte';
+  import Tooltip from '@/components/Tooltip/index.svelte';
 
   /**
    * Public properties
@@ -24,12 +28,25 @@
     y: 0
   };
   let btnSwitch: HTMLElement;
+  let tipInstance: any;
+  let unsubscribe: Unsubscriber;
 
   $: {
     if (btnSwitch) {
       setSwitchPosition(position.x, position.y);
     }
   }
+
+  onMount(() => {
+    unsubscribe = _showNetworkBullet.subscribe((v) => {
+      if (v && tipInstance.instance) {
+        tipInstance.instance.show();
+        window.setTimeout(() => {
+          tipInstance.instance.hide();
+        }, 3000);
+      }
+    });
+  });
 
   /**
    * Methods
@@ -69,8 +86,8 @@
     if (docWidth - x < btnSwitch.offsetWidth + 10) {
       x = docWidth - (btnSwitch.offsetWidth + 10);
     }
-    if (y < 80) {
-      y = 80;
+    if (y < 60) {
+      y = 60;
     }
     if (window.innerHeight - y < btnSwitch.offsetHeight + 10) {
       y = window.innerHeight - (btnSwitch.offsetHeight + 10);
@@ -113,6 +130,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
   class="_gk-switcher"
+  class:_gk-switcher-processing={$_showNetworkBullet}
   style="right: {btnSwitchPos.x}px; bottom: {btnSwitchPos.y}px; display: {show
     ? 'block'
     : 'none'};"
@@ -122,5 +140,12 @@
   on:touchmove|nonpassive={onTouchMove}
   on:click
 >
-  <Icon name="gio" />
+  <Tooltip
+    message="已开启Gio事件实时监控，请继续操作"
+    placement="left"
+    trigger={''}
+    bind:this={tipInstance}
+  >
+    <Icon name="gio" />
+  </Tooltip>
 </div>

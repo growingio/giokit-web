@@ -10,3 +10,4 @@ export const _gioActiveEvent = writable<RequestItem | undefined>();
 export const _clearVisible = writable<boolean>(false);
 export const _filterVisible = writable<boolean>(false);
 export const _filterActive = writable<string[]>([...GIOEVENTTYPES]);
+export const _monitorVisible = writable<boolean>(false);

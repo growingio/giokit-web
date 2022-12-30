@@ -4,6 +4,7 @@
   import Button from '@/components/Button/index.svelte';
   import Icon from '@/components/Icon/index.svelte';
   import Alert from '@/components/Alert/index.svelte';
+  import Tooltip from '@/components/Tooltip/index.svelte';
   import Prism from 'prismjs';
   import copy from 'copy-text-to-clipboard';
   import 'prismjs/themes/prism.css';
@@ -147,15 +148,17 @@ ${generateInit($_initOptions, integrationMode)}`;
     </div>
   {/if}
   <div class="_gk-qkinit-header _gk-qkinit-hastool">
-    <span
-      >{#if integrationMode === 'cdn'}2{:else}3{/if}、获取集成代码并集成</span
-    >
-    <Button on:click={handleCopy}>
-      <Icon
-        name={copyIcon}
-        className={copyIcon === 'check' ? '_gk-qkinit-code-copyed' : ''}
-      />
-    </Button>
+    <span>
+      {#if integrationMode === 'cdn'}2{:else}3{/if}、获取集成代码并集成
+    </span>
+    <Tooltip message="复制代码">
+      <Button on:click={handleCopy}>
+        <Icon
+          name={copyIcon}
+          className={copyIcon === 'check' ? '_gk-qkinit-code-copyed' : ''}
+        />
+      </Button>
+    </Tooltip>
   </div>
   <div class="_gk-qkinit-code-container">
     {#if integrationMode === 'cdn'}

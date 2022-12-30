@@ -149,15 +149,19 @@
           border: 1px solid @gray-4;
           margin-bottom: 0.5em;
 
-          div {
+          div,
+          p {
             display: flex;
             justify-content: space-between;
           }
 
           p {
             margin: 0.3em 0 0 0;
-            word-break: break-all;
             color: @gray-3;
+
+            span {
+              color: @gray-4;
+            }
           }
 
           &:hover {

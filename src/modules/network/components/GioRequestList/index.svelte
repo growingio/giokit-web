@@ -23,13 +23,13 @@
     // 列表变动监听
     unsubscribe_requestQueue = _gioRequestQueue.subscribe((l) => {
       requestQueue = l.filter((o: any) =>
-        get(_filterActive).includes(o.gioType)
+        get(_filterActive).includes(o.gioEventType)
       );
     });
     // Gio事件筛选监听
     unsubscribe_filterActive = _filterActive.subscribe((tps) => {
       requestQueue = get(_gioRequestQueue).filter((o: any) =>
-        tps.includes(o.gioType)
+        tps.includes(o.gioEventType)
       );
     });
   });
@@ -57,11 +57,12 @@
           on:click={() => onSelect(item._id)}
         >
           <div>
-            {item.gioType}
+            {item.gioEventType}
             <Duration {item} />
           </div>
           <p>
             {formatTime(new Date(item.startTime))}
+            <span>{item.gioEventGsid}</span>
           </p>
         </div>
       {/each}

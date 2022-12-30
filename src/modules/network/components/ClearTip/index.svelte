@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Tooltip from '@/components/Tooltip/index.svelte';
   import Button from '@/components/Button/index.svelte';
   import Icon from '@/components/Icon/index.svelte';
   import Divider from '@/components//Divider/index.svelte';
@@ -9,12 +10,14 @@
     _gioActive,
     _gioActiveEvent,
     _gioRequestQueue,
-    _requestQueue
+    _requestQueue,
+    _monitorVisible
   } from '../../store';
   import './index.less';
   import { isEmpty } from '@/utils/glodash';
 
   const handleClear = () => {
+    _monitorVisible.set(false);
     _filterVisible.set(false);
     _clearVisible.set(true);
   };
@@ -31,13 +34,15 @@
 </script>
 
 <div class="_gk-network-header-tool">
-  <Button
-    on:click={handleClear}
-    disabled={($_activeReqType === 'gio' && isEmpty($_gioRequestQueue)) ||
-      ($_activeReqType === 'all' && isEmpty($_requestQueue))}
-  >
-    <Icon name="clear" />
-  </Button>
+  <Tooltip message="清空列表">
+    <Button
+      on:click={handleClear}
+      disabled={($_activeReqType === 'gio' && isEmpty($_gioRequestQueue)) ||
+        ($_activeReqType === 'all' && isEmpty($_requestQueue))}
+    >
+      <Icon name="clear" />
+    </Button>
+  </Tooltip>
 </div>
 
 <div

@@ -6,6 +6,7 @@
   import FilterTip from './components/FilterTip/index.svelte';
   import RequestList from './components/RequestList/index.svelte';
   import Switch from '@/components/Switch/index.svelte';
+  import RealTimeMonitorTip from './components/RealTimeMonitorTip/index.svelte';
 
   const switchers = [
     { label: 'Gio', value: 'gio' },
@@ -23,6 +24,7 @@
     <div class="_gk-network-header-title">请求概览</div>
     <div class="_gk-network-header-tools">
       {#if $_activeReqType === 'gio'}
+        <RealTimeMonitorTip />
         <FilterTip />
       {/if}
       <ClearTip />

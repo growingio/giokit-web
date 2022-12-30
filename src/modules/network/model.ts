@@ -35,7 +35,11 @@ export interface RequestItem {
   duration: number;
   durationColor?: string;
   isGioData?: boolean;
-  gioType?: string;
+  gioEventType?: string;
+  gioEventName?: string;
+  gioEventGsid?: string | number;
+  gioPreviewPath?: string;
+  gioPreviewXpath?: string;
 }
 
 export default class NetworkModel {
@@ -136,7 +140,19 @@ export default class NetworkModel {
   updateRequestItem = (requestItem: RequestItem) => {
     if (requestItem.isGioData) {
       if (isArray(requestItem.body)) {
-        requestItem.gioType = head(requestItem.body).eventType;
+        requestItem.gioEventType = head(requestItem.body).eventType;
+        requestItem.gioEventName = head(requestItem.body).eventName;
+        requestItem.gioEventGsid = head(requestItem.body).globalSequenceId;
+        const path = head(requestItem.body).path;
+        requestItem.gioPreviewPath =
+          path && path.length > 18
+            ? `...${path.substring(path.length, path.length - 18)}`
+            : path ?? '';
+        const xpath = head(requestItem.body).xpath;
+        requestItem.gioPreviewXpath =
+          xpath && xpath.length > 18
+            ? `...${xpath.substring(xpath.length, xpath.length - 18)}`
+            : xpath ?? '';
       }
       _gioRequestQueue.update((l: RequestItem[]) => {
         const tl = [...l];

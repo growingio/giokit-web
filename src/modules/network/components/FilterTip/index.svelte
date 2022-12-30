@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Tooltip from '@/components/Tooltip/index.svelte';
   import './index.less';
   import {
     _activeReqType,
@@ -6,7 +7,8 @@
     _requestQueue,
     _clearVisible,
     _filterVisible,
-    _filterActive
+    _filterActive,
+    _monitorVisible
   } from '../../store';
   import { isEmpty } from '@/utils/glodash';
   import Button from '@/components/Button/index.svelte';
@@ -32,6 +34,7 @@
   });
 
   const handleFilter = () => {
+    _monitorVisible.set(false);
     _clearVisible.set(false);
     _filterVisible.set(true);
   };
@@ -62,9 +65,11 @@
 </script>
 
 <div class="_gk-network-header-tool">
-  <Button on:click={handleFilter} disabled={isEmpty($_gioRequestQueue)}>
-    <Icon name="filter" />
-  </Button>
+  <Tooltip message="筛选事件">
+    <Button on:click={handleFilter} disabled={isEmpty($_gioRequestQueue)}>
+      <Icon name="filter" />
+    </Button>
+  </Tooltip>
 </div>
 
 <div

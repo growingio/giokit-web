@@ -1,6 +1,6 @@
 <script lang="ts">
   import './GioKit.less';
-  import { _activeTool } from './main/store';
+  import { _activeTool, _showNetworkBullet, _openGioKit } from './main/store';
   import { onMount, onDestroy } from 'svelte';
   import Icon from '@/components/Icon/index.svelte';
   import LogModel from './modules/log/model';
@@ -9,6 +9,7 @@
   import MainContent from './main/MainContent/index.svelte';
   import Switcher from './main/Switcher/index.svelte';
   import ToolContent from './main/ToolContent/index.svelte';
+  import NetworkBullet from './modules/networkBullet/index.svelte';
 
   /**
    * Public properties
@@ -18,7 +19,6 @@
    * Inner properties
    */
   let fontSize: string = '13px';
-  let openGioKit: boolean = false;
   let openMain: boolean = false;
   let openMask: boolean = false;
   let openPanel: boolean = false;
@@ -31,7 +31,7 @@
 
   $: {
     // 窗口开关动画
-    if (openGioKit === true) {
+    if ($_openGioKit === true) {
       openPanel = true;
       openMask = true;
       cssTimer && clearTimeout(cssTimer);
@@ -87,11 +87,12 @@
    * Methods
    */
   const onTapOpen = () => {
-    openGioKit = true;
+    _openGioKit.set(true);
+    _showNetworkBullet.set(false);
   };
 
   const onTapClose = () => {
-    openGioKit = false;
+    _openGioKit.set(false);
   };
 
   const completeBarList = [
@@ -107,6 +108,9 @@
   class:gk-open={openMain}
   style={fontSize ? 'font-size:' + fontSize + ';' : ''}
 >
+  {#if $_showNetworkBullet}
+    <NetworkBullet />
+  {/if}
   <Switcher on:click={onTapOpen} bind:position={switchButtonPosition} />
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div
