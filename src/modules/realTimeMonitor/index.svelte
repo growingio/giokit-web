@@ -5,7 +5,7 @@
     _gioActive,
     _gioActiveEvent
   } from '../network/store';
-  import { _openGioKit, _showNetworkBullet } from '@/main/store';
+  import { _openGioKit, _showRealTimeMonitor } from '@/main/store';
   import { fly } from 'svelte/transition';
   import { isEmpty, last } from '@/utils/glodash';
   import { onDestroy, onMount } from 'svelte';
@@ -37,12 +37,12 @@
   const onSelect = (item: any) => {
     _gioActive.set(item._id);
     _gioActiveEvent.set(item);
-    _showNetworkBullet.set(false);
+    _showRealTimeMonitor.set(false);
     _openGioKit.set(true);
   };
 </script>
 
-{#if $_showNetworkBullet}
+{#if $_showRealTimeMonitor}
   <div class="_gk-network-bullet">
     {#each bulletList as item}
       <!-- svelte-ignore a11y-click-events-have-key-events -->

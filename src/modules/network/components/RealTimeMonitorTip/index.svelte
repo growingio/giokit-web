@@ -1,7 +1,7 @@
 <script lang="ts">
   import './index.less';
   import { _clearVisible, _filterVisible, _monitorVisible } from '../../store';
-  import { _showNetworkBullet, _openGioKit } from '@/main/store';
+  import { _showRealTimeMonitor, _openGioKit } from '@/main/store';
   import Button from '@/components/Button/index.svelte';
   import Divider from '@/components/Divider/index.svelte';
   import Icon from '@/components/Icon/index.svelte';
@@ -15,7 +15,7 @@
 
   const onMonitor = () => {
     _monitorVisible.set(false);
-    _showNetworkBullet.set(true);
+    _showRealTimeMonitor.set(true);
     _openGioKit.set(false);
   };
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import './index.less';
-  import { _showNetworkBullet } from '../store';
+  import { _showRealTimeMonitor } from '../store';
   import { onMount } from 'svelte';
   import { Unsubscriber } from 'svelte/store';
   import Icon from '@/components/Icon/index.svelte';
@@ -38,7 +38,7 @@
   }
 
   onMount(() => {
-    unsubscribe = _showNetworkBullet.subscribe((v) => {
+    unsubscribe = _showRealTimeMonitor.subscribe((v) => {
       if (v && tipInstance.instance) {
         tipInstance.instance.show();
         window.setTimeout(() => {
@@ -130,7 +130,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
   class="_gk-switcher"
-  class:_gk-switcher-processing={$_showNetworkBullet}
+  class:_gk-switcher-processing={$_showRealTimeMonitor}
   style="right: {btnSwitchPos.x}px; bottom: {btnSwitchPos.y}px; display: {show
     ? 'block'
     : 'none'};"

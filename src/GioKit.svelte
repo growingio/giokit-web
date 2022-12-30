@@ -1,6 +1,6 @@
 <script lang="ts">
   import './GioKit.less';
-  import { _activeTool, _showNetworkBullet, _openGioKit } from './main/store';
+  import { _activeTool, _showRealTimeMonitor, _openGioKit } from './main/store';
   import { onMount, onDestroy } from 'svelte';
   import Icon from '@/components/Icon/index.svelte';
   import LogModel from './modules/log/model';
@@ -9,7 +9,7 @@
   import MainContent from './main/MainContent/index.svelte';
   import Switcher from './main/Switcher/index.svelte';
   import ToolContent from './main/ToolContent/index.svelte';
-  import NetworkBullet from './modules/networkBullet/index.svelte';
+  import RealTimeMonitor from './modules/realTimeMonitor/index.svelte';
 
   /**
    * Public properties
@@ -88,7 +88,7 @@
    */
   const onTapOpen = () => {
     _openGioKit.set(true);
-    _showNetworkBullet.set(false);
+    _showRealTimeMonitor.set(false);
   };
 
   const onTapClose = () => {
@@ -108,8 +108,8 @@
   class:gk-open={openMain}
   style={fontSize ? 'font-size:' + fontSize + ';' : ''}
 >
-  {#if $_showNetworkBullet}
-    <NetworkBullet />
+  {#if $_showRealTimeMonitor}
+    <RealTimeMonitor />
   {/if}
   <Switcher on:click={onTapOpen} bind:position={switchButtonPosition} />
   <!-- svelte-ignore a11y-click-events-have-key-events -->
