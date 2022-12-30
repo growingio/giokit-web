@@ -5,6 +5,7 @@ import {
   getFormattedBody,
   getDurationColor
 } from '../model';
+import qs from 'querystringify';
 
 // https://fetch.spec.whatwg.org/#concept-bodyinit-extract
 const getContentType = (data?: BodyInit) => {
@@ -32,6 +33,9 @@ export class BeaconProxyHandler<T extends typeof navigator.sendBeacon>
   public apply(target: T, thisArg: T, argsList: any[]) {
     const parsedURL = getURL(argsList[0]);
     const isGioData = isGio(parsedURL.toString());
+    const gioCompressed = ['1', 1].includes(
+      qs.parse(parsedURL.searchParams.toString())?.compress
+    );
     const data: BodyInit = argsList[1];
 
     const item: RequestItem = {
@@ -44,10 +48,11 @@ export class BeaconProxyHandler<T extends typeof navigator.sendBeacon>
       startTime: Date.now(),
       status: 0,
       params: parsedURL.searchParams.toString(),
-      body: getFormattedBody(data, isGioData),
+      body: getFormattedBody(data, isGioData && gioCompressed),
       endTime: 0,
       duration: 0,
-      isGioData
+      isGioData,
+      isGioCompressed: gioCompressed
     };
 
     // @ts-ignore

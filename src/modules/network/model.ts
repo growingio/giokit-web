@@ -35,6 +35,7 @@ export interface RequestItem {
   duration: number;
   durationColor?: string;
   isGioData?: boolean;
+  isGioCompressed?: boolean;
   gioEventType?: string;
   gioEventName?: string;
   gioEventGsid?: string | number;
@@ -200,8 +201,11 @@ export const isGio = (url: string) => {
 };
 
 // 获取格式化后的请求body
-export const getFormattedBody = (body: any, isGioData: boolean = false) => {
-  if (isGioData) {
+export const getFormattedBody = (
+  body: any,
+  isGioCompressed: boolean = false
+) => {
+  if (isGioCompressed) {
     const ret = LZString.decompressFromUint8Array(body) || body;
     return niceTry(() => JSON.parse(ret)) ?? ret;
   } else {

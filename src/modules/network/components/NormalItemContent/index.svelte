@@ -60,7 +60,7 @@
   <Divider />
   <p>Request Payload</p>
   <div class="_gk-network-content-values-payload">
-    {item.isGioData
+    {item.isGioData && item.isGioCompressed
       ? LZString.compress(JSON.stringify(item.body))
       : JSON.stringify(item.body, null, 2) || ''}
   </div>

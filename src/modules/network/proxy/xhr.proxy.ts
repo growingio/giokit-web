@@ -1,5 +1,11 @@
-import { genFormattedBody, getURL, guid } from '@/utils/tools';
-import { getDurationColor, RequestItem } from '../model';
+import { getURL, guid } from '@/utils/tools';
+import {
+  getDurationColor,
+  getFormattedBody,
+  isGio,
+  RequestItem
+} from '../model';
+import qs from 'querystringify';
 
 export class XHRProxyHandler<T extends XMLHttpRequest>
   implements ProxyHandler<T>
@@ -107,11 +113,17 @@ export class XHRProxyHandler<T extends XMLHttpRequest>
       // console.log('Proxy open()');
       const method = args[0];
       const parsedURL = getURL(args[1]);
+      const isGioData = isGio(parsedURL.toString());
+      const gioCompressed = ['1', 1].includes(
+        qs.parse(parsedURL.searchParams.toString())?.compress
+      );
       this.item.method = method ? method.toUpperCase() : 'GET';
       this.item.url = parsedURL.toString();
       this.item.name =
         (parsedURL.pathname.split('/').pop() || '') + parsedURL.search;
       this.item.params = parsedURL.searchParams.toString();
+      this.item.isGioData = isGioData;
+      this.item.isGioCompressed = gioCompressed;
       this.triggerUpdate();
       // @ts-ignore
       return targetFunction.apply(target, args);
@@ -123,7 +135,10 @@ export class XHRProxyHandler<T extends XMLHttpRequest>
     return (...args: any[]) => {
       // console.log('Proxy send()');
       const data: XMLHttpRequestBodyInit = args[0];
-      this.item.body = genFormattedBody(data);
+      this.item.body = getFormattedBody(
+        data,
+        this.item.isGioData && this.item.isGioCompressed
+      );
       this.triggerUpdate();
       // @ts-ignore
       return targetFunction.apply(target, args);
