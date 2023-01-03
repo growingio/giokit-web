@@ -32,9 +32,11 @@ window._gr_ignore_local_rule = true;
 
 gdp('init', '91eaf9b283361032', '95fcb6d4b44fc4cd', {
   debug: true,
-  host: 'http://cdp-api.growingio.com',
-  hashtag: true
+  host: 'cdp-api.growingio.com',
+  hashtag: true,
+  compress: true
 });
+gdp('send');
 
 // console.log(window.location);
 // console.log(Object.keys(window));
