@@ -36,8 +36,9 @@
   <div class="_gk-network-tool-minitor-tippy-inner">
     确定要打开实时监控吗？
     <p>
-      打开后GioKit会最小化，Gio事件会以弹出式消息为您展示，您可点击对应事件回到当前界面查看事件详情。打开面板时会自动关闭监控。
+      打开后GioKit会最小化，Gio事件会以弹出式消息为您展示，您可点击对应事件回到当前界面查看事件详情。
     </p>
+    <p><span>提示：打开面板时会自动关闭监控；筛选事件依然生效！</span></p>
     <Divider />
     <div class="_gk-network-tool-minitor-tippy-btns">
       <Button small on:click={() => _monitorVisible.set(false)}>取消</Button>

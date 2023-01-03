@@ -1,4 +1,5 @@
 import { _requestQueue, _gioRequestQueue } from './store';
+import { _appearedIds } from '../realTimeMonitor/store';
 import { BeaconProxy } from './proxy/beacon.proxy';
 import { FetchProxy } from './proxy/fetch.proxy';
 import { genFormattedBody, niceTry } from '@/utils/tools';
@@ -155,6 +156,7 @@ export default class NetworkModel {
             ? `...${xpath.substring(xpath.length, xpath.length - 18)}`
             : xpath ?? '';
       }
+      // 更新gio事件列表
       _gioRequestQueue.update((l: RequestItem[]) => {
         const tl = [...l];
         const idx = l.findIndex((o) => o._id === requestItem._id);
@@ -167,7 +169,16 @@ export default class NetworkModel {
           return [...l, requestItem];
         }
       });
+      // 更新gio事件监控中的已显示过的事件id，防止开启监控时多显示一个
+      _appearedIds.update((l: string[]) => {
+        if (!l.includes(requestItem._id)) {
+          return [...l, requestItem._id];
+        } else {
+          return l;
+        }
+      });
     }
+    // 更新所有请求列表
     _requestQueue.update((l: RequestItem[]) => {
       const tl = [...l];
       const idx = l.findIndex((o) => o._id === requestItem._id);
