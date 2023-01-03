@@ -59,6 +59,10 @@
       _initOptions.update((v) => ({ ...v, ...step1Data }));
       onNext();
     } else {
+      const form = document.getElementById('_gk-qkinit-form');
+      if ((form?.scrollHeight ?? 0) > (form?.offsetHeight ?? 0)) {
+        (form as any).scrollTop = 0;
+      }
       return false;
     }
   };

@@ -27,7 +27,7 @@
   </div>
   <Divider />
   <Steps items={steps} current={currentStep} />
-  <div class="_gk-qkinit-form">
+  <div class="_gk-qkinit-form" id="_gk-qkinit-form">
     {#if currentStep < 2}
       <div class="_gk-form">
         {#if currentStep === 0}

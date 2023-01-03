@@ -102,6 +102,10 @@
   const handleNext = () => {
     if (step2Data.gioEmbeddedAdapter && !step2Data.appId) {
       errorMsg = '请填写小程序AppId！';
+      const form = document.getElementById('_gk-qkinit-form');
+      if ((form?.scrollHeight ?? 0) > (form?.offsetHeight ?? 0)) {
+        (form as any).scrollTop = 0;
+      }
       return false;
     } else {
       _initOptions.update((v) => ({ ...v, ...step2Data }));
