@@ -1,11 +1,11 @@
-@import "../../index.less";
+@import '@/styles/index.less';
 
 ._gk-input {
-  position: relative;
+  @relative();
 
   input {
-    border: 1px solid @gray-4;
-    border-radius: 4px;
+    @border();
+    @rounded();
     padding: 0.5em 0.6em;
     min-width: 14em;
     height: 32px;
@@ -34,7 +34,7 @@
   }
 
   ._gk-input-disabled {
-    cursor: not-allowed;
+    @cursor-not-allowed();
     background-color: @gray-5;
 
     &:hover,
@@ -57,7 +57,7 @@
 
   ._gk-input-error {
     color: @red-1;
-    position: absolute;
+    @absolute();
     top: 34px;
   }
 }

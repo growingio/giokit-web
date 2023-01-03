@@ -1,30 +1,30 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 ._gk-log {
   margin-top: -1em;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  @flex();
+  @flex-col();
+  @h-full();
   font-family: 'PingFangSC-Regular', 'sans-serif', 'Microsoft YaHei';
 }
 
 ._gk-log-container {
-  overflow: auto;
+  @overflow-auto();
 
   ._gk-log-row {
-    display: flex;
+    @flex();
     align-items: baseline;
-    position: relative;
+    @relative();
     padding: 0.5em 2.5em 0.5em 0.5em;
-    border-bottom: 1px solid @gray-4;
+    @border-b();
 
     ._gk-log-row-icon {
       width: 1em;
       height: 1em;
-      margin-right: 0.5em;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      @mr-1();
+      @inline-flex();
+      @items-center();
+      @justify-center();
 
       ._gk-icon svg {
         width: 1em;
@@ -33,9 +33,9 @@
     }
 
     ._gk-log-row-repeat {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      @inline-flex();
+      @items-center();
+      @justify-center();
       background-color: @gray-2;
       border-radius: 50%;
       font-size: 0.9em;
@@ -43,7 +43,7 @@
       height: 1em;
       padding: 0.1em;
       color: @white;
-      margin-right: 0.5em;
+      @mr-1();
 
       i {
         line-height: 1;
@@ -51,7 +51,7 @@
     }
 
     ._gk-log-row-content {
-      flex: 1;
+      @flex-1();
       min-height: 1em;
 
       i {
@@ -61,11 +61,11 @@
     }
 
     ._gk-log-row-copy {
-      position: absolute;
+      @absolute();
       right: 0.4em;
       top: 0.2em;
       padding: 0.4em;
-      cursor: pointer;
+      @cursor-pointer();
 
       &:hover {
         color: @blue-1;

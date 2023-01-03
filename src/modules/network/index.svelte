@@ -19,10 +19,10 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="_gk-network">
-  <div class="_gk-network-header">
-    <div class="_gk-network-header-title">请求概览</div>
-    <div class="_gk-network-header-tools">
+<div class="_gk-nw">
+  <div class="_gk-nw-header">
+    <div class="_gk-ct-header">请求概览</div>
+    <div class="_gk-nw-tools">
       {#if $_activeReqType === 'gio'}
         <RealTimeMonitorTip />
         <FilterTip />

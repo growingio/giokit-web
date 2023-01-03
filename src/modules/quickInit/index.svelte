@@ -21,10 +21,8 @@
 </script>
 
 <div class="_gk-qkinit">
-  <div class="_gk-content-header">快速初始化</div>
-  <div class="_gk-content-header-desc">
-    通过可视化的方式为您快速生成初始化代码。
-  </div>
+  <div class="_gk-ct-header">快速初始化</div>
+  <div class="_gk-ct-header-desc">通过可视化的方式为您快速生成初始化代码。</div>
   <Divider />
   <Steps items={steps} current={currentStep} />
   <div class="_gk-qkinit-form" id="_gk-qkinit-form">

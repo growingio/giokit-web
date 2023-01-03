@@ -1,5 +1,6 @@
 <script lang="ts">
   import './index.less';
+  import { _appearedIds } from './store';
   import {
     _gioRequestQueue,
     _gioActive,
@@ -10,7 +11,6 @@
   import { isEmpty, last } from '@/utils/glodash';
   import { onDestroy, onMount } from 'svelte';
   import { Unsubscriber } from 'svelte/store';
-  import { _appearedIds } from './store';
 
   let monitorList: any[] = [];
   let unsubscribe: Unsubscriber;

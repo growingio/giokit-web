@@ -1,16 +1,16 @@
-@import "../../index.less";
+@import '@/styles/index.less';
 
 ._gk-switch {
-  display: inline-block;
+  @inline-block();
   padding: 2px;
-  border-radius: 4px;
+  @rounded();
   background: @gray-4;
 
   button._gk-switch-item {
     font-size: 1em;
     line-height: 1;
     padding: 6px 8px;
-    border-radius: 4px;
+    @rounded();
     min-width: 3.5em;
     color: @gray-2;
     background: none;

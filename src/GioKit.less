@@ -1,48 +1,44 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 // 面板关闭时
 #__giokit {
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: 'PingFangSC-Regular', 'sans-serif', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial;
 
   *:focus-visible {
     outline: none;
   }
 
   ._gk-mask {
+    @inset-0();
+    background: rgba(0, 0, 0, 0);
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0);
-    z-index: 10001;
     transition: background 0.3s;
+    z-index: 10001;
   }
 
   ._gk-panel {
-    display: none;
-    position: fixed;
-    min-height: 85%;
-    left: 0;
-    right: 0;
-    bottom: -100%;
-    z-index: 10002;
+    @flex-col();
+    @flex();
+    @inset-x-0();
     background-color: @gray-5;
-    transition: bottom 0.3s;
-    display: flex;
-    flex-direction: column;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
+    bottom: -100%;
+    display: none;
+    min-height: 85%;
+    position: fixed;
+    transition: bottom 0.3s;
+    z-index: 10002;
   }
 
-  ._gk-panel-head {
-    position: relative;
-    text-align: center;
-    border-bottom: 1px solid @gray-4;
+  ._gk-p-head {
+    @border-b();
     font-weight: 400;
+    @relative();
+    @text-center();
 
-    ._gk-panel-title {
+    ._gk-p-title {
       line-height: 2.5em;
       font-size: 1.5em;
 
@@ -51,13 +47,13 @@
       }
     }
 
-    ._gk-panel-back {
-      position: absolute;
+    ._gk-p-back {
+      @absolute();
+      @flex();
+      @items-center();
+      @cursor-pointer();
       left: 0.6em;
       top: calc(50% - 0.75em);
-      display: flex;
-      align-items: center;
-      cursor: pointer;
 
       svg {
         width: 1.5em;
@@ -71,20 +67,20 @@
   }
 
   ._gk-header {
-    border-bottom: 1px solid @gray-4;
+    @border-b();
   }
 
-  ._gk-panel-content {
-    flex: 1;
-    padding: 1em;
-    position: relative;
+  ._gk-p-content {
+    @flex-1();
+    @p-2();
+    @relative();
   }
 }
 
 // 打开面板时
 #__giokit.gk-open {
   ._gk-mask {
-    display: block;
+    @block();
     background: rgba(0, 0, 0, 0.6);
   }
 

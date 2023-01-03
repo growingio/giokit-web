@@ -46,18 +46,18 @@
   };
 </script>
 
-<div class="_gk-network-gio-list">
+<div class="_gk-nw-gio-list">
   {#if !isEmpty(requestQueue)}
-    <div class="_gk-network-gio-overview">
+    <div class="_gk-nw-gio-overview">
       {#each requestQueue as item}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
-          class="_gk-network-gio-item"
-          class:_gk-network-gio-item-active={$_gioActive === item._id}
+          class="_gk-nw-gio-item"
+          class:_gk-nw-gio-item-active={$_gioActive === item._id}
           on:click={() => onSelect(item._id)}
         >
           <div>
-            <span class="_gk-network-gio-item-type">{item.gioEventType}</span>
+            <span class="_gk-nw-gio-item-type">{item.gioEventType}</span>
             <Duration {item} />
           </div>
           <p>
@@ -67,22 +67,22 @@
         </div>
       {/each}
     </div>
-    <div class="_gk-network-gio-content">
+    <div class="_gk-nw-gio-content">
       {#if !isEmpty($_gioActiveEvent)}
-        <div class="_gk-network-gio-content-wrapper">
-          <div class="_gk-network-gio-content-title">
+        <div class="_gk-nw-gio-content-wrapper">
+          <div class="_gk-nw-gio-content-title">
             请求地址：{$_gioActiveEvent?.url}
           </div>
           <JsonView data={$_gioActiveEvent?.body} />
         </div>
       {:else}
-        <div class="_gk-network-gio-empty">
+        <div class="_gk-nw-gio-empty">
           <Empty title="请选择事件查看请求数据" />
         </div>
       {/if}
     </div>
   {:else}
-    <div class="_gk-network-gio-empty">
+    <div class="_gk-nw-gio-empty">
       <Empty />
     </div>
   {/if}

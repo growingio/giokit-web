@@ -1,18 +1,18 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 // tree
 ._gk-log-tree {
-  display: block;
-  overflow: auto;
-  position: relative;
+  @block();
+  @overflow-auto();
+  @relative();
 }
 
 // tree node
 ._gk-log-tree-node {
-  display: block;
+  @block();
   font-style: italic;
-  padding-left: 1em;
-  position: relative;
+  @pl-2();
+  @relative();
 }
 
 ._gk-log-tree._gk-is-tree>._gk-log-tree-node:active {
@@ -21,7 +21,7 @@
 
 ._gk-log-tree._gk-is-tree>._gk-log-tree-node::before {
   content: "";
-  position: absolute;
+  @absolute();
   top: 0.4em;
   left: 0.2em;
   width: 0;
@@ -39,20 +39,20 @@
 
 // tree child
 ._gk-log-tree-child {
-  margin-left: 1em;
+  @ml-2();
 }
 
 // load more
 ._gk-log-tree-loadmore {
   text-decoration: underline;
   padding-left: 1.8em;
-  position: relative;
+  @relative();
   color: #556af2;
 }
 
 ._gk-log-tree-loadmore::before {
   content: "››";
-  position: absolute;
+  @absolute();
   top: -0.1em;
   left: 0.7em;
   font-size: 1.2em;

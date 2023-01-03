@@ -4,12 +4,12 @@
   import { onMount, onDestroy } from 'svelte';
   import Icon from '@/components/Icon/index.svelte';
   import LogModel from './modules/log/model';
-  import NetworkModel from './modules/network/model';
   import MainBottomBar from './main/MainBottomBar/index.svelte';
   import MainContent from './main/MainContent/index.svelte';
+  import NetworkModel from './modules/network/model';
+  import RealTimeMonitor from './modules/realTimeMonitor/index.svelte';
   import Switcher from './main/Switcher/index.svelte';
   import ToolContent from './main/ToolContent/index.svelte';
-  import RealTimeMonitor from './modules/realTimeMonitor/index.svelte';
 
   /**
    * Public properties
@@ -23,8 +23,6 @@
   let openMask: boolean = false;
   let openPanel: boolean = false;
   let cssTimer: any;
-  let activeTool: string = '';
-  let bottomBarList: any[] = [];
 
   let logModel: any;
   let networkModel: any;
@@ -46,21 +44,13 @@
         openMask = false;
       }, 330);
     }
-
-    // 底部菜单
-    if (activeTool) {
-      bottomBarList = completeBarList;
-    } else {
-      bottomBarList = completeBarList.filter((o) => o.key === 'close');
-    }
   }
 
   /**
    * Lifecycle
    */
   onMount(() => {
-    // modify font-size to prevent scaling
-    // const dpr = window.devicePixelRatio || 1;
+    // 根据设备缩放比确定文字大小和全部样式的基础单位
     const viewportEl = document.querySelectorAll('[name="viewport"]');
     if (viewportEl && viewportEl[0]) {
       const viewportContent =
@@ -73,12 +63,13 @@
         fontSize = Math.floor((1 / scale) * 13) + 'px';
       }
     }
-
+    // 初始化日志和网络的model，hook浏览器方法
     logModel = new LogModel();
     networkModel = new NetworkModel();
   });
 
   onDestroy(() => {
+    // 销毁时恢复日志和网络的原浏览器方法
     logModel.unMock();
     networkModel.unMock();
   });
@@ -88,6 +79,7 @@
    */
   const onTapOpen = () => {
     _openGioKit.set(true);
+    // 打开面板时关闭Gio事件监控
     _showRealTimeMonitor.set(false);
   };
 
@@ -95,10 +87,10 @@
     _openGioKit.set(false);
   };
 
-  const completeBarList = [
-    { label: '清空', key: 'clear', onClick: () => {} },
-    { label: '回顶部', key: 'top', onClick: () => {} },
-    { label: '至底部', key: 'bottom', onClick: () => {} },
+  const bottomBarList = [
+    // { label: '清空', key: 'clear', onClick: () => {} },
+    // { label: '回顶部', key: 'top', onClick: () => {} },
+    // { label: '至底部', key: 'bottom', onClick: () => {} },
     { label: '关闭', key: 'close', onClick: onTapClose }
   ];
 </script>
@@ -119,18 +111,18 @@
     on:click={onTapClose}
   />
   <div class="_gk-panel" style="display: {openPanel ? 'flex' : 'none'};">
-    <div class="_gk-panel-head">
+    <div class="_gk-p-head">
       {#if $_activeTool}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="_gk-panel-back" on:click={() => _activeTool.set('')}>
+        <div class="_gk-p-back" on:click={() => _activeTool.set('')}>
           <Icon name="arrowLeft" /> 返回
         </div>
       {/if}
-      <div class="_gk-panel-title">
+      <div class="_gk-p-title">
         G<span>IO</span>Kit
       </div>
     </div>
-    <div class="_gk-panel-content">
+    <div class="_gk-p-content">
       {#if $_activeTool}
         <ToolContent />
       {:else}

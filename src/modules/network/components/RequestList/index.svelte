@@ -20,7 +20,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="_gk-network-list" on:click={handleOut}>
+<div class="_gk-nw-list" on:click={handleOut}>
   {#if $_activeReqType === 'gio'}
     <GioRequestList />
   {:else}

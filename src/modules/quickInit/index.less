@@ -1,31 +1,31 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 ._gk-qkinit {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  @h-full();
+  @flex();
+  @flex-col();
 
   ._gk-qkinit-form {
-    text-align: center;
-    overflow: auto;
+    @text-center();
+    @overflow-auto();
 
     ._gk-form {
-      display: inline-flex;
-      flex-direction: column;
+      @inline-flex();
+      @flex-col();
       margin: 0 auto;
       max-width: 100%;
 
       ._gk-qkinit-form-step1,
       ._gk-qkinit-form-step2 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @flex();
+        @flex-col();
+        @items-center();
 
         ._gk-form-item {
           margin: 1.2em 0;
 
           ._gk-toggle-value {
-            margin-left: 1em;
+            @ml-2();
           }
         }
       }
@@ -35,10 +35,10 @@
           width: 29em;
 
           ._gk-input {
-            flex: 1;
+            @flex-1();
 
             input {
-              width: 100%;
+              @w-full();
             }
           }
         }
@@ -72,9 +72,9 @@
       }
 
       ._gk-qkinit-hastool {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        @flex();
+        @justify-between();
+        @items-center();
 
         ._gk-btn {
           padding: calc(0.55em - 1px) calc(0.7em - 1px);
@@ -99,7 +99,7 @@
         max-width: 100%;
         overflow: hidden;
         white-space: pre-wrap;
-        word-break: break-word;
+        @break-all();
       }
     }
 

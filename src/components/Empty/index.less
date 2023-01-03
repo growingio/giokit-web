@@ -1,8 +1,10 @@
+@import '@/styles/index.less';
+
 ._gk-empty {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @inline-flex();
+  @flex-col();
+  @justify-center();
+  @items-center();
 }
 
 ._gk-empty ._gk-empty-logo {
@@ -10,15 +12,15 @@
 }
 
 ._gk-empty svg {
-  width: 100%;
-  height: 100%;
+  @w-full();
+  @h-full();
 }
 
 ._gk-empty ._gk-empty-title {
   max-width: 8em;
-  margin-top: 1em;
+  @mt-2();
   font-size: 1em;
   line-height: 1.5em;
-  text-align: center;
+  @text-center();
   color: #4b5563;
 }

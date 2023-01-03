@@ -1,0 +1,92 @@
+// 模块标题
+._gk-ct-header {
+  font-size: 1.1em;
+  font-weight: 400;
+  @pl-2();
+  @mb-2();
+  @relative();
+
+  &::before {
+    content: '';
+    @block();
+    height: 1.2em;
+    width: 0.2em;
+    background: @orange;
+    @absolute();
+    left: 0;
+    top: 0.1em;
+  }
+}
+
+// 模块描述
+._gk-ct-header-desc {
+  color: @gray-2;
+}
+
+
+// grid布局的列表（默认两列，小屏1列）
+._gk-grid-list {
+  @grid();
+  @grid-cols-1();
+  margin-bottom: -0.5em;
+  @overflow-auto();
+}
+
+._gk-grid-list-item {
+  line-height: 1.5em;
+  @mb-1();
+  padding-right: 0;
+
+  ._gk-grid-list-key {
+    font-weight: bold;
+    color: @gray-1;
+  }
+
+  span {
+    @break-all();
+  }
+}
+
+@media (min-width: 640px) {
+  ._gk-grid-list {
+    @grid-cols-2();
+
+    ._gk-grid-list-item:nth-child(odd) {
+      @pr-2();
+    }
+  }
+}
+
+// 小型表单或popover中的右下角按钮组
+._gk-f-btns {
+  @text-right();
+  ._gk-x-space-1();
+}
+
+// 水平组件之间的间距(0.5em)
+._gk-x-space-1 {
+  >*:not(:last-child) {
+    @mr-1();
+  }
+}
+
+// 水平组件之间的间距(1em)
+._gk-x-space-2 {
+  >*:not(:last-child) {
+    @mr-2();
+  }
+}
+
+// 垂直组件之间的间距(0.5em)
+._gk-y-space-1 {
+  >*:not(:last-child) {
+    @mb-1();
+  }
+}
+
+// 垂直组件之间的间距(1em)
+._gk-y-space-2 {
+  >*:not(:last-child) {
+    @mb-2();
+  }
+}

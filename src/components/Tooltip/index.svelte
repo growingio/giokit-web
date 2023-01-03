@@ -3,7 +3,6 @@
 <script lang="ts">
   import './index.less';
   import 'tippy.js/dist/svg-arrow.css';
-  import 'tippy.js/themes/light.css';
   import { guid } from '@/utils/tools';
   import { onMount } from 'svelte';
   import tippy, { roundArrow } from 'tippy.js';
@@ -11,7 +10,7 @@
   export let instance: any = null;
 
   export let message: string = '';
-  export let trigger: 'click' | 'mouseenter' | '' = 'mouseenter';
+  export let trigger: 'click' | 'mouseenter' | '' = 'click';
   export let offset: number[] = [0, 10];
   export let placement: string = 'top';
   let _id = guid();
@@ -25,7 +24,7 @@
         delay: 0,
         hideOnClick: true,
         offset,
-        theme: 'light',
+        theme: 'tooltip',
         trigger,
         placement,
         zIndex: 10010

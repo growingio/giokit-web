@@ -1,12 +1,12 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 ._gk-alert {
-  border-radius: 8px;
-  display: flex;
-  padding: 1em;
+  @rounded();
+  @flex();
+  @p-2();
 
   ._gk-alert-icon {
-    margin-right: 1em;
+    @mr-2();
 
     ._gk-icon svg {
       width: 1.3em;
@@ -15,7 +15,7 @@
   }
 
   ._gk-alert-content {
-    flex: 1;
+    @flex-1();
     line-height: 1.1;
 
     ._gk-alert-message {
@@ -24,15 +24,15 @@
     }
 
     ._gk-alert-desc {
-      margin-top: 0.5em;
+      @mt-1();
     }
   }
 
   ._gk-alert-close {
-    margin-left: 1em;
+    @ml-2();
 
     ._gk-icon {
-      cursor: pointer;
+      @cursor-pointer();
 
       svg {
         width: 1em;

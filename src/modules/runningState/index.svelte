@@ -50,8 +50,8 @@
 </script>
 
 <div class="_gk-qkinit">
-  <div class="_gk-content-header">运行状态</div>
-  <div class="_gk-content-header-desc">通过工具清晰查看当前SDK运行状态。</div>
+  <div class="_gk-ct-header">运行状态</div>
+  <div class="_gk-ct-header-desc">通过工具清晰查看当前SDK运行状态。</div>
   <Divider />
   <div class="_gk-grid-list">
     <div class="_gk-grid-list-item">

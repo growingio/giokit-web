@@ -22,6 +22,6 @@
   };
 </script>
 
-<span class={`_gk-network-item-${item.durationColor}`}>
+<span class={`_gk-nw-item-${item.durationColor}`}>
   {durationFormat(item.duration)}
 </span>

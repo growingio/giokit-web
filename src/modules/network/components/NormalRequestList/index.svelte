@@ -29,7 +29,7 @@
       >
         <div slot="extra" class="_gk-collapse-item-head-extra">
           <span>{item.method}</span>
-          <span class:_gk-network-item-red={item.status === 'ERROR'}>
+          <span class:_gk-nw-item-red={item.status === 'ERROR'}>
             {item.status}
           </span>
           <Duration {item} />
@@ -39,7 +39,7 @@
     {/each}
   </div>
 {:else}
-  <div class="_gk-network-gio-empty">
+  <div class="_gk-nw-gio-empty">
     <Empty />
   </div>
 {/if}

@@ -1,25 +1,25 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 ._gk-storage {
   margin-top: -1em;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  @flex();
+  @flex-col();
+  @h-full();
 
   ._gk-storage-list-wrapper {
     padding: 0.5em 0;
-    height: 100%;
+    @h-full();
     overflow: hidden;
   }
 
   ._gk-storage-list {
-    overflow: auto;
-    position: relative;
-    height: 100%;
+    @overflow-auto();
+    @relative();
+    @h-full();
 
     ._gk-storage-list-header {
       background-color: @gray-5;
-      border-top: 1px solid @gray-4;
+      @border-t();
       position: sticky;
       top: 0;
       z-index: 1;
@@ -27,33 +27,33 @@
 
     ._gk-storage-list-header,
     ._gk-storage-list-item {
-      display: flex;
-      border-bottom: 1px solid @gray-4;
+      @flex();
+      @border-b();
     }
 
     ._gk-storage-list-header ._gk-storage-list-header-content,
     ._gk-storage-list-item ._gk-storage-list-item-content {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      @flex-1();
+      @grid();
+      @grid-cols-2();
 
       >div {
         word-wrap: break-word;
-        border-right: 1px solid @gray-4;
-        padding: 0.5em;
+        @border-r();
+        @p-1();
       }
     }
 
     ._gk-storage-list-item-options {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      @inline-flex();
+      @items-center();
+      @justify-center();
       width: 4em;
-      padding: 0.5em;
-      text-align: center;
+      @p-1();
+      @text-center();
 
       span {
-        cursor: pointer;
+        @cursor-pointer();
       }
 
       svg {
@@ -64,7 +64,7 @@
 
     ._gk-modal-container {
       position: sticky;
-      height: 100%;
+      @h-full();
     }
   }
 }
@@ -81,7 +81,7 @@
     }
 
     &:hover {
-      cursor: pointer;
+      @cursor-pointer();
 
       svg {
         color: @blue-1;
@@ -97,11 +97,11 @@
 }
 
 #_gk-storage-list-item-options-tippy {
-  position: absolute;
+  @absolute();
   background-color: @white;
   box-shadow: rgb(0 0 0 / 30%) 0px 0px 4px,
     rgb(255 255 255 / 5%) 0px 1px 0px inset;
-  border-radius: 4px;
+  @rounded();
   z-index: 2;
 
   ._gk-storage-tippy-arrow::before {
@@ -110,7 +110,7 @@
     background-color: @white;
     box-shadow: 2px 2px 5px #0000000f;
     transform: rotate(-45deg);
-    position: absolute;
+    @absolute();
     right: -0.25em;
     top: calc(50% - 0.25em);
     content: '';

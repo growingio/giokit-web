@@ -1,19 +1,21 @@
+@import '@/styles/index.less';
+
 ._gk-form-item {
   margin: 0.5em auto 1.2em;
-  display: inline-flex;
-  align-items: center;
+  @inline-flex();
+  @items-center();
   min-width: 16em;
 
   ._gk-form-item-label {
     width: 8em;
-    display: inline-block;
+    @inline-block();
     margin-right: 0.25em;
-    text-align: right;
+    @text-right();
   }
 }
 
 ._gk-qkinit-form-compact {
-  display: flex;
+  @flex();
 
   >div {
     margin: 0;

@@ -1,16 +1,16 @@
-@import "../../index.less";
+@import '@/styles/index.less';
 
 ._gk-toggle {
   border-radius: 100px;
   min-width: 3em;
   height: 1.5em;
-  position: relative;
+  @relative();
   background: @white;
   border: 1px solid @gray-4 !important;
   transition: all .2s ease-in-out;
 
   ._gk-toggle-handle {
-    position: absolute;
+    @absolute();
     width: calc(1.5em - 6px);
     height: calc(1.5em - 6px);
     top: 2px;
@@ -19,7 +19,7 @@
     transition: all .2s ease-in-out;
 
     &::before {
-      position: absolute;
+      @absolute();
       top: 0;
       inset-inline-end: 0;
       bottom: 0;

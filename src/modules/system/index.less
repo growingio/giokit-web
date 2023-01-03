@@ -1,22 +1,28 @@
+@import '@/styles/index.less';
+
 ._gk-system {
-  height: 100%;
-  overflow: auto;
+  @h-full();
+  @overflow-auto();
 
   ._gk-system-block {
-    position: relative;
+    @relative();
 
     &:first-child {
       margin-bottom: 2em;
+    }
+
+    ._gk-grid-list {
+      margin-bottom: 0;
     }
   }
 }
 
 @media (min-width: 640px) {
   ._gk-system ._gk-system-page-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @grid-cols-2();
 
     ._gk-system-list-line:nth-child(odd) {
-      padding-right: 1em;
+      @pr-2();
     }
   }
 }

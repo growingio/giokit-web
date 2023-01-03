@@ -1,17 +1,17 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 #__giokit button {
   outline: none;
   border: none;
 
   &:hover {
-    cursor: pointer;
+    @cursor-pointer();
   }
 }
 
 ._gk-btn {
+  @rounded();
   padding: 0.55em 1.2em;
-  border-radius: 4px;
   font-weight: 400;
   font-size: 1em;
   box-sizing: border-box;

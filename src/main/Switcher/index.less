@@ -1,7 +1,7 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 ._gk-switcher {
-  display: block;
+  @block();
   position: fixed;
   right: 0;
   bottom: 0;
@@ -11,17 +11,17 @@
   z-index: 10000;
   border-radius: 50%;
   box-shadow: 0 0 (8em / 13px) rgba(0, 0, 0, 0.4);
-  cursor: pointer;
+  @cursor-pointer();
 }
 
 ._gk-switcher._gk-switcher-processing {
 
   &::after {
-    position: absolute;
+    @absolute();
     top: -3px;
     left: -3px;
-    width: 100%;
-    height: 100%;
+    @w-full();
+    @h-full();
     border-width: 3px;
     border-style: solid;
     border-color: inherit;

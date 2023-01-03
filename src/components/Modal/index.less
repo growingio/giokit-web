@@ -1,19 +1,19 @@
-@import "../../index.less";
+@import '@/styles/index.less';
 
 ._gk-modal-container {
-  position: absolute;
+  @absolute();
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @flex();
+  @items-center();
+  @justify-center();
   z-index: 10;
 
   ._gk-modal-mask {
-    display: block;
-    position: absolute;
+    @block();
+    @absolute();
     top: 0;
     left: 0;
     right: 0;
@@ -25,21 +25,21 @@
   }
 
   ._gk-modal {
-    display: block;
+    @block();
     min-width: 20em;
     max-width: 40em;
     background: @white;
     z-index: 10011;
-    border-radius: 4px;
+    @rounded();
     padding: 1.5em;
     margin: 0 5em;
 
     ._gk-modal-title {
-      display: flex;
-      align-items: center;
+      @flex();
+      @items-center();
 
       ._gk-icon {
-        margin-right: 1em;
+        @mr-2();
       }
 
       span {
@@ -47,7 +47,7 @@
         line-height: 1.5;
         font-weight: 600;
         color: rgba(0, 0, 0, 0.88);
-        word-break: break-all;
+        @break-all();
       }
 
       svg {
@@ -57,11 +57,11 @@
     }
 
     ._gk-modal-footer {
-      margin-top: 1em;
-      text-align: right;
+      @mt-2();
+      @text-right();
 
       ._gk-btn {
-        margin-left: 0.5em;
+        @ml-1();
       }
     }
   }

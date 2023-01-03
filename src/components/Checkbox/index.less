@@ -1,10 +1,10 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 ._gk-checkbox {
-  display: inline-flex;
-  align-items: center;
+  @inline-flex();
+  @items-center();
   line-height: 1em;
-  cursor: pointer;
+  @cursor-pointer();
 
   &:hover {
     ._gk-checkbox-wrapper {
@@ -13,31 +13,31 @@
   }
 
   ._gk-checkbox-wrapper {
-    border: 1px solid @gray-4;
-    border-radius: 4px;
-    margin-right: 0.5em;
+    @border();
+    @rounded();
+    @mr-1();
     line-height: 0;
     overflow: hidden;
-    position: relative;
+    @relative();
 
     input {
-      position: absolute;
+      @absolute();
       inset: 0;
       z-index: 1;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
+      @w-full();
+      @h-full();
+      @cursor-pointer();
       opacity: 0;
       margin: 0;
     }
 
     ._gk-checkbox-inner {
-      position: relative;
+      @relative();
       top: 0;
       left: 0;
       width: 1em;
       height: 1em;
-      display: block;
+      @block();
     }
   }
 
@@ -56,7 +56,7 @@
         display: table;
         width: 0.357125em;
         height: 0.57125em;
-        position: relative;
+        @relative();
         display: table;
         border: 2px solid @white;
         border-top: 0;
@@ -79,7 +79,7 @@
         display: table;
         width: 0.57125em;
         height: 0;
-        position: relative;
+        @relative();
         display: table;
         border: 2px solid @white;
         border-top: 0;

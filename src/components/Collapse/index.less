@@ -1,4 +1,4 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
 ._gk-collapse {
   ._gk-collapse-item-active {
@@ -8,31 +8,29 @@
   }
 
   ._gk-collapse-item-head {
-    display: flex;
-    align-items: center;
-    padding: 0.5em;
-    cursor: pointer;
-    width: 100%;
+    @flex();
+    @items-center();
+    @p-1();
+    @cursor-pointer();
+    @w-full();
     box-sizing: border-box;
 
     ._gk-collapse-item-head-icon {
       line-height: 1;
-      display: block;
-      flex: none;
+      @block();
+      @flex-none();
     }
 
     ._gk-collapse-item-head-content {
-      display: flex;
-      justify-content: space-between;
+      @flex();
+      @justify-between();
       line-height: 1.5em;
-      flex: 1;
+      @flex-1();
       width: calc(100% - 22px);
 
       ._gk-collapse-item-head-title {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        flex: 1;
+        @truncate();
+        @flex-1();
       }
     }
 
@@ -44,7 +42,7 @@
   ._gk-collapse-item-content {
     padding: 0em 0.6em 0em 1.2em;
     color: #6b7280;
-    position: relative;
+    @relative();
 
     p:not(:last-child) {
       margin-bottom: 0.25em;

@@ -1,31 +1,31 @@
-@import "../../index.less";
+@import '@/styles/index.less';
 
 ._gk-tabs {
-  border-bottom: 1px solid @gray-4;
+  @border-b();
 
   ._gk-tabs-nav {
-    display: flex;
-    align-items: center;
+    @flex();
+    @items-center();
     height: 3em;
 
     ._gk-tabs-tab {
-      position: relative;
+      @relative();
       padding: 0 1.2em;
       line-height: 3em;
-      cursor: pointer;
-      flex: 1;
-      text-align: center;
+      @cursor-pointer();
+      @flex-1();
+      @text-center();
 
       &:hover {
         color: @blue-1;
       }
 
       ._gk-tabs-tab-content {
-        display: inline-flex;
-        align-items: center;
+        @inline-flex();
+        @items-center();
 
         ._gk-icon {
-          margin-right: 0.5em;
+          @mr-1();
         }
       }
     }
@@ -35,10 +35,10 @@
 
       &::after {
         content: '';
-        display: block;
+        @block();
         height: 2px;
-        width: 100%;
-        position: absolute;
+        @w-full();
+        @absolute();
         bottom: -1px;
         left: 0;
         background: @blue-1;
