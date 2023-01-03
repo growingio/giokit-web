@@ -19,7 +19,7 @@
   const handleClear = () => {
     _monitorVisible.set(false);
     _filterVisible.set(false);
-    _clearVisible.set(true);
+    _clearVisible.set(!$_clearVisible);
   };
 
   const onClear = () => {

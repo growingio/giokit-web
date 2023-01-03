@@ -10,7 +10,7 @@
   const handleMonitor = () => {
     _filterVisible.set(false);
     _clearVisible.set(false);
-    _monitorVisible.set(true);
+    _monitorVisible.set(!$_monitorVisible);
   };
 
   const onMonitor = () => {

@@ -36,7 +36,7 @@
   const handleFilter = () => {
     _monitorVisible.set(false);
     _clearVisible.set(false);
-    _filterVisible.set(true);
+    _filterVisible.set(!$_filterVisible);
   };
 
   const handleAll = (e: any) => {
