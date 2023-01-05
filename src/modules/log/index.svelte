@@ -1,7 +1,7 @@
 <script lang="ts">
   import './index.less';
   import { _activeTab, _logQueue } from './store';
-  import { head, isEmpty, isString } from '@/utils/glodash';
+  import { head, isEmpty, isString, startsWith } from '@/utils/glodash';
   import LogRow from './components/LogRow/index.svelte';
   import Tabs from '@/components/Tabs/index.svelte';
 
@@ -29,7 +29,8 @@
               head(rowData) &&
               head(rowData)?.oData &&
               isString(head(rowData)?.oData) &&
-              head(rowData)?.oData?.indexOf('[GrowingIO') > -1
+              (head(rowData)?.oData?.indexOf('[GrowingIO') > -1 ||
+                head(rowData)?.oData?.indexOf('[GioNode]') > -1)
             ) {
               return true;
             } else {

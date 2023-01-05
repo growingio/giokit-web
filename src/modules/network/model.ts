@@ -166,7 +166,7 @@ export default class NetworkModel {
           return tl;
         } else {
           // 不存在则推入队列
-          return [...l, requestItem];
+          return [requestItem, ...l];
         }
       });
       // 更新gio事件监控中的已显示过的事件id，防止开启监控时多显示一个
@@ -186,7 +186,7 @@ export default class NetworkModel {
         tl[idx] = requestItem;
         return tl;
       } else {
-        return [...l, requestItem];
+        return [requestItem, ...l];
       }
     });
   };

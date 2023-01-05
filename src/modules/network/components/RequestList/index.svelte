@@ -4,6 +4,7 @@
     _activeReqType,
     _clearVisible,
     _filterVisible,
+    _monitorVisible,
     _requestQueue,
     _gioRequestQueue,
     _filterActive
@@ -16,6 +17,7 @@
     e.stopPropagation();
     _clearVisible.set(false);
     _filterVisible.set(false);
+    _monitorVisible.set(false);
   };
 </script>
 
