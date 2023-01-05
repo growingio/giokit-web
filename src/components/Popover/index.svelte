@@ -30,8 +30,13 @@
           {
             name: 'offset',
             options: {
-              offset: [0, 10],
-              boundary: document.querySelector('._gk-p-content')
+              offset: [0, 10]
+            }
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              padding: 16
             }
           }
         ]
