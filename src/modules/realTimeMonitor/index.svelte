@@ -8,7 +8,7 @@
   } from '../network/store';
   import { _openGioKit, _showRealTimeMonitor } from '@/main/store';
   import { fly } from 'svelte/transition';
-  import { isEmpty, last } from '@/utils/glodash';
+  import { isEmpty, head } from '@/utils/glodash';
   import { onDestroy, onMount } from 'svelte';
   import { Unsubscriber } from 'svelte/store';
 
@@ -18,7 +18,7 @@
   onMount(() => {
     unsubscribe = _gioRequestQueue.subscribe((q: any) => {
       if (!isEmpty(q)) {
-        const target = last(q);
+        const target = head(q);
         if (!$_appearedIds.includes(target._id)) {
           _appearedIds.update((l) => [...l, target._id]);
           monitorList = [...monitorList, target];

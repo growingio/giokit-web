@@ -1,41 +1,41 @@
 @import '@/styles/index.less';
 
 ._gk-realtime-monitor {
+  bottom: 100px;
+  margin-right: -1px;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1em 0;
   position: fixed;
   right: 0;
-  bottom: 100px;
-  max-height: 200px;
-  padding: 1em 0;
-  margin-right: -1px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 ._gk-realtime-monitor-item {
-  font-weight: 500;
+  @cursor-pointer();
   @flex();
   @items-center();
-  border-top-left-radius: 2em;
+  background: @white;
   border-bottom-left-radius: 2em;
+  border-top-left-radius: 2em;
   border: 1px solid @orange;
+  box-shadow: 0 0 (8em / 13px) rgba(0, 0, 0, 0.4);
+  font-weight: 500;
   margin: 0 0 0.8em 0.5em;
   overflow: hidden;
-  box-shadow: 0 0 (8em / 13px) rgba(0, 0, 0, 0.4);
-  @cursor-pointer();
 
   ._gk-item-idx {
-    background: @orange;
-    padding: 0.9em;
+    @h-full();
     @inline-flex();
     @items-center();
     @justify-center();
-    @h-full();
+    background: @orange;
     color: @white;
+    padding: 0.9em;
   }
 
   ._gk-item-content {
     padding: 0.2em 1em;
-    background: @white;
 
     ._gk-item-content-type {
       font-style: italic;
