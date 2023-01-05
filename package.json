@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "start": "vite build -w",
-    "dev": "vite  build -w",
+    "start": "vite build -w --force",
+    "dev": "vite  build -w --force",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -32,6 +32,7 @@
     "vite-plugin-style-inject": "^0.0.1"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "copy-text-to-clipboard": "^3.0.1",
     "js-cookie": "^3.0.1",
     "prismjs": "^1.29.0",

@@ -1,54 +1,20 @@
-@import '@/index.less';
+@import '@/styles/index.less';
 
-#_gk-network-tool-filter-tippy {
-  position: absolute;
-  background-color: @white;
-  box-shadow: rgb(0 0 0 / 30%) 0px 0px 4px,
-    rgb(255 255 255 / 5%) 0px 1px 0px inset;
-  border-radius: 4px;
-  width: 25em;
-  top: 4.25em;
-  right: 1.05em;
-
-  ._gk-network-tool-tippy-arrow::before {
-    width: 0.5em;
-    height: 0.5em;
-    background-color: @white;
-    box-shadow: 0px -4px 5px #0000000f;
-    transform: rotate(-45deg);
-    position: absolute;
-    top: -0.25em;
-    right: 11.9em;
-    content: '';
+._gk-nw-tool-filter-content {
+  ._gk-nw-tool-filter-head {
+    @flex();
+    @justify-between();
+    @items-center();
+    @mb-2();
   }
 
-  ._gk-network-tool-filter-tippy-inner {
-    padding: 1em;
-
-    ._gk-network-tool-filter-tippy-btns {
-      text-align: right;
-
-      ._gk-btn {
-        margin-left: 0.5em;
-      }
-    }
-  }
-
-  ._gk-network-tool-filter-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1em;
-  }
-
-  ._gk-network-tool-filter-groups {
-    display: grid;
+  ._gk-nw-tool-filter-groups {
+    @grid();
     gap: 1em;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @grid-cols-2();
 
-    ._gk-network-tool-filter-groups-span-2 {
+    ._gk-nw-tool-filter-groups-span-2 {
       grid-column: span 2 / span 1;
     }
   }
-
 }

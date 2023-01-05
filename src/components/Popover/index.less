@@ -1,0 +1,52 @@
+@import '@/styles/index.less';
+
+._gk-popover-trigger {
+  display: inline-block;
+}
+
+._gk-popover {
+  @rounded();
+  display: none;
+  width: 25em;
+  background: @white;
+  box-shadow: 0 0 20px 4px rgba(154, 161, 177, .15), 0 4px 80px -8px rgba(36, 40, 47, .25), 0 4px 4px -2px rgba(91, 94, 105, .15);
+  padding: 1em;
+
+  ._gk-popover-arrow,
+  ._gk-popover-arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+  }
+
+  ._gk-popover-arrow {
+    visibility: hidden;
+  }
+
+  ._gk-popover-arrow::before {
+    visibility: visible;
+    content: '';
+    transform: rotate(45deg);
+  }
+}
+
+._gk-popover[data-show] {
+  display: block;
+}
+
+._gk-popover[data-popper-placement^='top']>._gk-popover-arrow {
+  bottom: -4px;
+}
+
+._gk-popover[data-popper-placement^='bottom']>._gk-popover-arrow {
+  top: -4px;
+}
+
+._gk-popover[data-popper-placement^='left']>._gk-popover-arrow {
+  right: -4px;
+}
+
+._gk-popover[data-popper-placement^='right']>._gk-popover-arrow {
+  left: -4px;
+}

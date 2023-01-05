@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@popperjs/core': ^2.11.6
   '@rollup/plugin-json': ^6.0.0
   '@sveltejs/vite-plugin-svelte': ^1.1.0
   '@tsconfig/svelte': ^3.0.0
@@ -28,6 +29,7 @@ specifiers:
   vite-plugin-style-inject: ^0.0.1
 
 dependencies:
+  '@popperjs/core': 2.11.6
   copy-text-to-clipboard: 3.0.1
   js-cookie: 3.0.1
   prismjs: 1.29.0

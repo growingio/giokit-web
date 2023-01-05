@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Tooltip from '@/components/Tooltip/index.svelte';
+  import Popover from '@/components/Popover/index.svelte';
   import Button from '@/components/Button/index.svelte';
   import Icon from '@/components/Icon/index.svelte';
   import Divider from '@/components//Divider/index.svelte';
@@ -13,8 +13,16 @@
     _requestQueue,
     _monitorVisible
   } from '../../store';
-  import './index.less';
   import { isEmpty } from '@/utils/glodash';
+  import './index.less';
+
+  let popInst: any;
+
+  $: {
+    if (!$_clearVisible) {
+      popInst?.hide();
+    }
+  }
 
   const handleClear = () => {
     _monitorVisible.set(false);
@@ -33,29 +41,24 @@
   };
 </script>
 
-<div class="_gk-network-header-tool">
-  <Tooltip message="清空列表">
+<div class="_gk-nw-tool">
+  <Popover triggerSelector="#_gk-nw-tool-clear" bind:this={popInst}>
     <Button
+      slot="trigger"
+      id="_gk-nw-tool-clear"
       on:click={handleClear}
       disabled={($_activeReqType === 'gio' && isEmpty($_gioRequestQueue)) ||
         ($_activeReqType === 'all' && isEmpty($_requestQueue))}
     >
       <Icon name="clear" />
     </Button>
-  </Tooltip>
-</div>
-
-<div
-  id="_gk-network-tool-clear-tippy"
-  style={`display:${$_clearVisible ? 'block' : 'none'};`}
->
-  <div class="_gk-network-tool-tippy-arrow" />
-  <div class="_gk-network-tool-clear-tippy-inner">
-    确定要清空{$_activeReqType === 'gio' ? 'Gio' : '全部'}请求吗？
-    <Divider />
-    <div class="_gk-network-tool-clear-tippy-btns">
-      <Button small on:click={() => _clearVisible.set(false)}>取消</Button>
-      <Button small type="primary" on:click={onClear}>确定</Button>
+    <div slot="popper">
+      确定要清空{$_activeReqType === 'gio' ? 'Gio' : '全部'}请求吗？
+      <Divider />
+      <div class="_gk-f-btns">
+        <Button small on:click={() => _clearVisible.set(false)}>取消</Button>
+        <Button small type="primary" on:click={onClear}>确定</Button>
+      </div>
     </div>
-  </div>
+  </Popover>
 </div>

@@ -1,46 +1,21 @@
 @import '@/styles/index.less';
 
-#_gk-nw-tool-minitor-tippy {
-  @absolute();
-  background-color: @white;
-  box-shadow: rgb(0 0 0 / 30%) 0px 0px 4px,
-    rgb(255 255 255 / 5%) 0px 1px 0px inset;
-  @rounded();
-  width: 25em;
-  top: 4.25em;
-  right: 1.05em;
+._gk-nw-tool-monitor-content {
+  p {
+    margin: 0.5em 0 0 0;
+    font-size: 0.9em;
+    color: @gray-2;
 
-  ._gk-nw-tool-tippy-arrow::before {
-    width: 0.5em;
-    height: 0.5em;
-    background-color: @white;
-    box-shadow: 0px -4px 5px #0000000f;
-    transform: rotate(-45deg);
-    @absolute();
-    top: -0.25em;
-    left: 9.6em;
-    content: '';
+    span {
+      color: @blue-2;
+    }
   }
 
-  ._gk-nw-tool-minitor-tippy-inner {
-    @p-2();
+  ._gk-nw-tool-minitor-tippy-btns {
+    @text-right();
 
-    p {
-      margin: 0.5em 0 0 0;
-      font-size: 0.9em;
-      color: @gray-2;
-
-      span {
-        color: @blue-2;
-      }
-    }
-
-    ._gk-nw-tool-minitor-tippy-btns {
-      @text-right();
-
-      ._gk-btn {
-        @ml-1();
-      }
+    ._gk-btn {
+      @ml-1();
     }
   }
 }

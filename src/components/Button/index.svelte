@@ -5,6 +5,7 @@
   /**
    * Public properties
    */
+  export let id: string = '';
   export let type: 'primary' | 'default' | 'link' | 'text' | 'dashed' =
     'default';
   export let disabled: boolean = false;
@@ -32,7 +33,7 @@
 </script>
 
 <button
-  {...$$props}
+  {id}
   class={`_gk-btn _gk-btn-${type}${small ? ' _gk-btn-small' : ''}${
     disabled ? ' _gk-btn-disabled' : ''
   } ${className}`}
