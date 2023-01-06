@@ -3,15 +3,16 @@
   import { _activeTool } from '../store';
   import { commonTools, platformTools } from '@/constants/constants';
   import { onDestroy } from 'svelte';
+  import Debugger from '../../modules/debugger/index.svelte';
+  import EventExecution from '../../modules/eventExecution/index.svelte';
+  import InitVerification from '../../modules/initVerification/index.svelte';
   import Log from '../../modules/log/index.svelte';
-  import Storage from '../../modules/storage/index.svelte';
-  import System from '../../modules/system/index.svelte';
   import Network from '../../modules/network/index.svelte';
   import QuickInit from '../../modules/quickInit/index.svelte';
-  import InitVerification from '../../modules/initVerification/index.svelte';
-  import EventExecution from '../../modules/eventExecution/index.svelte';
   import RunningState from '../../modules/runningState/index.svelte';
   import RunningStatistics from '../../modules/runningStatistics/index.svelte';
+  import Storage from '../../modules/storage/index.svelte';
+  import System from '../../modules/system/index.svelte';
 
   /**
    * Inner properties
@@ -44,6 +45,9 @@
   {/if}
   {#if $_activeTool === 'storage'}
     <Storage />
+  {/if}
+  {#if $_activeTool === 'debugger'}
+    <Debugger />
   {/if}
   {#if $_activeTool === 'quick-init'}
     <QuickInit />

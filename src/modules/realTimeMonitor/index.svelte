@@ -5,7 +5,7 @@
     _gioRequestQueue,
     _gioActive,
     _gioActiveEvent
-  } from '../network/store';
+  } from '../debugger/store';
   import { _openGioKit, _showRealTimeMonitor } from '@/main/store';
   import { fly } from 'svelte/transition';
   import { isEmpty, head } from '@/utils/glodash';

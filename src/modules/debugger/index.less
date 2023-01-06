@@ -1,0 +1,57 @@
+@import '@/styles/index.less';
+
+._gk-debug {
+  @h-full();
+  @flex();
+  @flex-col();
+
+  ._gk-debug-header {
+    @flex();
+    @justify-between();
+    @items-center();
+
+    ._gk-ct-header {
+      margin-bottom: 0;
+    }
+
+    ._gk-debug-tools {
+      @flex();
+      @items-center();
+      ._gk-x-space-1();
+
+      ._gk-debug-tool,
+      ._gk-nw-tool {
+        @relative();
+
+        ._gk-btn {
+          padding: calc(0.55em - 1px) calc(0.7em - 1px);
+        }
+      }
+
+      ._gk-debug-tool-monitor {
+        @inline-flex();
+        @items-center();
+      }
+
+      ._gk-icon svg {
+        width: 1em;
+        height: 1em;
+      }
+    }
+  }
+
+  ._gk-debug-list {
+    @h-full();
+    @overflow-auto();
+    padding: 0.1em 0;
+
+    ._gk-debug-gio-empty {
+      @h-full();
+      @w-full();
+      @flex();
+      @justify-center();
+      @items-center();
+      grid-column: span 12 / span 1;
+    }
+  }
+}

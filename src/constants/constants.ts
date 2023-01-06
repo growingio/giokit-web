@@ -33,6 +33,11 @@ export const commonTools = [
 
 export const platformTools = [
   {
+    label: '事件调试',
+    icon: 'debug',
+    key: 'debugger'
+  },
+  {
     label: '快速初始化',
     icon: 'rocket',
     key: 'quick-init'

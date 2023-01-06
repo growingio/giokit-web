@@ -1,17 +1,16 @@
 <script lang="ts">
-  import '../../index.less';
+  import './index.less';
   import {
     _gioActive,
     _gioActiveEvent,
     _gioRequestQueue,
-    _activeReqType,
     _filterActive
   } from '../../store';
   import { formatTime, isEmpty } from '@/utils/glodash';
   import { onMount, onDestroy } from 'svelte';
-  import { RequestItem } from '../../model';
+  import { RequestItem } from '../../../network/model';
   import { Unsubscriber, get } from 'svelte/store';
-  import Duration from '../Duration/index.svelte';
+  import Duration from '../../../network/components/Duration/index.svelte';
   import Empty from '@/components/Empty/index.svelte';
   import JsonView from '@/components/JsonView/index.svelte';
 
@@ -46,18 +45,18 @@
   };
 </script>
 
-<div class="_gk-nw-gio-list">
+<div class="_gk-debug-gio-list">
   {#if !isEmpty(requestQueue)}
-    <div class="_gk-nw-gio-overview">
+    <div class="_gk-debug-gio-overview">
       {#each requestQueue as item}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
-          class="_gk-nw-gio-item"
-          class:_gk-nw-gio-item-active={$_gioActive === item._id}
+          class="_gk-debug-gio-item"
+          class:_gk-debug-gio-item-active={$_gioActive === item._id}
           on:click={() => onSelect(item._id)}
         >
           <div>
-            <span class="_gk-nw-gio-item-type">{item.gioEventType}</span>
+            <span class="_gk-debug-gio-item-type">{item.gioEventType}</span>
             <Duration {item} />
           </div>
           <p>
@@ -67,22 +66,22 @@
         </div>
       {/each}
     </div>
-    <div class="_gk-nw-gio-content">
+    <div class="_gk-debug-gio-content">
       {#if !isEmpty($_gioActiveEvent)}
-        <div class="_gk-nw-gio-content-wrapper">
-          <div class="_gk-nw-gio-content-title">
+        <div class="_gk-debug-gio-content-wrapper">
+          <div class="_gk-debug-gio-content-title">
             请求地址：{$_gioActiveEvent?.url}
           </div>
           <JsonView data={$_gioActiveEvent?.body} />
         </div>
       {:else}
-        <div class="_gk-nw-gio-empty">
+        <div class="_gk-debug-gio-empty">
           <Empty title="请选择事件查看请求数据" />
         </div>
       {/if}
     </div>
   {:else}
-    <div class="_gk-nw-gio-empty">
+    <div class="_gk-debug-gio-empty">
       <Empty />
     </div>
   {/if}

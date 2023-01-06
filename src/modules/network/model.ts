@@ -1,4 +1,5 @@
-import { _requestQueue, _gioRequestQueue } from './store';
+import { _requestQueue } from './store';
+import { _gioRequestQueue } from '../debugger/store';
 import { _appearedIds } from '../realTimeMonitor/store';
 import { BeaconProxy } from './proxy/beacon.proxy';
 import { FetchProxy } from './proxy/fetch.proxy';

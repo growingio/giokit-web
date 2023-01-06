@@ -1,20 +1,19 @@
 <script lang="ts">
-  import Popover from '@/components/Popover/index.svelte';
-  import Button from '@/components/Button/index.svelte';
-  import Icon from '@/components/Icon/index.svelte';
-  import Divider from '@/components//Divider/index.svelte';
+  import './index.less';
+  import { _clearVisible, _requestQueue } from '../../store';
+  import { isEmpty } from '@/utils/glodash';
   import {
-    _activeReqType,
-    _clearVisible,
-    _filterVisible,
     _gioActive,
     _gioActiveEvent,
     _gioRequestQueue,
-    _requestQueue,
-    _monitorVisible
-  } from '../../store';
-  import { isEmpty } from '@/utils/glodash';
-  import './index.less';
+    _filterVisible
+  } from '../../../debugger/store';
+  import Button from '@/components/Button/index.svelte';
+  import Divider from '@/components//Divider/index.svelte';
+  import Icon from '@/components/Icon/index.svelte';
+  import Popover from '@/components/Popover/index.svelte';
+
+  export let reqType: string = 'all';
 
   let popInst: any;
 
@@ -25,14 +24,13 @@
   }
 
   const handleClear = () => {
-    _monitorVisible.set(false);
     _filterVisible.set(false);
     _clearVisible.set(!$_clearVisible);
   };
 
   const onClear = () => {
     _clearVisible.set(false);
-    if ($_activeReqType === 'all') {
+    if (reqType === 'all') {
       _requestQueue.set([]);
     }
     _gioActive.set('');
@@ -47,13 +45,13 @@
       slot="trigger"
       id="_gk-nw-tool-clear"
       on:click={handleClear}
-      disabled={($_activeReqType === 'gio' && isEmpty($_gioRequestQueue)) ||
-        ($_activeReqType === 'all' && isEmpty($_requestQueue))}
+      disabled={(reqType === 'gio' && isEmpty($_gioRequestQueue)) ||
+        (reqType === 'all' && isEmpty($_requestQueue))}
     >
       <Icon name="clear" />
     </Button>
     <div slot="popper">
-      确定要清空{$_activeReqType === 'gio' ? 'Gio' : '全部'}请求吗？
+      确定要清空{reqType === 'gio' ? 'Gio' : '全部'}请求吗？
       <Divider />
       <div class="_gk-f-btns">
         <Button small on:click={() => _clearVisible.set(false)}>取消</Button>

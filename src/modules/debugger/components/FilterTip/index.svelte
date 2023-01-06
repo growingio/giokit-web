@@ -1,23 +1,21 @@
 <script lang="ts">
-  import Popover from '@/components/Popover/index.svelte';
   import './index.less';
+  import { _activeReqType, _requestQueue } from '../../../network/store';
+  import { GIOEVENTTYPES } from '@/constants/constants';
+  import { isEmpty } from '@/utils/glodash';
+  import { onDestroy, onMount } from 'svelte';
+  import { Unsubscriber } from 'svelte/store';
   import {
-    _activeReqType,
-    _gioRequestQueue,
-    _requestQueue,
     _clearVisible,
     _filterVisible,
     _filterActive,
-    _monitorVisible
+    _gioRequestQueue
   } from '../../store';
-  import { isEmpty } from '@/utils/glodash';
   import Button from '@/components/Button/index.svelte';
-  import Icon from '@/components/Icon/index.svelte';
-  import Divider from '@/components/Divider/index.svelte';
   import Checkbox from '@/components/Checkbox/index.svelte';
-  import { GIOEVENTTYPES } from '@/constants/constants';
-  import { onDestroy, onMount } from 'svelte';
-  import { Unsubscriber } from 'svelte/store';
+  import Divider from '@/components/Divider/index.svelte';
+  import Icon from '@/components/Icon/index.svelte';
+  import Popover from '@/components/Popover/index.svelte';
 
   let active: string[] = [...GIOEVENTTYPES];
 
@@ -42,7 +40,6 @@
   });
 
   const handleFilter = () => {
-    _monitorVisible.set(false);
     _clearVisible.set(false);
     _filterVisible.set(!$_filterVisible);
   };
@@ -72,18 +69,18 @@
   };
 </script>
 
-<div class="_gk-nw-tool">
-  <Popover triggerSelector="#_gk-nw-tool-filter" bind:this={popInst}>
+<div class="_gk-debug-tool">
+  <Popover triggerSelector="#_gk-debug-tool-filter" bind:this={popInst}>
     <Button
       slot="trigger"
-      id="_gk-nw-tool-filter"
+      id="_gk-debug-tool-filter"
       on:click={handleFilter}
       disabled={isEmpty($_gioRequestQueue)}
     >
       <Icon name="filter" />
     </Button>
-    <div slot="popper" class="_gk-nw-tool-filter-content">
-      <div class="_gk-nw-tool-filter-head">
+    <div slot="popper" class="_gk-debug-tool-filter-content">
+      <div class="_gk-debug-tool-filter-head">
         筛选事件类型
         <Checkbox
           on:change={(e) => handleAll(e)}
@@ -93,12 +90,12 @@
           >全选
         </Checkbox>
       </div>
-      <div class="_gk-nw-tool-filter-groups">
+      <div class="_gk-debug-tool-filter-groups">
         {#each GIOEVENTTYPES as item, i}
           <Checkbox
             checked={active.includes(item)}
             className={i === GIOEVENTTYPES.length - 1
-              ? '_gk-nw-tool-filter-groups-span-2'
+              ? '_gk-debug-tool-filter-groups-span-2'
               : ''}
             on:change={(e) => checkChange(e, item)}
             >{item}

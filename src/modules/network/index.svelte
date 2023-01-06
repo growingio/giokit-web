@@ -1,20 +1,14 @@
 <script lang="ts">
   import './index.less';
-  import { _activeReqType } from './store';
+  import { _clearVisible } from './store';
   import ClearTip from './components/ClearTip/index.svelte';
   import Divider from '@/components/Divider/index.svelte';
-  import FilterTip from './components/FilterTip/index.svelte';
-  import RequestList from './components/RequestList/index.svelte';
-  import Switch from '@/components/Switch/index.svelte';
-  import RealTimeMonitorTip from './components/RealTimeMonitorTip/index.svelte';
+  import NormalRequestList from './components/NormalRequestList/index.svelte';
 
-  const switchers = [
-    { label: 'Gio', value: 'gio' },
-    { label: '全部', value: 'all' }
-  ];
-
-  const onSwitch = (k: string) => {
-    _activeReqType.set(k);
+  const handleOut = (e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+    _clearVisible.set(false);
   };
 </script>
 
@@ -23,14 +17,11 @@
   <div class="_gk-nw-header">
     <div class="_gk-ct-header">请求概览</div>
     <div class="_gk-nw-tools">
-      {#if $_activeReqType === 'gio'}
-        <RealTimeMonitorTip />
-        <FilterTip />
-      {/if}
-      <ClearTip />
-      <Switch options={switchers} value={$_activeReqType} onChange={onSwitch} />
+      <ClearTip reqType="all" />
     </div>
   </div>
   <Divider />
-  <RequestList />
+  <div class="_gk-nw-list" on:click={handleOut}>
+    <NormalRequestList />
+  </div>
 </div>
