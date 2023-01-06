@@ -6,19 +6,14 @@
   import Divider from '@/components/Divider/index.svelte';
   import FilterTip from './components/FilterTip/index.svelte';
   import GioRequestList from './components/GioRequestList/index.svelte';
-  import Switch from '@/components/Switch/index.svelte';
+  import Toggle from '@/components/Toggle/index.svelte';
   import Modal from '@/components/Modal/index.svelte';
 
   let visible: boolean = false;
 
-  const switchers = [
-    { label: '开启', value: 'open' },
-    { label: '关闭', value: 'close' }
-  ];
-
-  const onSwitch = (k: string) => {
-    _openMonitor.set(k === 'open');
-    if (k === 'open') {
+  const onSwitch = (_: any, v: boolean) => {
+    _openMonitor.set(v);
+    if (v) {
       visible = true;
     } else {
       _showRealTimeMonitor.set(false);
@@ -50,11 +45,7 @@
     <div class="_gk-debug-tools">
       <div class="_gk-debug-tool-monitor">
         实时监控：
-        <Switch
-          options={switchers}
-          value={$_openMonitor ? 'open' : 'close'}
-          onChange={onSwitch}
-        />
+        <Toggle checked={$_openMonitor} onChange={onSwitch} />
       </div>
       <FilterTip />
       <ClearTip reqType="gio" />
@@ -69,7 +60,7 @@
     {visible}
     type="info"
     title="确定打开实时监控吗？"
-    description="打开后面板会最小化，Gio事件会以弹出式消息为您展示，您可点击对应事件回到当前界面查看事件详情。"
+    description="打开后面板会最小化，Gio事件会以弹出式消息为您展示，您可点击对应事件回到当前界面查看事件详情。重定向或刷新页面等导致重新加载的操作时，请重新开启。"
     {onCancel}
     onOk={onOpenMonitor}
   />
