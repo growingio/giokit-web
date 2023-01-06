@@ -3,6 +3,7 @@
   import './index.less';
 
   export let item: any = {};
+  export let className: string = '';
 
   // 格式化请求时长
   const durationFormat = (d: string | number) => {
@@ -22,6 +23,6 @@
   };
 </script>
 
-<span class={`_gk-nw-item-${item.durationColor}`}>
+<span class={`_gk-nw-item-${item.durationColor} ${className}`}>
   {durationFormat(item.duration)}
 </span>

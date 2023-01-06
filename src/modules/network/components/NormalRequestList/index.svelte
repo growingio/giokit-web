@@ -28,11 +28,17 @@
         onChange={(v) => onItemToggle(v, `${i}`)}
       >
         <div slot="extra" class="_gk-collapse-item-head-extra">
-          <span>{item.method}</span>
-          <span class:_gk-nw-item-red={item.status === 'ERROR'}>
+          {#if item.isGioData}
+            <div><span class="_gk-item-gio-sign">G</span></div>
+          {/if}
+          <span class="_gk-c-i-1">{item.method}</span>
+          <span
+            class="_gk-c-i-2"
+            class:_gk-nw-item-red={item.status === 'ERROR'}
+          >
             {item.status}
           </span>
-          <Duration {item} />
+          <Duration {item} className="_gk-c-i-3" />
         </div>
         <NormalItemContent slot="content" {item} />
       </Collapse>

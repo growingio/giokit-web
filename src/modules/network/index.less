@@ -57,22 +57,27 @@
         @flex();
         @justify-around();
 
-        span {
+        >span {
           margin: 0 0.5em;
           @text-center();
+        }
 
-          &:first-child {
-            width: 3.5em;
-          }
+        ._gk-c-i-1 {
+          width: 3.5em;
+        }
 
-          &:nth-child(2) {
-            width: 3em;
-          }
+        ._gk-c-i-2 {
+          width: 3em;
+        }
 
-          &:last-child {
-            width: 3.5em;
-            @text-right();
-          }
+        ._gk-c-i-3 {
+          width: 3.5em;
+          @text-right();
+        }
+
+        ._gk-item-gio-sign {
+          color: @orange;
+          padding: 0 0.5em;
         }
       }
 
