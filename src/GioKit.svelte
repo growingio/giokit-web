@@ -35,6 +35,8 @@
       cssTimer && clearTimeout(cssTimer);
       cssTimer = setTimeout(() => {
         openMain = true;
+        // 打开面板时禁用页面滚动
+        document.body.style.overflow = 'hidden';
       }, 10);
     } else {
       openMain = false;
@@ -42,6 +44,8 @@
       cssTimer = setTimeout(() => {
         openPanel = false;
         openMask = false;
+        // 关闭面板时恢复页面滚动
+        document.body.style.overflow = '';
       }, 330);
     }
   }
@@ -79,8 +83,6 @@
    */
   const onTapOpen = () => {
     _openGioKit.set(true);
-    // 打开面板时关闭Gio事件监控
-    _showRealTimeMonitor.set(false);
   };
 
   const onTapClose = () => {

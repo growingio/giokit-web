@@ -21,7 +21,6 @@
     background: rgba(0, 0, 0, 0.4);
     transition: background 0.3s;
     z-index: 10010;
-    -webkit-tap-highlight-color: transparent;
   }
 
   ._gk-modal {
@@ -34,25 +33,37 @@
     padding: 1.5em;
     margin: 0 5em;
 
-    ._gk-modal-title {
+    ._gk-modal-wrapper {
       @flex();
-      @items-center();
+      align-items: flex-start;
 
-      ._gk-icon {
+      ._gk-modal-type-icon {
         @mr-2();
+
+        svg {
+          width: 1.9em;
+          height: 1.9em;
+        }
+      }
+    }
+
+    ._gk-modal-content {
+      ._gk-modal-title {
+        @flex();
+        @items-center();
+
+        span {
+          font-size: 1.1em;
+          line-height: 1.5;
+          font-weight: 600;
+          color: rgba(0, 0, 0, 0.88);
+          @break-all();
+        }
       }
 
-      span {
-        font-size: 1.1em;
-        line-height: 1.5;
-        font-weight: 600;
-        color: rgba(0, 0, 0, 0.88);
-        @break-all();
-      }
-
-      svg {
-        width: 1.9em;
-        height: 1.9em;
+      ._gk-modal-desc {
+        margin-top: 0.5em;
+        color: @gray-2;
       }
     }
 
@@ -67,19 +78,19 @@
   }
 
   ._gk-modal._gk-modal-info {
-    ._gk-modal-title svg {
+    ._gk-modal-type-icon svg {
       color: @blue-1;
     }
   }
 
   ._gk-modal._gk-modal-warning {
-    ._gk-modal-title svg {
+    ._gk-modal-type-icon svg {
       color: @yellow-1;
     }
   }
 
   ._gk-modal._gk-modal-error {
-    ._gk-modal-title svg {
+    ._gk-modal-type-icon svg {
       color: @red-1;
     }
   }

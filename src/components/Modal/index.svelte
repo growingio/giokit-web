@@ -7,6 +7,7 @@
   export let visible: boolean = false;
   export let type: 'default' | 'info' | 'warning' | 'error' = 'default';
   export let title: string = '';
+  export let description: any;
   export let onCancel: () => void = () => {};
   export let onOk: () => void = () => {};
   export let cancelText: string = '取消';
@@ -17,19 +18,32 @@
   <div class="_gk-modal-container" transition:fade>
     <div class="_gk-modal-mask" />
     <div class={`_gk-modal _gk-modal-${type}`} transition:scale>
-      <div class="_gk-modal-title">
-        {#if type === 'info'}
-          <Icon name="info" />
+      <div class="_gk-modal-wrapper">
+        {#if type !== 'default'}
+          <div class="_gk-modal-type-icon">
+            {#if type === 'info'}
+              <Icon name="info" />
+            {/if}
+            {#if type === 'warning'}
+              <Icon name="warning" />
+            {/if}
+            {#if type === 'error'}
+              <Icon name="error" />
+            {/if}
+          </div>
         {/if}
-        {#if type === 'warning'}
-          <Icon name="warning" />
-        {/if}
-        {#if type === 'error'}
-          <Icon name="error" />
-        {/if}
-        <span>
-          {title}
-        </span>
+        <div class="_gk-modal-content">
+          <div class="_gk-modal-title">
+            <span>
+              {title}
+            </span>
+          </div>
+          {#if description}
+            <div class="_gk-modal-desc">
+              {description}
+            </div>
+          {/if}
+        </div>
       </div>
       <div class="_gk-modal-footer">
         <Button small on:click={onCancel}>{cancelText}</Button>
