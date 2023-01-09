@@ -20,14 +20,14 @@ export const commonTools = [
     key: 'network'
   },
   {
-    label: '页面和设备',
-    icon: 'device',
-    key: 'system'
-  },
-  {
     label: '存储',
     icon: 'storage',
     key: 'storage'
+  },
+  {
+    label: '页面和设备',
+    icon: 'device',
+    key: 'system'
   }
 ];
 
@@ -46,20 +46,10 @@ export const platformTools = [
     label: '运行状态',
     icon: 'state',
     key: 'running-state'
+  },
+  {
+    label: '自定义事件',
+    icon: 'command',
+    key: 'custom-events'
   }
-  // {
-  //   label: '运行统计',
-  //   icon: 'statistics',
-  //   key: 'running-statistics'
-  // },
-  // {
-  //   label: '初始化校验',
-  //   icon: 'medical',
-  //   key: 'init-verification'
-  // },
-  // {
-  //   label: '自定义事件',
-  //   icon: 'command',
-  //   key: 'event-execution'
-  // }
 ];
