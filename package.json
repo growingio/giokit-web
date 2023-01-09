@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "start": "vite build -w --force",
-    "dev": "vite  build -w --force",
+    "start": "vite build -w --minify false",
+    "dev": "vite  build -w --minify false",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
