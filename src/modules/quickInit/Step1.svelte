@@ -2,10 +2,7 @@
   import { _initOptions, step1Initial, step2Initial } from './store';
   import { isEmpty, isString, unset } from '@/utils/glodash';
   import { onMount } from 'svelte';
-  import Button from '@/components/Button/index.svelte';
-  import FormItem from '@/components/FormItem/index.svelte';
-  import Input from '@/components/Input/index.svelte';
-  import Select from '@/components/Select/index.svelte';
+  import { Button, FormItem, Input, Select } from '@/components';
 
   const fileds = ['projectId', 'dataSourceId', 'scheme', 'host', 'version'];
   const ERROR_MESSAGE: any = {

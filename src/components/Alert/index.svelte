@@ -1,7 +1,7 @@
 <script lang="ts">
   import './index.less';
   import { slide } from 'svelte/transition';
-  import Icon from '@/components/Icon/index.svelte';
+  import { Icon } from '@/components';
 
   export let message: string = '';
   export let description: string = '';

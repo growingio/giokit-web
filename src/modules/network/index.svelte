@@ -1,8 +1,8 @@
 <script lang="ts">
   import './index.less';
   import { _clearVisible } from './store';
+  import { Divider } from '@/components';
   import ClearTip from './components/ClearTip/index.svelte';
-  import Divider from '@/components/Divider/index.svelte';
   import NormalRequestList from './components/NormalRequestList/index.svelte';
 
   const handleOut = (e: Event) => {

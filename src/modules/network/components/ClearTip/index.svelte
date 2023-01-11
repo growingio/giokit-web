@@ -8,10 +8,7 @@
     _gioRequestQueue,
     _filterVisible
   } from '../../../debugger/store';
-  import Button from '@/components/Button/index.svelte';
-  import Divider from '@/components//Divider/index.svelte';
-  import Icon from '@/components/Icon/index.svelte';
-  import Popover from '@/components/Popover/index.svelte';
+  import { Button, Divider, Icon, Popover } from '@/components';
 
   export let reqType: string = 'all';
 

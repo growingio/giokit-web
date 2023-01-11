@@ -1,16 +1,9 @@
 <script lang="ts">
-  import { isObject, isArray, isEmpty } from "@/utils/glodash";
-  import { onMount, onDestroy } from "svelte";
-  import Empty from "@/components/Empty/index.svelte";
-  import JsonViewItemArray from "./JsonViewItemArray.svelte";
-  import JsonViewItemObject from "./JsonViewItemObject.svelte";
-  import  "./index.less";
-
-  onMount(() => {
-  });
-
-  onDestroy(() => {
-  });
+  import { isObject, isArray, isEmpty } from '@/utils/glodash';
+  import { Empty } from '@/components';
+  import JsonViewItemArray from './JsonViewItemArray.svelte';
+  import JsonViewItemObject from './JsonViewItemObject.svelte';
+  import './index.less';
 
   export let data: any = {};
 </script>

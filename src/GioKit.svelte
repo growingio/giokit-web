@@ -2,7 +2,7 @@
   import './GioKit.less';
   import { _activeTool, _showRealTimeMonitor, _openGioKit } from './main/store';
   import { onMount, onDestroy } from 'svelte';
-  import Icon from '@/components/Icon/index.svelte';
+  import { Icon } from '@/components';
   import LogModel from './modules/log/model';
   import MainBottomBar from './main/MainBottomBar/index.svelte';
   import MainContent from './main/MainContent/index.svelte';

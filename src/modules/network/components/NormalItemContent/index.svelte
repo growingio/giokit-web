@@ -2,7 +2,7 @@
   import '../../index.less';
   import { keys, formatTime } from '@/utils/glodash';
   import { LZString } from '../../compress';
-  import Divider from '@/components/Divider/index.svelte';
+  import { Divider } from '@/components';
   import qs from 'querystringify';
 
   export let item: any;

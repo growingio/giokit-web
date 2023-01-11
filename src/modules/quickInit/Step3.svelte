@@ -1,10 +1,6 @@
 <script lang="ts">
   import { _initOptions, _integrationType, _showAlert } from './store';
-  import Switch from '@/components/Switch/index.svelte';
-  import Button from '@/components/Button/index.svelte';
-  import Icon from '@/components/Icon/index.svelte';
-  import Alert from '@/components/Alert/index.svelte';
-  import Tooltip from '@/components/Tooltip/index.svelte';
+  import { Switch, Button, Icon, Alert, Tooltip } from '@/components';
   import Prism from 'prismjs';
   import copy from 'copy-text-to-clipboard';
   import 'prismjs/themes/prism.css';

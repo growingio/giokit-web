@@ -1,10 +1,10 @@
 <script lang="ts">
   import './index.less';
-  import { Unsubscriber } from 'svelte/store';
   import { _activeStorage, _handledIdx, _storageValue } from './store';
+  import { Icon } from '@/components';
   import { onMount, onDestroy } from 'svelte';
+  import { Unsubscriber } from 'svelte/store';
   import copy from 'copy-text-to-clipboard';
-  import Icon from '@/components/Icon/index.svelte';
 
   export let handleDelete = (e: any) => {};
 

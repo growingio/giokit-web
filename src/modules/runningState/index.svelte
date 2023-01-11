@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Divider from '@/components/Divider/index.svelte';
+  import { Divider } from '@/components';
   import { has, isEmpty, isFunction } from '@/utils/glodash';
 
   let vds: any = {};

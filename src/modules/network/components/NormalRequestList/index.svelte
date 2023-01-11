@@ -2,9 +2,8 @@
   import '../../index.less';
   import { _requestQueue } from '../../store';
   import { isEmpty } from '@/utils/glodash';
-  import Collapse from '@/components/Collapse/index.svelte';
+  import { Collapse, Empty } from '@/components';
   import Duration from '../Duration/index.svelte';
-  import Empty from '@/components/Empty/index.svelte';
   import NormalItemContent from '../NormalItemContent/index.svelte';
 
   let active: string[] = [];

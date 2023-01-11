@@ -6,13 +6,15 @@
     _showAlert
   } from './store';
   import { onMount } from 'svelte';
-  import Button from '@/components/Button/index.svelte';
-  import FormItem from '@/components/FormItem/index.svelte';
-  import Icon from '@/components/Icon/index.svelte';
-  import Input from '@/components/Input/index.svelte';
-  import Toggle from '@/components/Toggle/index.svelte';
-  import Tooltip from '@/components/Tooltip/index.svelte';
-  import Switch from '@/components/Switch/index.svelte';
+  import {
+    Button,
+    FormItem,
+    Icon,
+    Input,
+    Toggle,
+    Tooltip,
+    Switch
+  } from '@/components';
 
   const switchers = [
     {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import './index.less';
   import { slide } from 'svelte/transition';
-  import Icon from '@/components/Icon/index.svelte';
+  import { Icon } from '@/components';
   import { isEmpty } from '@/utils/glodash';
 
   export let defaultValue: string | number = '';

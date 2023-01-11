@@ -9,7 +9,7 @@
     keys
   } from '@/utils/glodash';
   import { onDestroy, onMount } from 'svelte';
-  import Divider from '@/components/Divider/index.svelte';
+  import { Divider } from '@/components';
 
   import './index.less';
 

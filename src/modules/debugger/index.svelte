@@ -2,12 +2,10 @@
   import './index.less';
   import { _openMonitor, _clearVisible, _filterVisible } from './store';
   import { _showRealTimeMonitor, _openGioKit } from '@/main/store';
+  import { Divider, Toggle, Modal } from '@/components';
   import ClearTip from '../network/components/ClearTip/index.svelte';
-  import Divider from '@/components/Divider/index.svelte';
   import FilterTip from './components/FilterTip/index.svelte';
   import GioRequestList from './components/GioRequestList/index.svelte';
-  import Toggle from '@/components/Toggle/index.svelte';
-  import Modal from '@/components/Modal/index.svelte';
 
   let visible: boolean = false;
 

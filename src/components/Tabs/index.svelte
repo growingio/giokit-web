@@ -1,6 +1,6 @@
 <script lang="ts">
   import { head, isEmpty } from '@/utils/glodash';
-  import Icon from '@/components/Icon/index.svelte';
+  import { Icon } from '@/components';
 
   import './index.less';
 

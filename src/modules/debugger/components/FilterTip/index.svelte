@@ -11,11 +11,7 @@
     _filterActive,
     _gioRequestQueue
   } from '../../store';
-  import Button from '@/components/Button/index.svelte';
-  import Checkbox from '@/components/Checkbox/index.svelte';
-  import Divider from '@/components/Divider/index.svelte';
-  import Icon from '@/components/Icon/index.svelte';
-  import Popover from '@/components/Popover/index.svelte';
+  import { Button, Checkbox, Divider, Icon, Popover } from '@/components';
 
   let active: string[] = [...GIOEVENTTYPES];
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import './index.less';
-  import Icon from '@/components/Icon/index.svelte';
+  import { Icon } from '@/components';
 
   export let items: any[] = [];
   export let current: number = 2;

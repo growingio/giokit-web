@@ -2,7 +2,7 @@
   import './index.less';
   import { _activeTool } from '../store';
   import { commonTools, platformTools } from '@/constants/constants';
-  import Icon from '@/components/Icon/index.svelte';
+  import { Icon } from '@/components';
 
   /**
    * Methods

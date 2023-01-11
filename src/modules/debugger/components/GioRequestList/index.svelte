@@ -6,13 +6,12 @@
     _gioRequestQueue,
     _filterActive
   } from '../../store';
+  import { Empty, JsonView } from '@/components';
   import { formatTime, isEmpty } from '@/utils/glodash';
   import { onMount, onDestroy } from 'svelte';
   import { RequestItem } from '../../../network/model';
   import { Unsubscriber, get } from 'svelte/store';
   import Duration from '../../../network/components/Duration/index.svelte';
-  import Empty from '@/components/Empty/index.svelte';
-  import JsonView from '@/components/JsonView/index.svelte';
 
   let requestQueue: any[];
   let unsubscribe_requestQueue: Unsubscriber;

@@ -3,7 +3,7 @@
   import { isNumber, isString } from '@/utils/glodash';
   import { safeJSONStringify } from '@/utils/tools';
   import copy from 'copy-text-to-clipboard';
-  import Icon from '@/components/Icon/index.svelte';
+  import { Icon } from '@/components';
   import LogTree from '../LogTree/index.svelte';
   import LogValue from '../LogValue/index.svelte';
 

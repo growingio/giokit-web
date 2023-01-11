@@ -12,11 +12,9 @@
   import { crossfade } from 'svelte/transition';
   import { flip } from 'svelte/animate';
   import { onMount, onDestroy } from 'svelte';
-  import Icon from '@/components/Icon/index.svelte';
-  import Modal from '@/components/Modal/index.svelte';
+  import { Icon, Modal, Tabs } from '@/components';
   import OptionTip from './optionTip.svelte';
   import Storages from './storages';
-  import Tabs from '@/components/Tabs/index.svelte';
 
   const storages = new Storages();
 

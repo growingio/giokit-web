@@ -3,8 +3,7 @@
   import { _showRealTimeMonitor } from '../store';
   import { onMount } from 'svelte';
   import { Unsubscriber } from 'svelte/store';
-  import Icon from '@/components/Icon/index.svelte';
-  import Tooltip from '@/components/Tooltip/index.svelte';
+  import { Icon, Tooltip } from '@/components';
 
   /**
    * Public properties

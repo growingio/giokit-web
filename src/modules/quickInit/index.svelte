@@ -1,10 +1,9 @@
 <script lang="ts">
   import './index.less';
-  import Divider from '@/components/Divider/index.svelte';
+  import { Divider, Steps } from '@/components';
   import Step1 from './Step1.svelte';
   import Step2 from './Step2.svelte';
   import Step3 from './Step3.svelte';
-  import Steps from '@/components/Steps/index.svelte';
   import { onDestroy, onMount } from 'svelte';
 
   const steps = ['基本信息', '场景配置', '生成代码'];

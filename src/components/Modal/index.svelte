@@ -1,13 +1,12 @@
 <script lang="ts">
   import './index.less';
   import { fade, scale } from 'svelte/transition';
-  import Icon from '@/components/Icon/index.svelte';
-  import Button from '@/components/Button/index.svelte';
+  import { Icon, Button } from '@/components';
 
   export let visible: boolean = false;
   export let type: 'default' | 'info' | 'warning' | 'error' = 'default';
   export let title: string = '';
-  export let description: any;
+  export let description: any = '';
   export let onCancel: () => void = () => {};
   export let onOk: () => void = () => {};
   export let cancelText: string = '取消';
