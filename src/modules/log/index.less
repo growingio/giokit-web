@@ -35,6 +35,27 @@
       }
     }
 
+    ._gk-input-arrow {
+      color: @gray-2;
+
+      ._gk-icon {
+        @block();
+        color: @gray-2;
+        transform: rotate(180deg);
+
+        svg {
+          width: 1em;
+          height: 1em;
+        }
+      }
+    }
+
+    ._gk-input-arrow,
+    ._gk-output-arrow {
+      margin-left: -0.5em;
+      margin-right: 0.5em;
+    }
+
     ._gk-log-row-repeat {
       @inline-flex();
       @items-center();

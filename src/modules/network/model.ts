@@ -46,6 +46,7 @@ export interface RequestItem {
 }
 
 export default class NetworkModel {
+  public static singleton: any;
   private originXMLHttpRequest: any;
   private originFetch: any;
   private originSendBeacon: any;
@@ -57,6 +58,13 @@ export default class NetworkModel {
     this.mockSendBeacon();
     this.initPerformance();
   }
+
+  static getSingleton = () => {
+    if (!this.singleton) {
+      this.singleton = new NetworkModel();
+    }
+    return this.singleton;
+  };
 
   // 请求时长监控
   initPerformance = () => {

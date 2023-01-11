@@ -41,7 +41,7 @@
     </Button>
     <div slot="popper" class="_gk-log-tool-search-pop">
       <Input
-        placeholder="搜索日志..."
+        placeholder="请输入搜索内容..."
         on:input={onInputChange}
         on:change={onInputChange}
         on:keydown={onKeyDown}

@@ -1,0 +1,36 @@
+@import '@/styles/index.less';
+
+._gk-log-tool-cmd-pop {
+  @relative();
+
+  ._gk-textarea {
+    textarea {
+      @w-full();
+      resize: none !important;
+    }
+  }
+
+  ._gk-log-tool-cmd-clear {
+    @flex();
+    @items-center();
+    @justify-center();
+    @absolute();
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+    background: @gray-3;
+    cursor: pointer;
+    right: 0.4em;
+    top: 0.4em;
+
+    ._gk-icon {
+      @block();
+      color: @white;
+
+      svg {
+        width: 0.6em;
+        height: 0.6em;
+      }
+    }
+  }
+}

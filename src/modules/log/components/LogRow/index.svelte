@@ -3,7 +3,7 @@
   import { isNumber, isString } from '@/utils/glodash';
   import { safeJSONStringify } from '@/utils/tools';
   import copy from 'copy-text-to-clipboard';
-  import { Icon } from '@/components';
+  import { Icon, OutputArrow } from '@/components';
   import LogTree from '../LogTree/index.svelte';
   import LogValue from '../LogValue/index.svelte';
 
@@ -64,6 +64,14 @@
         <Icon name="error" className="_gk-icon-error" />
       {/if}
     </div>
+  {/if}
+  {#if logItem.cmdType === 'input'}
+    <span class="_gk-input-arrow">
+      <Icon name="arrowLeft" />
+    </span>
+  {/if}
+  {#if logItem.cmdType === 'output'}
+    <OutputArrow />
   {/if}
   {#if logItem.repeated}
     <div class="_gk-log-row-repeat">

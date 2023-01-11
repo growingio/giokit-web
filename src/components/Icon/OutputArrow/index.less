@@ -1,0 +1,31 @@
+@import '@/styles/index.less';
+
+._gk-output-arrow {
+  @relative();
+  @block();
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+
+  ._gk-icon {
+    @block();
+    color: @gray-2;
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  &::after {
+    content: '';
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    @absolute();
+    @block();
+    background: @gray-2;
+    right: 0.1em;
+    top: 50%;
+  }
+}

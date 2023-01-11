@@ -68,8 +68,8 @@
       }
     }
     // 初始化日志和网络的model，hook浏览器方法
-    logModel = new LogModel();
-    networkModel = new NetworkModel();
+    logModel = LogModel.getSingleton();
+    networkModel = NetworkModel.getSingleton();
   });
 
   onDestroy(() => {

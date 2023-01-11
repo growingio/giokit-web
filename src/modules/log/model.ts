@@ -4,11 +4,12 @@ import { _logQueue } from './store';
 export type LOGTYPE = 'all' | 'gio' | 'log' | 'info' | 'warn' | 'error';
 
 export type LogMethod = 'log' | 'info' | 'debug' | 'warn' | 'error';
+export type CdmType = 'input' | 'output';
 
 export interface LogItem {
   _id: string;
   type: LogMethod;
-  cmdType: LogMethod;
+  cmdType: CdmType;
   toggle: Record<string, boolean>;
   time: number;
   data: any[];
@@ -16,6 +17,7 @@ export interface LogItem {
 }
 
 export default class LogsModel {
+  public static singleton: any;
   public readonly LOG_METHODS = ['log', 'info', 'warn', 'error'];
 
   //  The original `window.console` methods.
@@ -24,6 +26,13 @@ export default class LogsModel {
   constructor() {
     this.mockConsole();
   }
+
+  static getSingleton = () => {
+    if (!this.singleton) {
+      this.singleton = new LogsModel();
+    }
+    return this.singleton;
+  };
 
   /**
    * Hook `window.console` with GioKit log method.
@@ -117,6 +126,34 @@ export default class LogsModel {
     if ((<any>window)._gkOrigConsole) {
       delete (<any>window)._gkOrigConsole;
     }
+  }
+
+  public evalCommand(cmd: string) {
+    this.addLogItem(
+      {
+        type: 'log',
+        origData: [cmd]
+      },
+      { cmdType: 'input' }
+    );
+
+    let result = void 0;
+
+    try {
+      result = eval.call(window, '(' + cmd + ')');
+    } catch (e) {
+      try {
+        result = eval.call(window, cmd);
+      } catch (e) {}
+    }
+
+    this.addLogItem(
+      {
+        type: 'log',
+        origData: [result]
+      },
+      { cmdType: 'output' }
+    );
   }
 
   /**
