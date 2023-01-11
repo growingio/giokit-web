@@ -18,7 +18,7 @@ export interface LogItem {
 
 export default class LogsModel {
   public static singleton: any;
-  public readonly LOG_METHODS = ['log', 'info', 'warn', 'error'];
+  public readonly LOG_METHODS = ['log', 'info', 'warn', 'error', 'debug'];
 
   //  The original `window.console` methods.
   public origConsole: { [method: string]: Function } = {};

@@ -10,6 +10,7 @@
   } from '@/utils/tools';
   import { isArray, isObject } from '@/utils/glodash';
   import LogValue from '../LogValue/index.svelte';
+  import { TriangularArrow } from '@/components';
 
   export let origData: any;
   export let dataKey: string | undefined = undefined;
@@ -81,6 +82,9 @@
 >
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="_gk-log-tree-node" on:click|stopPropagation={onTapTreeNode}>
+    {#if isTree}
+      <TriangularArrow direction={isToggle ? 'down' : 'right'} />
+    {/if}
     <LogValue {origData} {dataKey} {keyType} />
   </div>
 
