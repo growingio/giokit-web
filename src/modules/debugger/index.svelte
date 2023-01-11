@@ -3,8 +3,8 @@
   import { _openMonitor, _clearVisible, _filterVisible } from './store';
   import { _showRealTimeMonitor, _openGioKit } from '@/main/store';
   import { Divider, Toggle, Modal } from '@/components';
-  import ClearTip from '../network/components/ClearTip/index.svelte';
-  import FilterTip from './components/FilterTip/index.svelte';
+  import ClearPop from '../network/components/ClearPop/index.svelte';
+  import FilterPop from './components/FilterPop/index.svelte';
   import GioRequestList from './components/GioRequestList/index.svelte';
 
   let visible: boolean = false;
@@ -45,8 +45,8 @@
         实时监控：
         <Toggle checked={$_openMonitor} onChange={onSwitch} />
       </div>
-      <FilterTip />
-      <ClearTip reqType="gio" />
+      <FilterPop />
+      <ClearPop reqType="gio" />
     </div>
   </div>
   <Divider />

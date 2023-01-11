@@ -13,7 +13,7 @@
   import { flip } from 'svelte/animate';
   import { onMount, onDestroy } from 'svelte';
   import { Icon, Modal, Tabs } from '@/components';
-  import OptionTip from './optionTip.svelte';
+  import OptionPop from './components/OptionPop/index.svelte';
   import Storages from './storages';
 
   const storages = new Storages();
@@ -128,7 +128,7 @@
           </div>
         </div>
       {/each}
-      <OptionTip {handleDelete} />
+      <OptionPop {handleDelete} />
     </div>
     <Modal
       {visible}

@@ -2,7 +2,7 @@
   import './index.less';
   import { _clearVisible } from './store';
   import { Divider } from '@/components';
-  import ClearTip from './components/ClearTip/index.svelte';
+  import ClearPop from './components/ClearPop/index.svelte';
   import NormalRequestList from './components/NormalRequestList/index.svelte';
 
   const handleOut = (e: Event) => {
@@ -17,7 +17,7 @@
   <div class="_gk-nw-header">
     <div class="_gk-ct-header">请求概览</div>
     <div class="_gk-nw-tools">
-      <ClearTip reqType="all" />
+      <ClearPop reqType="all" />
     </div>
   </div>
   <Divider />
