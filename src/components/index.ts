@@ -1,4 +1,5 @@
 import Alert from './Alert/index.svelte';
+import Badge from './Badge/index.svelte';
 import Button from './Button/index.svelte';
 import Checkbox from './Checkbox/index.svelte';
 import Collapse from './Collapse/index.svelte';
@@ -22,6 +23,7 @@ import TriangularArrow from './Icon/TriangularArrow/index.svelte';
 
 export {
   Alert,
+  Badge,
   Button,
   Checkbox,
   Collapse,

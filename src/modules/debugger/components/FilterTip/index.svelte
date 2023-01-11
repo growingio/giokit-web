@@ -11,7 +11,14 @@
     _filterActive,
     _gioRequestQueue
   } from '../../store';
-  import { Button, Checkbox, Divider, Icon, Popover } from '@/components';
+  import {
+    Badge,
+    Button,
+    Checkbox,
+    Divider,
+    Icon,
+    Popover
+  } from '@/components';
 
   let active: string[] = [...GIOEVENTTYPES];
 
@@ -67,14 +74,15 @@
 
 <div class="_gk-debug-tool">
   <Popover triggerSelector="#_gk-debug-tool-filter" bind:this={popInst}>
-    <Button
-      slot="trigger"
-      id="_gk-debug-tool-filter"
-      on:click={handleFilter}
-      disabled={isEmpty($_gioRequestQueue)}
-    >
-      <Icon name="filter" />
-    </Button>
+    <Badge slot="trigger" dot={$_filterActive.length !== GIOEVENTTYPES.length}>
+      <Button
+        id="_gk-debug-tool-filter"
+        on:click={handleFilter}
+        disabled={isEmpty($_gioRequestQueue)}
+      >
+        <Icon name="filter" />
+      </Button>
+    </Badge>
     <div slot="popper" class="_gk-debug-tool-filter-content">
       <div class="_gk-debug-tool-filter-head">
         筛选事件类型

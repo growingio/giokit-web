@@ -1,0 +1,17 @@
+@import '@/styles/index.less';
+
+._gk-badge {
+  @relative();
+  @inline-block();
+
+  ._gk-badge-dot {
+    @absolute();
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: @red-1;
+    box-shadow: 0 0 0 1px #fff;
+  }
+}

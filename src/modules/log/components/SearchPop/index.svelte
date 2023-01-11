@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Divider, Icon, Input, Popover } from '@/components';
+  import { Badge, Button, Divider, Icon, Input, Popover } from '@/components';
   import { _searchVisible, _searchValue } from '../../store';
   import './index.less';
 
@@ -36,9 +36,11 @@
 
 <div class="_gk-log-tool">
   <Popover triggerSelector="#_gk-log-tool-search" bind:this={popInst}>
-    <Button slot="trigger" id="_gk-log-tool-search" on:click={handleSearch}>
-      <Icon name="search" />
-    </Button>
+    <Badge dot={!!$_searchValue} slot="trigger">
+      <Button id="_gk-log-tool-search" on:click={handleSearch}>
+        <Icon name="search" />
+      </Button>
+    </Badge>
     <div slot="popper" class="_gk-log-tool-search-pop">
       <Input
         placeholder="请输入搜索内容..."
