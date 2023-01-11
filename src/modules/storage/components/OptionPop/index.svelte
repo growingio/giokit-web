@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '../index.less';
+  import '../../index.less';
   import { _activeStorage, _handledIdx, _storageValue } from '../../store';
   import { Icon } from '@/components';
   import { onMount, onDestroy } from 'svelte';

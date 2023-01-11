@@ -46,10 +46,10 @@ export const platformTools = [
     label: '运行状态',
     icon: 'state',
     key: 'running-state'
-  },
-  {
-    label: '自定义事件',
-    icon: 'command',
-    key: 'custom-events'
   }
+  // {
+  //   label: '自定义事件',
+  //   icon: 'command',
+  //   key: 'custom-events'
+  // }
 ];
