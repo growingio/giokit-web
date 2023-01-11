@@ -1,0 +1,65 @@
+@import '@/styles/index.less';
+
+._gk-textarea {
+  @relative();
+
+  textarea {
+    @inline-flex();
+    @border();
+    @rounded();
+    padding: 0.5em 0.6em;
+    min-width: 14em;
+    min-height: 33px !important;
+    box-sizing: border-box;
+    resize: vertical !important;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: @blue-1;
+    }
+  }
+
+  textarea::-webkit-input-placeholder {
+    /*WebKit browsers*/
+    color: @gray-4;
+  }
+
+  textarea::-moz-input-placeholder {
+    /*Mozilla Firefox*/
+    color: @gray-4;
+  }
+
+  textarea::-ms-input-placeholder {
+    /*Internet Explorer*/
+    color: @gray-4;
+  }
+
+  ._gk-textarea-disabled {
+    @cursor-not-allowed();
+    background-color: @gray-5;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: @gray-4;
+    }
+  }
+
+  ._gk-textarea-has-error {
+    color: @red-1;
+    border-color: @red-1;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: @red-1;
+    }
+  }
+
+  ._gk-textarea-error {
+    color: @red-1;
+    @absolute();
+    top: 34px;
+  }
+}

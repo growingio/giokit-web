@@ -16,7 +16,7 @@ export interface LogItem {
 }
 
 export default class LogsModel {
-  public readonly LOG_METHODS = ['log', 'info', 'warn', 'debug', 'error'];
+  public readonly LOG_METHODS = ['log', 'info', 'warn', 'error'];
 
   //  The original `window.console` methods.
   public origConsole: { [method: string]: Function } = {};

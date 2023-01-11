@@ -1,15 +1,18 @@
 @import '@/styles/index.less';
 
 ._gk-log {
-  margin-top: -1em;
-  @flex();
   @flex-col();
-  @h-full();
+  @flex();
+  @relative();
   font-family: 'PingFangSC-Regular', 'sans-serif', 'Microsoft YaHei';
+  height: calc(100% + 1em);
+  margin-top: -1em;
 }
 
 ._gk-log-container {
   @overflow-auto();
+  flex: 1;
+  padding-bottom: 2.5em;
 
   ._gk-log-row {
     @flex();

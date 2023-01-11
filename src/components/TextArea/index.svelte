@@ -6,6 +6,7 @@
   export let placeholder: string = '';
   export let disabled: boolean = false;
   export let errorMsg: string = '';
+  export let rows: number = 2;
 
   $: {
     if (isNil(defaultValue)) {
@@ -14,18 +15,18 @@
   }
 </script>
 
-<div class="_gk-input">
-  <input
+<div class="_gk-textarea">
+  <textarea
     {placeholder}
     {disabled}
-    class:_gk-input-disabled={disabled}
-    class:_gk-input-has-error={errorMsg}
+    {rows}
+    class:_gk-textarea-disabled={disabled}
+    class:_gk-textarea-has-error={errorMsg}
     value={defaultValue}
     on:input
     on:change
-    on:keydown
   />
   {#if errorMsg}
-    <div class="_gk-input-error">{errorMsg}</div>
+    <div class="_gk-textarea-error">{errorMsg}</div>
   {/if}
 </div>
