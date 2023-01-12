@@ -3,7 +3,7 @@
 <script lang="ts">
   import './index.less';
   import { afterUpdate } from 'svelte';
-  import { createPopper } from '@popperjs/core';
+  import { createPopper, Placement } from '@popperjs/core';
   import { guid, niceTry } from '@/utils/tools';
   import { isFunction } from '@/utils/glodash';
 
@@ -15,6 +15,8 @@
   export let triggerSelector: string | undefined = undefined;
   export let showEvents: string[] = ['click'];
   export let hideEvents: string[] = ['click'];
+  export let placement: Placement = 'bottom';
+  export let poperWidth: string = '24em';
   export let onShow: () => void = () => {};
   export let onHide: () => void = () => {};
 
@@ -25,7 +27,7 @@
     popper = niceTry(() => document.querySelector(`#popper_${_id}`));
     if (popcorn && popper && !popperInstance) {
       popperInstance = createPopper(popcorn as any, popper as any, {
-        placement: 'bottom',
+        placement,
         modifiers: [
           {
             name: 'offset',
@@ -42,15 +44,15 @@
         ]
       });
       showEvents.forEach((event) => {
-        popcorn.addEventListener(event, show);
+        popcorn?.addEventListener(event, show);
       });
     }
   });
 
   export const show = () => {
     // 添加属性展示popper
-    popper.setAttribute('data-show', '');
-    popperInstance.update();
+    popper?.setAttribute('data-show', '');
+    popperInstance?.update();
     // 调用回调
     if (isFunction(onShow)) {
       onShow();
@@ -66,18 +68,18 @@
 
   export const hide = () => {
     // 移除属性隐藏popper
-    popper.removeAttribute('data-show');
-    popperInstance.update();
+    popper?.removeAttribute('data-show');
+    popperInstance?.update();
     // 调用回调
     if (isFunction(onHide)) {
       onHide();
     }
     // 修改监听
     hideEvents.forEach((event) => {
-      popcorn.removeEventListener(event, hide);
+      popcorn?.removeEventListener(event, hide);
     });
     showEvents.forEach((event) => {
-      popcorn.addEventListener(event, show);
+      popcorn?.addEventListener(event, show);
     });
   };
 </script>
@@ -85,7 +87,7 @@
 <div id={_id} class="_gk-popover-trigger">
   <slot name="trigger" />
 </div>
-<div id={`popper_${_id}`} class="_gk-popover">
+<div id={`popper_${_id}`} class="_gk-popover" style={`width:${poperWidth}`}>
   <div class="_gk-popover-arrow" data-popper-arrow />
   <slot name="popper" />
 </div>

@@ -75,7 +75,7 @@
   <FormItem label="AccountID">
     <Input
       placeholder="请填写AccountID"
-      defaultValue={$_initOptions.projectId}
+      value={$_initOptions.projectId}
       errorMsg={errorMsg.projectId}
       on:change={(e) => onChange(e, 'projectId')}
       on:input={() => onInput('projectId')}
@@ -84,7 +84,7 @@
   <FormItem label="DataSourceID">
     <Input
       placeholder="请填写DataSourceID"
-      defaultValue={$_initOptions.dataSourceId}
+      value={$_initOptions.dataSourceId}
       errorMsg={errorMsg.dataSourceId}
       on:change={(e) => onChange(e, 'dataSourceId')}
       on:input={() => onInput('dataSourceId')}
@@ -99,7 +99,7 @@
       />
       <Input
         placeholder="支持域名或IP地址"
-        defaultValue={$_initOptions.host}
+        value={$_initOptions.host}
         errorMsg={errorMsg.host}
         on:change={(e) => onChange(e, 'host')}
         on:input={() => onInput('host')}
@@ -109,7 +109,7 @@
   <FormItem label="Web站点版本">
     <Input
       placeholder="请填写Web站点版本"
-      defaultValue={$_initOptions.projectId}
+      value={$_initOptions.projectId}
       errorMsg={errorMsg.version}
       on:change={(e) => onChange(e, 'version')}
       on:input={() => onInput('version')}

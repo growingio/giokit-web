@@ -32,16 +32,19 @@
           </div>
         {/if}
         <div class="_gk-modal-content">
-          <div class="_gk-modal-title">
-            <span>
-              {title}
-            </span>
-          </div>
+          {#if title}
+            <div class="_gk-modal-title">
+              <span>
+                {title}
+              </span>
+            </div>
+          {/if}
           {#if description}
             <div class="_gk-modal-desc">
               {description}
             </div>
           {/if}
+          <slot />
         </div>
       </div>
       <div class="_gk-modal-footer">

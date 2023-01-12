@@ -2,14 +2,14 @@
   import { isNil } from '@/utils/glodash';
   import './index.less';
 
-  export let defaultValue: string = '';
+  export let value: string = '';
   export let placeholder: string = '';
   export let disabled: boolean = false;
   export let errorMsg: string = '';
 
   $: {
-    if (isNil(defaultValue)) {
-      defaultValue = '';
+    if (isNil(value)) {
+      value = '';
     }
   }
 </script>
@@ -18,9 +18,9 @@
   <input
     {placeholder}
     {disabled}
+    {value}
     class:_gk-input-disabled={disabled}
     class:_gk-input-has-error={errorMsg}
-    value={defaultValue}
     on:input
     on:change
     on:keydown

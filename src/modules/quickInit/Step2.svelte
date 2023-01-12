@@ -152,7 +152,7 @@
     <FormItem label="小程序AppId">
       <Input
         placeholder="请填写小程序AppId"
-        defaultValue={$_initOptions.appId}
+        value={$_initOptions.appId}
         {errorMsg}
         on:change={(e) => onChange(e, 'appId')}
         on:input={() => (errorMsg = '')}
