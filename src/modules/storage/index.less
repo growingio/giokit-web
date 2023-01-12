@@ -4,9 +4,10 @@
   margin-top: -1em;
   @flex();
   @flex-col();
-  @h-full();
+  height: calc(100% + 1em);
 
   ._gk-storage-list-wrapper {
+    @relative();
     padding: 0.5em 0;
     @h-full();
     overflow: hidden;

@@ -1,26 +1,32 @@
 <script lang="ts">
   import { Badge, Button, Divider, Icon, Input, Popover } from '@/components';
-  import {
-    _searchVisible,
-    _searchValue,
-    _commandVisble,
-    _clearVisible
-  } from '../../store';
+  import { guid } from '@/utils/tools';
   import './index.less';
+
+  export let _visible: any;
+  export let id: string = guid();
+  export let dot: boolean = false;
+  export let onShow: () => void = () => {};
+  export let onHide: () => void = () => {};
+  export let onSearch: (value: string) => void = () => {};
 
   let popInst: any;
   let searchValue: string;
 
   $: {
-    if (!$_searchVisible) {
+    if (!$_visible) {
       popInst?.hide();
     }
   }
 
   const handleSearch = () => {
-    _searchVisible.set(!$_searchVisible);
-    _commandVisble.set(false);
-    _clearVisible.set(false);
+    const v = $_visible;
+    _visible.set(!$_visible);
+    if (!v) {
+      onShow();
+    } else {
+      onHide();
+    }
   };
 
   const onInputChange = (e: any) => {
@@ -33,18 +39,12 @@
       onSearch(searchValue);
     }
   };
-
-  // 确认要搜索，保存搜索值
-  const onSearch = (v: string) => {
-    _searchValue.set(v);
-    _searchVisible.set(false);
-  };
 </script>
 
 <div class="_gk-module-tool">
-  <Popover triggerSelector="#_gk-log-tool-search" bind:this={popInst}>
-    <Badge dot={!!$_searchValue} slot="trigger">
-      <Button id="_gk-log-tool-search" on:click={handleSearch}>
+  <Popover triggerSelector={`#${id}`} bind:this={popInst}>
+    <Badge {dot} slot="trigger">
+      <Button {id} on:click={handleSearch}>
         <Icon name="search" />
       </Button>
     </Badge>
@@ -57,7 +57,7 @@
       />
       <Divider />
       <div class="_gk-f-btns">
-        <Button small on:click={() => _searchVisible.set(false)}>取消</Button>
+        <Button small on:click={() => _visible.set(false)}>取消</Button>
         <Button small type="primary" on:click={() => onSearch(searchValue)}>
           搜索
         </Button>

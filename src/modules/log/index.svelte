@@ -23,8 +23,8 @@
   import { Tabs } from '@/components';
   import LogRow from './components/LogRow/index.svelte';
   import { onDestroy, onMount } from 'svelte';
-  import ClearPop from './components/ClearPop/index.svelte';
-  import SearchPop from './components/SearchPop/index.svelte';
+  import ClearPop from '@/components/ClearPop/index.svelte';
+  import SearchPop from '@/components/SearchPop/index.svelte';
   import CommandPop from './components/CommandPop/index.svelte';
 
   const logsTabs = [
@@ -168,6 +168,16 @@
       );
     }
   };
+
+  const onSearchLog = (value: string) => {
+    _searchValue.set(value);
+    _searchVisible.set(false);
+  };
+
+  const onClearLog = () => {
+    _clearVisible.set(false);
+    _logQueue.set([]);
+  };
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -180,7 +190,19 @@
   </div>
   <div class="_gk-module-tools">
     <CommandPop />
-    <SearchPop />
-    <ClearPop />
+    <SearchPop
+      id="_gk-log-tool-search"
+      _visible={_searchVisible}
+      dot={!!$_searchValue}
+      onHide={handleOut}
+      onSearch={onSearchLog}
+    />
+    <ClearPop
+      id="_gk-log-tool-clear"
+      message="确定要清空全部日志吗？"
+      _visible={_clearVisible}
+      onHide={handleOut}
+      onClear={onClearLog}
+    />
   </div>
 </div>

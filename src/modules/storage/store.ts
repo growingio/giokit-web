@@ -6,6 +6,9 @@ export const _activeStorage = writable<string>('cookie');
 export const _handledIdx = writable<number>(-1);
 export const _storageList = writable<any[]>([]);
 export const _handleType = writable<string>('');
+export const _searchVisible = writable<boolean>(false);
+export const _searchValue = writable<string>('');
+export const _clearVisible = writable<boolean>(false);
 
 export const getters: any = {
   cookie: () => {
