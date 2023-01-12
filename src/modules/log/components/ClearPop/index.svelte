@@ -1,6 +1,11 @@
 <script lang="ts">
   import { Button, Icon, Popover, Divider } from '@/components';
-  import { _logQueue, _clearVisible } from '../../store';
+  import {
+    _logQueue,
+    _commandVisble,
+    _searchVisible,
+    _clearVisible
+  } from '../../store';
 
   let popInst: any;
 
@@ -12,6 +17,8 @@
 
   const handleClear = () => {
     _clearVisible.set(!$_clearVisible);
+    _commandVisble.set(false);
+    _searchVisible.set(false);
   };
 
   const onClear = () => {
@@ -20,7 +27,7 @@
   };
 </script>
 
-<div class="_gk-log-tool">
+<div class="_gk-module-tool">
   <Popover triggerSelector="#_gk-log-tool-clear" bind:this={popInst}>
     <Button id="_gk-log-tool-clear" slot="trigger" on:click={handleClear}>
       <Icon name="clear" />

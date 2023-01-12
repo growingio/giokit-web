@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button, Divider, Icon, Popover, TextArea } from '@/components';
-  import { _commandVisble } from '../../store';
+  import { _commandVisble, _clearVisible, _searchVisible } from '../../store';
   import LogsModel from '../../model';
   import './index.less';
 
@@ -15,6 +15,8 @@
 
   const handleCommand = () => {
     _commandVisble.set(!$_commandVisble);
+    _clearVisible.set(false);
+    _searchVisible.set(false);
   };
 
   const onInputChange = (e: any) => {
@@ -38,7 +40,7 @@
   };
 </script>
 
-<div class="_gk-log-tool">
+<div class="_gk-module-tool">
   <Popover triggerSelector="#_gk-log-tool-cmd" bind:this={popInst}>
     <Button slot="trigger" id="_gk-log-tool-cmd" on:click={handleCommand}>
       <Icon name="code" />

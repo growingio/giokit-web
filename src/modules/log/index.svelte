@@ -18,13 +18,14 @@
     isNumber,
     isObject,
     isString,
-    keys,
-    typeOf
+    keys
   } from '@/utils/glodash';
   import { Tabs } from '@/components';
-  import LogTools from './components/LogTools/index.svelte';
   import LogRow from './components/LogRow/index.svelte';
   import { onDestroy, onMount } from 'svelte';
+  import ClearPop from './components/ClearPop/index.svelte';
+  import SearchPop from './components/SearchPop/index.svelte';
+  import CommandPop from './components/CommandPop/index.svelte';
 
   const logsTabs = [
     { key: 'all', label: 'All' },
@@ -177,5 +178,9 @@
       <LogRow logItem={item} />
     {/each}
   </div>
-  <LogTools />
+  <div class="_gk-module-tools">
+    <CommandPop />
+    <SearchPop />
+    <ClearPop />
+  </div>
 </div>

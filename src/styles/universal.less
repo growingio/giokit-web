@@ -90,3 +90,29 @@
     @mb-2();
   }
 }
+
+._gk-module-tools {
+  @flex();
+  @items-center();
+  justify-content: flex-end;
+  @absolute();
+  right: 0;
+  bottom: 0;
+  background: @white;
+  box-shadow: 0 0 0.8em 0.6em @white;
+
+  ._gk-module-tool {
+    ._gk-btn {
+      padding: calc(0.55em - 1px) calc(0.7em - 1px);
+
+      ._gk-icon svg {
+        width: 1em;
+        height: 1em;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-right: 0.5em;
+    }
+  }
+}

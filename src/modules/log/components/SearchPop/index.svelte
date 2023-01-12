@@ -1,6 +1,11 @@
 <script lang="ts">
   import { Badge, Button, Divider, Icon, Input, Popover } from '@/components';
-  import { _searchVisible, _searchValue } from '../../store';
+  import {
+    _searchVisible,
+    _searchValue,
+    _commandVisble,
+    _clearVisible
+  } from '../../store';
   import './index.less';
 
   let popInst: any;
@@ -14,6 +19,8 @@
 
   const handleSearch = () => {
     _searchVisible.set(!$_searchVisible);
+    _commandVisble.set(false);
+    _clearVisible.set(false);
   };
 
   const onInputChange = (e: any) => {
@@ -34,14 +41,14 @@
   };
 </script>
 
-<div class="_gk-log-tool">
+<div class="_gk-module-tool">
   <Popover triggerSelector="#_gk-log-tool-search" bind:this={popInst}>
     <Badge dot={!!$_searchValue} slot="trigger">
       <Button id="_gk-log-tool-search" on:click={handleSearch}>
         <Icon name="search" />
       </Button>
     </Badge>
-    <div slot="popper" class="_gk-log-tool-search-pop">
+    <div slot="popper" class="_gk-module-tool-search-pop">
       <Input
         placeholder="请输入搜索内容..."
         on:input={onInputChange}
