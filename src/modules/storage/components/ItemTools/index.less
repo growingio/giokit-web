@@ -1,0 +1,22 @@
+@import '@/styles/index.less';
+
+._gk-strg-item-tools {
+  @flex();
+  @items-center();
+  margin: -0.5em;
+
+  ._gk-strg-item-tool {
+    padding: 0.5em;
+    display: inline-flex;
+
+    ._gk-icon {
+      line-height: 1em;
+    }
+
+    &:hover {
+      ._gk-icon {
+        color: @blue-1;
+      }
+    }
+  }
+}

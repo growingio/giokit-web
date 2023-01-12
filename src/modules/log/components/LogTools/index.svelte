@@ -7,6 +7,6 @@
 
 <div class="_gk-log-tools">
   <CommandPop />
-  <SearchPop {...$$props} />
+  <SearchPop />
   <ClearPop />
 </div>

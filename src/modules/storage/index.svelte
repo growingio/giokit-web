@@ -1,19 +1,15 @@
 <script lang="ts">
   import './index.less';
-  import {
-    _activeStorage,
-    _handledIdx,
-    _storageValue,
-    getters,
-    refreshStorage
-  } from './store';
-  import { Unsubscriber } from 'svelte/store';
+  import { _activeStorage, _handledIdx, _storageList, getters } from './store';
   import { backOut } from 'svelte/easing';
   import { crossfade } from 'svelte/transition';
   import { flip } from 'svelte/animate';
   import { onMount, onDestroy } from 'svelte';
-  import { Icon, Modal, Tabs } from '@/components';
-  import OptionPop from './components/OptionPop/index.svelte';
+  import { Tabs } from '@/components';
+  import { Unsubscriber } from 'svelte/store';
+  import DeleteModal from './components/DeleteModal/index.svelte';
+  import EditModal from './components/EditModal/index.svelte';
+  import ItemTools from './components/ItemTools/index.svelte';
   import Storages from './storages';
 
   const storages = new Storages();
@@ -34,14 +30,11 @@
     { key: 'local', label: 'LocalStorage' },
     { key: 'session', label: 'SessionStorage' }
   ];
-
-  let visible: boolean = false;
-  let handleItem: any = {};
   let unsubscribe: Unsubscriber;
 
   onMount(() => {
     unsubscribe = _activeStorage.subscribe((s) => {
-      _storageValue.set(getters[s]());
+      _storageList.set(getters[s]());
     });
   });
 
@@ -52,37 +45,6 @@
   const onTabsChange = (active: string) => {
     _handledIdx.set(-1);
     _activeStorage.set(active);
-  };
-
-  const handleMore = (e: any, idx: number) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if ($_handledIdx === idx) {
-      _handledIdx.set(-1);
-    } else {
-      _handledIdx.set(idx);
-    }
-  };
-
-  const handleDelete = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    visible = true;
-    handleItem = $_storageValue[$_handledIdx];
-    _handledIdx.set(-1);
-  };
-
-  const onDelete = () => {
-    visible = false;
-    storages.removeItem(handleItem.key);
-    // @ts-ignore
-    refreshStorage();
-    handleItem = {};
-  };
-
-  const onCancel = () => {
-    visible = false;
-    handleItem = {};
   };
 </script>
 
@@ -106,7 +68,7 @@
         </div>
         <div class="_gk-storage-list-item-options">操作</div>
       </div>
-      {#each $_storageValue as item, i (item.key)}
+      {#each $_storageList as item, i (item.key)}
         <div
           class="_gk-storage-list-item"
           in:receive={{ key: item.key }}
@@ -118,24 +80,12 @@
             <div>{item.value}</div>
           </div>
           <div class="_gk-storage-list-item-options">
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <span
-              id={`_gk-storage-list-item-options-${i}`}
-              on:click={(e) => handleMore(e, i)}
-            >
-              <Icon name="more" />
-            </span>
+            <ItemTools idx={i} />
           </div>
         </div>
       {/each}
-      <OptionPop {handleDelete} />
     </div>
-    <Modal
-      {visible}
-      type="warning"
-      title={`确定删除 ${handleItem.key} 吗？`}
-      {onCancel}
-      onOk={onDelete}
-    />
+    <DeleteModal {storages} />
+    <EditModal {storages} />
   </div>
 </div>

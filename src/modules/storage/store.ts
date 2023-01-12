@@ -4,7 +4,8 @@ import Cookies from 'js-cookie';
 
 export const _activeStorage = writable<string>('cookie');
 export const _handledIdx = writable<number>(-1);
-export const _storageValue = writable<any[]>([]);
+export const _storageList = writable<any[]>([]);
+export const _handleType = writable<string>('');
 
 export const getters: any = {
   cookie: () => {
@@ -36,5 +37,5 @@ export const getters: any = {
 
 // 更新当前激活的存储
 export const refreshStorage = () => {
-  _storageValue.set(getters[get(_activeStorage)]());
+  _storageList.set(getters[get(_activeStorage)]());
 };
