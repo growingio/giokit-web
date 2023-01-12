@@ -18,7 +18,6 @@
 
   const onDelete = () => {
     storages.removeItem(targetItem.key);
-    // @ts-ignore
     refreshStorage();
     onCancel();
   };
