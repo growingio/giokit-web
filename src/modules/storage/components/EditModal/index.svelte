@@ -8,6 +8,7 @@
     _handleType,
     refreshStorage
   } from '../../store';
+  import { STORAGE } from '@/constants/enumeration';
 
   export let storages: any;
 
@@ -40,7 +41,10 @@
 >
   <div class="_gk-strg-item-tool-edit">
     <div class="_gk-modal-title">
-      <span>{$_handleType === 'add' ? '新增' : '编辑'}{$_activeStorage}项</span>
+      <span
+        >{$_handleType === 'add' ? '新增' : '编辑'}
+        {STORAGE[$_activeStorage]} 项</span
+      >
     </div>
     <div class="_gk-strg-edit-form">
       <FormItem label="名称">
