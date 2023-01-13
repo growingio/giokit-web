@@ -113,7 +113,7 @@
     onChange={onTabsChange}
   />
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div class="_gk-storage-list-wrapper">
+  <div class="_gk-storage-list-wrapper" on:click={handleOut}>
     <div
       class="_gk-storage-list"
       id="_gk-storage-list"
@@ -143,24 +143,26 @@
         </div>
       {/each}
     </div>
-    <div class="_gk-module-tools">
-      <AddTool />
-      <SearchPop
-        id="_gk-storage-tool-search"
-        _visible={_searchVisible}
-        dot={!!$_searchValue}
-        onHide={handleOut}
-        onSearch={onSearchStorage}
-      />
-      <ClearPop
-        id="_gk-storage-tool-clear"
-        message={`确定清空 ${STORAGE[$_activeStorage]} 中的数据吗？`}
-        _visible={_clearVisible}
-        onHide={handleOut}
-        onClear={onClearStorage}
-      />
-    </div>
-    <DeleteModal {storages} />
-    <EditModal {storages} />
   </div>
+  <div class="_gk-module-tools">
+    <AddTool />
+    <SearchPop
+      id="_gk-storage-tool-search"
+      _visible={_searchVisible}
+      dot={!!$_searchValue}
+      onShow={() => _clearVisible.set(false)}
+      onHide={handleOut}
+      onSearch={onSearchStorage}
+    />
+    <ClearPop
+      id="_gk-storage-tool-clear"
+      message={`确定清空 ${STORAGE[$_activeStorage]} 中的数据吗？`}
+      _visible={_clearVisible}
+      onShow={() => _searchVisible.set(false)}
+      onHide={handleOut}
+      onClear={onClearStorage}
+    />
+  </div>
+  <DeleteModal {storages} />
+  <EditModal {storages} />
 </div>

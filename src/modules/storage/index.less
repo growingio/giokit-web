@@ -1,16 +1,16 @@
 @import '@/styles/index.less';
 
 ._gk-storage {
-  margin-top: -1em;
-  @flex();
+  @relative();
   @flex-col();
+  @flex();
   height: calc(100% + 1em);
+  margin-top: -1em;
 
   ._gk-storage-list-wrapper {
-    @relative();
-    padding: 0.5em 0;
     @h-full();
     overflow: hidden;
+    padding: 0.5em 0;
   }
 
   ._gk-storage-list {
