@@ -2,7 +2,7 @@
   import './index.less';
 
   export let name:
-    | 'addto'
+    | 'add'
     | 'arrowLeft'
     | 'check'
     | 'clear'
@@ -35,22 +35,21 @@
 </script>
 
 <i class={`_gk-icon${className ? ' ' + className : ''}`}>
-  {#if name === 'addto'}
+  {#if name === 'add'}
     <svg
       width="14"
       height="14"
-      viewBox="0 0 14 14"
       fill="currentColor"
+      viewBox="0 0 14 14"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6 0.501C6 0.6334 5.9474 0.7603 5.8538 0.8539C5.7603 0.9474 5.6333 1 5.501 1C4.5434 1 2.4584 1 1.5 1C1.3674 1 1.2402 1.0527 1.1465 1.1464C1.0527 1.2402 1 1.3674 1 1.5C1 3.4521 1 10.5479 1 12.5C1 12.6326 1.0527 12.7598 1.1464 12.8536C1.2402 12.9473 1.3674 13 1.5 13C3.4521 13 10.5479 13 12.5 13C12.6326 13 12.7598 12.9473 12.8536 12.8535C12.9473 12.7598 13 12.6326 13 12.5C13 11.542 13 9.458 13 8.5C13 8.3674 13.0527 8.2402 13.1464 8.1465C13.2402 8.0527 13.3674 8 13.5 8C13.6326 8 13.7598 8.0527 13.8536 8.1464C13.9473 8.2402 14 8.3674 14 8.5C14 9.4869 14 11.7021 14 13C14 13.5523 13.5523 13.9999 13 14C10.4229 14 3.5771 14 1 14C0.4477 13.9999 0.0001 13.5523 0 13C0 10.4229 0 3.5771 0 1C0.0001 0.4477 0.4477 0 1 0C2.2983 0 4.5145 0 5.501 0C5.6333 0 5.7603 0.0526 5.8538 0.1461C5.9474 0.2397 6 0.3666 6 0.499C6 0.4997 6 0.5003 6 0.501ZM11.5 2C11.5 2.2761 11.7239 2.5 12 2.5C12.4357 2.5 13.0643 2.5 13.5 2.5C13.7761 2.5 14 2.7239 14 3C14 3.2761 13.7761 3.5 13.5 3.5C13.0643 3.5 12.4357 3.5 12 3.5C11.7239 3.5 11.5 3.7239 11.5 4C11.5 4.4357 11.5 5.0643 11.5 5.5C11.5 5.7761 11.2761 6 11 6C10.7239 6 10.5 5.7761 10.5 5.5C10.5 5.0643 10.5 4.4357 10.5 4C10.5 3.7239 10.2761 3.5 10 3.5C9.5643 3.5 8.9357 3.5 8.5 3.5C8.2239 3.5 8 3.2761 8 3C8 2.7239 8.2239 2.5 8.5 2.5C8.9357 2.5 9.5643 2.5 10 2.5C10.2761 2.5 10.5 2.2761 10.5 2C10.5 1.5643 10.5 0.9357 10.5 0.5C10.5 0.2239 10.7239 0 11 0C11.2761 0 11.5 0.2239 11.5 0.5C11.5 0.9357 11.5 1.5643 11.5 2Z"
+        d="M7.5 0.5C7.5 0.223858 7.27614 0 7 0C6.72386 0 6.5 0.223857 6.5 0.5V6.5H0.5C0.223858 6.5 0 6.72386 0 7C0 7.27614 0.223857 7.5 0.5 7.5H6.5V13.5C6.5 13.7761 6.72386 14 7 14C7.27614 14 7.5 13.7761 7.5 13.5V7.5H13.5C13.7761 7.5 14 7.27614 14 7C14 6.72386 13.7761 6.5 13.5 6.5H7.5V0.5Z"
       />
     </svg>
   {/if}
   {#if name === 'arrowLeft'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -110,7 +109,6 @@
   {/if}
   {#if name === 'code'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -125,7 +123,6 @@
   {/if}
   {#if name === 'command'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +151,6 @@
   {/if}
   {#if name === 'debug'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -184,7 +180,6 @@
   {/if}
   {#if name === 'device'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -251,7 +246,6 @@
   {/if}
   {#if name === 'gio'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -265,7 +259,6 @@
   {/if}
   {#if name === 'help'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -280,7 +273,6 @@
   {/if}
   {#if name === 'heartbeat'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -309,7 +301,6 @@
   {/if}
   {#if name === 'log'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -339,7 +330,6 @@
   {/if}
   {#if name === 'network'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -368,7 +358,6 @@
   {/if}
   {#if name === 'search'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -383,7 +372,6 @@
   {/if}
   {#if name === 'state'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -398,7 +386,6 @@
   {/if}
   {#if name === 'statistics'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -416,7 +403,6 @@
   {/if}
   {#if name === 'storage'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"
@@ -447,7 +433,6 @@
 
   {#if name === 'system'}
     <svg
-      class="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       fill="currentColor"

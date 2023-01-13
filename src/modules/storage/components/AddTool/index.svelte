@@ -11,6 +11,6 @@
 
 <div class="_gk-module-tool">
   <Button on:click={handleAdd}>
-    <Icon name="addto" />
+    <Icon name="add" />
   </Button>
 </div>
