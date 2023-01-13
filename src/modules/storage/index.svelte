@@ -73,6 +73,7 @@
   const onTabsChange = (active: string) => {
     _handledIdx.set(-1);
     _activeStorage.set(active);
+    handleOut();
   };
 
   const handleOut = () => {

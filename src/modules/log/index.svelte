@@ -169,8 +169,18 @@
     }
   };
 
+  const onSearchShow = () => {
+    _commandVisble.set(false);
+    _clearVisible.set(false);
+  };
+
   const onSearchLog = (value: string) => {
     _searchValue.set(value);
+    _searchVisible.set(false);
+  };
+
+  const onClearShow = () => {
+    _commandVisble.set(false);
     _searchVisible.set(false);
   };
 
@@ -194,6 +204,7 @@
       id="_gk-log-tool-search"
       _visible={_searchVisible}
       dot={!!$_searchValue}
+      onShow={onSearchShow}
       onHide={handleOut}
       onSearch={onSearchLog}
     />
@@ -201,6 +212,7 @@
       id="_gk-log-tool-clear"
       message="确定要清空全部日志吗？"
       _visible={_clearVisible}
+      onShow={onClearShow}
       onHide={handleOut}
       onClear={onClearLog}
     />

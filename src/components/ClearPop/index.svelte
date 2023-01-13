@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Icon, Popover, Divider } from '@/components';
+  import { Button, Icon, Popover } from '@/components';
   import { guid } from '@/utils/tools';
 
   export let _visible: any;
@@ -38,7 +38,6 @@
     </Button>
     <div slot="popper">
       {message}
-      <Divider />
       <div class="_gk-f-btns">
         <Button small on:click={() => _visible.set(false)}>取消</Button>
         <Button small type="primary" on:click={onClear}>确定</Button>

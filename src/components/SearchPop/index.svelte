@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Badge, Button, Divider, Icon, Input, Popover } from '@/components';
+  import { Badge, Button, Icon, Input, Popover } from '@/components';
   import { guid } from '@/utils/tools';
   import './index.less';
 
@@ -55,7 +55,6 @@
         on:change={onInputChange}
         on:keydown={onKeyDown}
       />
-      <Divider />
       <div class="_gk-f-btns">
         <Button small on:click={() => _visible.set(false)}>取消</Button>
         <Button small type="primary" on:click={() => onSearch(searchValue)}>

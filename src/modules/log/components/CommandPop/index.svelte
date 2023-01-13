@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Divider, Icon, Popover, TextArea } from '@/components';
+  import { Button, Icon, Popover, TextArea } from '@/components';
   import { _commandVisble, _clearVisible, _searchVisible } from '../../store';
   import LogsModel from '../../model';
   import './index.less';
@@ -59,7 +59,6 @@
           <Icon name="close" />
         </span>
       {/if}
-      <Divider />
       <div class="_gk-f-btns">
         <Button small on:click={() => _commandVisble.set(false)}>取消</Button>
         <Button small type="primary" on:click={onCommand}>执行</Button>

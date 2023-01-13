@@ -11,14 +11,7 @@
     _filterActive,
     _gioRequestQueue
   } from '../../store';
-  import {
-    Badge,
-    Button,
-    Checkbox,
-    Divider,
-    Icon,
-    Popover
-  } from '@/components';
+  import { Badge, Button, Checkbox, Icon, Popover } from '@/components';
 
   let active: string[] = [...GIOEVENTTYPES];
 
@@ -72,19 +65,15 @@
   };
 </script>
 
-<div class="_gk-debug-tool">
-  <Popover triggerSelector="#_gk-debug-tool-filter" bind:this={popInst}>
+<div class="_gk-module-tool">
+  <Popover triggerSelector="#_gk-module-tool-filter" bind:this={popInst}>
     <Badge slot="trigger" dot={$_filterActive.length !== GIOEVENTTYPES.length}>
-      <Button
-        id="_gk-debug-tool-filter"
-        on:click={handleFilter}
-        disabled={isEmpty($_gioRequestQueue)}
-      >
+      <Button id="_gk-module-tool-filter" on:click={handleFilter}>
         <Icon name="filter" />
       </Button>
     </Badge>
-    <div slot="popper" class="_gk-debug-tool-filter-content">
-      <div class="_gk-debug-tool-filter-head">
+    <div slot="popper" class="_gk-module-tool-filter-content">
+      <div class="_gk-module-tool-filter-head">
         筛选事件类型
         <Checkbox
           on:change={(e) => handleAll(e)}
@@ -94,19 +83,18 @@
           >全选
         </Checkbox>
       </div>
-      <div class="_gk-debug-tool-filter-groups">
+      <div class="_gk-module-tool-filter-groups">
         {#each GIOEVENTTYPES as item, i}
           <Checkbox
             checked={active.includes(item)}
             className={i === GIOEVENTTYPES.length - 1
-              ? '_gk-debug-tool-filter-groups-span-2'
+              ? '_gk-module-tool-filter-groups-span-2'
               : ''}
             on:change={(e) => checkChange(e, item)}
             >{item}
           </Checkbox>
         {/each}
       </div>
-      <Divider />
       <div class="_gk-f-btns">
         <Button small on:click={() => _filterVisible.set(false)}>取消</Button>
         <Button small type="primary" on:click={onFilter}>确定</Button>

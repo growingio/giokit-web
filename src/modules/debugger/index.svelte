@@ -1,9 +1,16 @@
 <script lang="ts">
   import './index.less';
-  import { _openMonitor, _clearVisible, _filterVisible } from './store';
+  import {
+    _clearVisible,
+    _filterVisible,
+    _gioActive,
+    _gioActiveEvent,
+    _gioRequestQueue,
+    _openMonitor
+  } from './store';
   import { _showRealTimeMonitor, _openGioKit } from '@/main/store';
   import { Divider, Toggle, Modal } from '@/components';
-  import ClearPop from '../network/components/ClearPop/index.svelte';
+  import ClearPop from '@/components/ClearPop/index.svelte';
   import FilterPop from './components/FilterPop/index.svelte';
   import GioRequestList from './components/GioRequestList/index.svelte';
 
@@ -18,11 +25,17 @@
     }
   };
 
-  const handleOut = (e: Event) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleOut = (e?: Event) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     _clearVisible.set(false);
     _filterVisible.set(false);
+  };
+
+  const onClear = () => {
+    _gioActive.set('');
+    _gioActiveEvent.set(undefined);
+    _gioRequestQueue.set([]);
   };
 
   const onCancel = () => {
@@ -46,7 +59,14 @@
         <Toggle checked={$_openMonitor} onChange={onSwitch} />
       </div>
       <FilterPop />
-      <ClearPop reqType="gio" />
+      <ClearPop
+        id="_gk-debug-tool-clear"
+        message="确定清空所有Gio请求吗？"
+        _visible={_clearVisible}
+        onShow={() => _filterVisible.set(false)}
+        onHide={handleOut}
+        {onClear}
+      />
     </div>
   </div>
   <Divider />

@@ -37,7 +37,6 @@
   const onSelect = (item: any) => {
     _gioActive.set(item._id);
     _gioActiveEvent.set(item);
-    _showRealTimeMonitor.set(false);
     _openGioKit.set(true);
   };
 </script>
