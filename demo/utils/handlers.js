@@ -127,9 +127,9 @@ function gioHandleXHR() {
   var xhr = new XMLHttpRequest();
   xhr.open(
     'GET',
-    'http://apis.juhe.cn/fapig/calendar/day.php?date=2021-05-09&key=63040e517e9b972116d5c5814f28782c'
+    'http://v.juhe.cn/todayOnhistory/queryEvent.php?key=bb930191a775c236534119bdc6df760f&date=1/1'
   );
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send();
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
@@ -159,9 +159,11 @@ function gioHandleXHR() {
 }
 function gioHandleFetch() {
   fetch(
-    'http://v.cehe.cn/todayOnhistory/queryEvent.php?key=bb930191a775c236534119bdc6df760f&date=1/1'
+    'http://v.juhe.cn/todayOnhistory/queryEvent.php?key=bb930191a775c236534119bdc6df760f&date=1/1'
   ).then((response) => {
-    console.log(response);
+    response.text().then(function (responseText) {
+      console.log(responseText, 'responseText');
+    });
   });
   fetch(
     'http://v.fenkai.cn/todayOnhistory/queryEvent.php?key=bb930191a775c236534119bdc6df760f&date=1/1'

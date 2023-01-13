@@ -28,7 +28,7 @@ export default defineConfig({
       name: 'GioKit',
       entry: path.resolve(__dirname, 'src/index.ts'),
       formats: ['umd'],
-      fileName: () => 'gioKit.min.js'
+      fileName: () => 'giokit.min.js'
     },
     target: 'es2015',
     cssTarget: 'chrome61',
