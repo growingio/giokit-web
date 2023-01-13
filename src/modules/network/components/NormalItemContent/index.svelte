@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../../index.less';
-  import { keys, formatTime } from '@/utils/glodash';
+  import { keys, formatTime, isString } from '@/utils/glodash';
   import { LZString } from '../../compress';
   import { Divider } from '@/components';
   import qs from 'querystringify';
@@ -60,8 +60,25 @@
   <Divider />
   <p>Request Payload</p>
   <div class="_gk-nw-content-values-payload">
-    {item.isGioData && item.isGioCompressed
-      ? LZString.compress(JSON.stringify(item.body))
-      : JSON.stringify(item.body, null, 2) || ''}
+    {#if item.isGioData && item.isGioCompressed}
+      {LZString.compress(JSON.stringify(item.body))}
+    {:else if item.body}
+      {#if isString(item.body)}
+        <pre>{item.body}</pre>
+      {:else}
+        {JSON.stringify(item.body, null, 2)}
+      {/if}
+    {/if}
+  </div>
+  <Divider />
+  <p>Request Response</p>
+  <div class="_gk-nw-content-values-response">
+    {#if item.response}
+      {#if isString(item.response)}
+        <pre>{item.response}</pre>
+      {:else}
+        {JSON.stringify(item.response, null, 2)}
+      {/if}
+    {/if}
   </div>
 </div>

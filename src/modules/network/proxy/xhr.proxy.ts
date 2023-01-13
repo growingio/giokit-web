@@ -1,4 +1,4 @@
-import { getURL, guid } from '@/utils/tools';
+import { genResonseByResponseType, getURL, guid } from '@/utils/tools';
 import {
   getDurationColor,
   getFormattedBody,
@@ -78,12 +78,20 @@ export class XHRProxyHandler<T extends XMLHttpRequest>
 
   public onReadyStateChange() {
     this.item.status = this.XMLReq.readyState;
+    this.item.responseType = this.XMLReq.responseType;
     this.item.endTime = Date.now();
     this.item.duration = this.item.endTime - this.item.startTime;
     this.item.durationColor = getDurationColor(this.item.duration);
 
     // update data by readyState
     this.updateItemByReadyState();
+
+    // update response by responseType
+    this.item.response = genResonseByResponseType(
+      this.item.responseType,
+      this.item.response
+    );
+
     this.triggerUpdate();
   }
 
@@ -215,6 +223,7 @@ export class XHRProxyHandler<T extends XMLHttpRequest>
       case 4: // DONE
         // `XMLReq.abort()` will change `status` from 200 to 0, so use previous value in this case
         this.item.status = this.XMLReq.status || this.item.status || 0;
+        this.item.response = this.XMLReq.response;
         this.item.endTime = Date.now();
         this.item.duration =
           this.item.endTime - (this.item.startTime || this.item.endTime);

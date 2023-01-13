@@ -95,14 +95,20 @@
         @pl-2();
       }
 
-      ._gk-nw-content-values-payload {
+      ._gk-nw-content-values-payload,
+      ._gk-nw-content-values-response {
         @pl-2();
         @break-all();
+        max-height: 20em;
+        overflow-y: auto;
+
+        pre {
+          margin: 0;
+        }
       }
 
       ._gk-nw-content-values {
         line-height: 1.5em;
-        @mb-1();
         padding-right: 0;
 
         span {
@@ -116,10 +122,10 @@
       }
 
       >p {
-        margin: 0 0 0.5em 0 !important;
+        margin: 0;
         font-weight: bold;
         color: @gray-1;
-        font-size: 1.1em;
+        font-size: 1em;
         line-height: 1.5;
       }
     }

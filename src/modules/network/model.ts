@@ -32,6 +32,8 @@ export interface RequestItem {
   headers: { [key: string]: string };
   body: any;
   params: string;
+  response?: any;
+  responseType?: string;
   startTime: number;
   endTime: number;
   duration: number;

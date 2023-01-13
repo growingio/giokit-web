@@ -381,6 +381,57 @@ export const getURL = (urlString: string = '') => {
 };
 
 /**
+ * Generate formatted response data by responseType.
+ */
+export const genResonseByResponseType = (
+  responseType: string,
+  response: any
+) => {
+  let ret = '';
+  switch (responseType) {
+    case '':
+    case 'text':
+    case 'json':
+      // try to parse JSON
+      if (isString(response)) {
+        try {
+          ret = JSON.parse(response);
+          ret = safeJSONStringify(ret, {
+            maxDepth: 10,
+            keyMaxLen: 10000,
+            pretty: true,
+            standardJSON: true
+          });
+        } catch (e) {
+          // not a JSON string
+          ret = getStringWithinLength(String(response), 10000);
+        }
+      } else if (isObject(response) || isArray(response)) {
+        ret = safeJSONStringify(response, {
+          maxDepth: 10,
+          keyMaxLen: 10000,
+          pretty: true,
+          standardJSON: true
+        });
+      } else if (typeof response !== 'undefined') {
+        ret = Object.prototype.toString.call(response);
+      }
+      break;
+
+    case 'blob':
+    case 'document':
+    case 'arraybuffer':
+    case 'formdata':
+    default:
+      if (typeof response !== 'undefined') {
+        ret = Object.prototype.toString.call(response);
+      }
+      break;
+  }
+  return ret;
+};
+
+/**
  * Generate formatted response body by XMLHttpRequestBodyInit.
  */
 export const genFormattedBody = (body?: BodyInit) => {
