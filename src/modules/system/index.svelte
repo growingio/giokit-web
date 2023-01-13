@@ -32,7 +32,7 @@
     });
     locations = o;
     system = (navigator?.userAgent?.match(/ \((.*?);/i) ?? [])[1] ?? 'N/A';
-    // 谷歌内核才会有的navigator.userAgentData
+    // 谷歌内核才会有的navigator.userAgentData（chrome <=108）
     if (
       // @ts-ignore
       navigator?.userAgentData?.brands &&
@@ -88,6 +88,10 @@
     if (bts.safari && !bts.chrome) {
       return head(bts.safari);
     }
+    if (bts.chrome) {
+      return head(bts.chrome);
+    }
+    return 'Unknown';
   };
 
   const onWindowResize = () => {
